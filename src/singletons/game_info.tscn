@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://y3g3o3wl6702"]
+
+[ext_resource type="Script" path="res://src/singletons/game_info.gd" id="1_j4lqt"]
+
+[node name="GameInfo" type="Node"]
+script = ExtResource("1_j4lqt")
