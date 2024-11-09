@@ -36,13 +36,13 @@ config/icon="res://icon.png"
 [autoload]
 
 Preloader="*res://resources/preloader.tscn"
+Global="*res://src/singletons/global.gd"
+Events="*res://src/singletons/events.gd"
+FmodManager="*res://addons/fmod/FmodManager.gd"
 AppConfig="*res://addons/maaacks_game_template/base/scenes/autoloads/app_config.tscn"
 SceneLoader="*res://addons/maaacks_game_template/base/scenes/autoloads/scene_loader.tscn"
 ProjectMusicController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_music_controller.tscn"
 ProjectUISoundController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_ui_sound_controller.tscn"
-Global="*res://src/singletons/global.gd"
-Events="*res://src/singletons/events.gd"
-FmodManager="*res://addons/fmod/FmodManager.gd"
 
 [display]
 
@@ -51,7 +51,7 @@ window/size/viewport_height=720
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/fmod/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg")
+enabled=PackedStringArray("res://addons/maaacks_game_template/plugin.cfg")
 
 [file_customization]
 
