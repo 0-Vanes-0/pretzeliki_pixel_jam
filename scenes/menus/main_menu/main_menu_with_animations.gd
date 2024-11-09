@@ -39,3 +39,19 @@ func _input(event):
 func _ready():
 	super._ready()
 	animation_state_machine = $MenuAnimationTree.get("parameters/playback")
+
+
+func _on_play_button_mouse_entered() -> void:
+	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/PlayButton/FmodEventEmitter2D.play()
+
+
+func _on_options_button_mouse_entered() -> void:
+	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/OptionsButton/FmodEventEmitter2D.play()
+
+
+func _on_credits_button_mouse_entered() -> void:
+	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/CreditsButton/FmodEventEmitter2D.play()
+
+
+func _on_exit_button_mouse_entered() -> void:
+	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/ExitButton/FmodEventEmitter2D.play()
