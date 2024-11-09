@@ -1,3 +1,7 @@
-[gd_resource type="Theme" format=3 uid="uid://dsswp5c0qh6fr"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dsswp5c0qh6fr"]
+
+[ext_resource type="FontFile" uid="uid://c0xqw362yokwg" path="res://assets/fonts/Minecraftia-Regular.ttf" id="1_bp1hi"]
 
 [resource]
+default_font = ExtResource("1_bp1hi")
+default_font_size = 16
