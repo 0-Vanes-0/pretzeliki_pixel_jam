@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6hx3r4stq5lb"]
+
+[ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_ybok1"]
+[ext_resource type="Texture2D" uid="uid://ctpq0wqq86qs6" path="res://icon.png" id="2_q2bup"]
+[ext_resource type="PackedScene" uid="uid://q2cjnyecsc6u" path="res://src/gameplay/player/player.tscn" id="3_gbgdk"]
+[ext_resource type="Script" path="res://src/collections/enemy_collection_node.gd" id="4_gf04b"]
+[ext_resource type="Texture2D" uid="uid://82ouxpgsuqt6" path="res://assets/images/aim.png" id="5_kvgng"]
+[ext_resource type="Script" path="res://src/gameplay/player/aim.gd" id="6_geyi0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qgw23"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_kvgng")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LevelSimulation" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_ybok1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+position_smoothing_enabled = true
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Environment"]
+format = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment"]
+scale = Vector2(19.9844, 11.2656)
+texture = ExtResource("2_q2bup")
+centered = false
+
+[node name="Player" parent="." instance=ExtResource("3_gbgdk")]
+position = Vector2(600, 368)
+
+[node name="Enemies" type="Node2D" parent="."]
+script = ExtResource("4_gf04b")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Aim" type="AnimatedSprite2D" parent="CanvasLayer" node_paths=PackedStringArray("_player")]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_qgw23")
+script = ExtResource("6_geyi0")
+_player = NodePath("../../Player")

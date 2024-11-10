@@ -1,11 +1,10 @@
-## Code by Maaack
-extends Node
+class_name Level
+extends Node2D
 
-signal level_won
-signal level_lost
 
-func _on_lose_button_pressed():
-	emit_signal("level_lost")
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 
-func _on_win_button_pressed():
-	emit_signal("level_won")
+
+func _physics_process(delta: float) -> void:
+	$Camera2D.position = $Player.position

@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://q2cjnyecsc6u"]
+
+[ext_resource type="Texture2D" uid="uid://dlwfbbv2cw7a8" path="res://assets/images/logo_vertical_color_dark.png" id="1_p022h"]
+[ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="1_wjskg"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/state_machine.gd" id="3_7j5u3"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/player/run_and_gun_player_state.gd" id="4_5fx8o"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/player/dead_player_state.gd" id="5_duejh"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/player/terminal_player_state.gd" id="6_40sp2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uolxg"]
+radius = 32.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nstj1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p022h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("1_wjskg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uolxg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.121834, 0.121834)
+sprite_frames = SubResource("SpriteFrames_nstj1")
+
+[node name="WeaponPivot" type="Marker2D" parent="."]
+position = Vector2(32, -32)
+
+[node name="Weapon" type="AnimatedSprite2D" parent="WeaponPivot"]
+
+[node name="CharacteristicsManager" type="Node" parent="."]
+
+[node name="AbilitiesManager" type="Node" parent="."]
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_7j5u3")
+initial_state = NodePath("RunAndGunPlayerState")
+
+[node name="RunAndGunPlayerState" type="Node" parent="StateMachine" node_paths=PackedStringArray("connections")]
+script = ExtResource("4_5fx8o")
+connections = [NodePath("../DeadPlayerState"), NodePath("../TerminalPlayerState")]
+
+[node name="DeadPlayerState" type="Node" parent="StateMachine"]
+script = ExtResource("5_duejh")
+
+[node name="TerminalPlayerState" type="Node" parent="StateMachine" node_paths=PackedStringArray("connections")]
+script = ExtResource("6_40sp2")
+connections = [NodePath("../RunAndGunPlayerState")]

@@ -1,15 +1,15 @@
-class_name ControlCollectionNode
+class_name EnemyCollectionNode
 extends Node2D
 
 
 func _ready() -> void:
 	for child in self.get_children():
-		assert(child is Control)
+		assert(child is Enemy)
 
 
-func get_array() -> Array[Control]:
-	var array: Array[Control] = []
-	for child: Control in self.get_children():
+func get_array() -> Array[Enemy]:
+	var array: Array[Enemy] = []
+	for child: Enemy in self.get_children():
 		array.append(child)
 	return array
 
