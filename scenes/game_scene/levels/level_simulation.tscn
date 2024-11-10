@@ -22,10 +22,6 @@ animations = [{
 texture_filter = 1
 script = ExtResource("1_ybok1")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(640, 360)
-position_smoothing_enabled = true
-
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="Environment"]
@@ -42,9 +38,15 @@ position = Vector2(600, 368)
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("4_gf04b")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(538, 320)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Aim" type="AnimatedSprite2D" parent="CanvasLayer" node_paths=PackedStringArray("_player")]
+texture_filter = 1
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_qgw23")
 script = ExtResource("6_geyi0")
