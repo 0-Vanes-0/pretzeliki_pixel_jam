@@ -113,6 +113,14 @@ interact={
 
 locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_game_template/base/translations/menus_translations.fr.translation")
 
+[layer_names]
+
+2d_physics/layer_1="environment"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemy"
+2d_physics/layer_4="shoot_entity_player"
+2d_physics/layer_5="shoot_entity_enemy"
+
 [maaacks_game_template]
 
 disable_plugin_dialogues=true
