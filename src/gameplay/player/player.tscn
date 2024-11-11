@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://src/gameplay/state_machine/player/terminal_player_state.gd" id="6_40sp2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uolxg"]
-radius = 32.0
+radius = 24.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nstj1"]
 animations = [{
@@ -32,7 +32,7 @@ script = ExtResource("1_wjskg")
 shape = SubResource("CircleShape2D_uolxg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.121834, 0.121834)
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_nstj1")
 
 [node name="WeaponPivot" type="Marker2D" parent="."]

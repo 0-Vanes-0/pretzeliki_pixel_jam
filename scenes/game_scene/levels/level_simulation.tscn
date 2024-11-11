@@ -33,14 +33,13 @@ texture = ExtResource("2_q2bup")
 centered = false
 
 [node name="Player" parent="." instance=ExtResource("3_gbgdk")]
-position = Vector2(600, 368)
+position = Vector2(480, 160)
 
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("4_gf04b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(538, 320)
-zoom = Vector2(0.5, 0.5)
+position = Vector2(400, 224)
 position_smoothing_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
