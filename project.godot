@@ -31,6 +31,7 @@ DSP/dsp_buffer_count=4
 config/name="Pretzeliki"
 run/main_scene="res://scenes/opening/opening_with_logo.tscn"
 config/features=PackedStringArray("4.3")
+run/max_fps=60
 config/icon="res://icon.png"
 
 [autoload]

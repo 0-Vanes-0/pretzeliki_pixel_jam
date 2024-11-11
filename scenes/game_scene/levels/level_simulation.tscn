@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6hx3r4stq5lb"]
+[gd_scene load_steps=13 format=3 uid="uid://c6hx3r4stq5lb"]
 
 [ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_ybok1"]
 [ext_resource type="Texture2D" uid="uid://ctpq0wqq86qs6" path="res://icon.png" id="2_q2bup"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_dxiw1"]
 [ext_resource type="Script" path="res://src/gameplay/player/aim.gd" id="6_geyi0"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_0kljq"]
+[ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="10_bjf8d"]
 
 [sub_resource type="Resource" id="Resource_l44ko"]
 script = ExtResource("7_0kljq")
@@ -40,8 +41,8 @@ aim = NodePath("CanvasLayer/Aim")
 format = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Environment"]
-position = Vector2(-640, -256)
-scale = Vector2(19.9844, 11.2656)
+position = Vector2(-352, -304)
+scale = Vector2(11, 11)
 texture = ExtResource("2_q2bup")
 centered = false
 
@@ -73,3 +74,11 @@ scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_qgw23")
 script = ExtResource("6_geyi0")
 _player = NodePath("../../PlayerStuff/Player")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("10_bjf8d")
+theme_override_font_sizes/font_size = 32
+text = "100"
