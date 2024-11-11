@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://df5q8mjob32mb"]
+
+[ext_resource type="Script" path="res://src/gameplay/player/blaster_projectile.gd" id="1_7rnk7"]
+[ext_resource type="Texture2D" uid="uid://jhd0slm7d2kr" path="res://assets/images/player/blaster.png" id="2_5s07f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6gkr"]
+size = Vector2(16, 4)
+
+[node name="Blaster" type="Area2D" node_paths=PackedStringArray("coll_shape", "sprite")]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_7rnk7")
+coll_shape = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_e6gkr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5s07f")

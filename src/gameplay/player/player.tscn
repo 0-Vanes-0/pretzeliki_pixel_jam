@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://q2cjnyecsc6u"]
+[gd_scene load_steps=31 format=3 uid="uid://q2cjnyecsc6u"]
 
 [ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="1_wjskg"]
 [ext_resource type="Texture2D" uid="uid://cyhgptnyggvxf" path="res://assets/images/player/test_sprites/Gunner_Yellow_Idle.png" id="2_nlcs5"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://src/gameplay/state_machine/player/run_and_gun_player_state.gd" id="4_5fx8o"]
 [ext_resource type="Texture2D" uid="uid://dhymhm0ruahcm" path="res://assets/images/player/test_sprites/Gunner_Yellow_Run.png" id="4_fqere"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/player/dead_player_state.gd" id="5_duejh"]
+[ext_resource type="Script" path="res://src/gameplay/player/stats_manager.gd" id="5_fv7w5"]
+[ext_resource type="Script" path="res://src/gameplay/player/weapon.gd" id="5_xrqr4"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/player/terminal_player_state.gd" id="6_40sp2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cq18o"]
@@ -157,13 +159,16 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "weapon_pivot", "weapon")]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 21
 motion_mode = 1
 script = ExtResource("1_wjskg")
+shoot_rate_time = 0.5
 sprite = NodePath("AnimatedSprite2D")
+weapon_pivot = NodePath("AnimatedSprite2D/WeaponPivot")
+weapon = NodePath("AnimatedSprite2D/WeaponPivot/Weapon")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.57079
@@ -181,14 +186,17 @@ scale = Vector2(10, 10)
 gizmo_extents = 1.0
 
 [node name="Weapon" type="AnimatedSprite2D" parent="AnimatedSprite2D/WeaponPivot"]
+script = ExtResource("5_xrqr4")
 
-[node name="CharacteristicsManager" type="Node" parent="."]
+[node name="StatsManager" type="Node" parent="."]
+script = ExtResource("5_fv7w5")
 
 [node name="AbilitiesManager" type="Node" parent="."]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_7j5u3")
 initial_state = NodePath("RunAndGunPlayerState")
+force_input = true
 
 [node name="RunAndGunPlayerState" type="Node" parent="StateMachine" node_paths=PackedStringArray("connections")]
 script = ExtResource("4_5fx8o")
