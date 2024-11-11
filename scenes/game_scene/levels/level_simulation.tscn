@@ -63,14 +63,12 @@ script = ExtResource("5_8desx")
 [node name="MainCamera" type="Node2D" parent="PlayerStuff"]
 script = ExtResource("6_dxiw1")
 priority = 1
-snap_to_pixel = true
 tween_resource = SubResource("Resource_l44ko")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Aim" type="AnimatedSprite2D" parent="CanvasLayer" node_paths=PackedStringArray("_player")]
 texture_filter = 1
-scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_qgw23")
 script = ExtResource("6_geyi0")
 _player = NodePath("../../PlayerStuff/Player")
