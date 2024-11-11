@@ -1,11 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6hx3r4stq5lb"]
+[gd_scene load_steps=12 format=3 uid="uid://c6hx3r4stq5lb"]
 
 [ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_ybok1"]
 [ext_resource type="Texture2D" uid="uid://ctpq0wqq86qs6" path="res://icon.png" id="2_q2bup"]
 [ext_resource type="PackedScene" uid="uid://q2cjnyecsc6u" path="res://src/gameplay/player/player.tscn" id="3_gbgdk"]
 [ext_resource type="Script" path="res://src/collections/enemy_collection_node.gd" id="4_gf04b"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_8desx"]
 [ext_resource type="Texture2D" uid="uid://82ouxpgsuqt6" path="res://assets/images/aim.png" id="5_kvgng"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_dxiw1"]
 [ext_resource type="Script" path="res://src/gameplay/player/aim.gd" id="6_geyi0"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_0kljq"]
+
+[sub_resource type="Resource" id="Resource_l44ko"]
+script = ExtResource("7_0kljq")
+duration = 1.0
+transition = 0
+ease = 2
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qgw23"]
 animations = [{
@@ -18,9 +27,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="LevelSimulation" type="Node2D"]
+[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("player", "main_camera", "aim")]
 texture_filter = 1
 script = ExtResource("1_ybok1")
+player = NodePath("PlayerStuff/Player")
+main_camera = NodePath("PlayerStuff/MainCamera")
+aim = NodePath("CanvasLayer/Aim")
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -28,19 +40,30 @@ script = ExtResource("1_ybok1")
 format = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Environment"]
+position = Vector2(-640, -256)
 scale = Vector2(19.9844, 11.2656)
 texture = ExtResource("2_q2bup")
 centered = false
 
-[node name="Player" parent="." instance=ExtResource("3_gbgdk")]
-position = Vector2(480, 160)
-
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("4_gf04b")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(400, 224)
-position_smoothing_enabled = true
+[node name="PlayerStuff" type="Node2D" parent="."]
+
+[node name="Player" parent="PlayerStuff" instance=ExtResource("3_gbgdk")]
+
+[node name="Camera2D" type="Camera2D" parent="PlayerStuff"]
+
+[node name="PhantomCameraHost" type="Node" parent="PlayerStuff/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_8desx")
+
+[node name="MainCamera" type="Node2D" parent="PlayerStuff"]
+script = ExtResource("6_dxiw1")
+priority = 1
+snap_to_pixel = true
+tween_resource = SubResource("Resource_l44ko")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -49,4 +72,4 @@ texture_filter = 1
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_qgw23")
 script = ExtResource("6_geyi0")
-_player = NodePath("../../Player")
+_player = NodePath("../../PlayerStuff/Player")

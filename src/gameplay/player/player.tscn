@@ -21,12 +21,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 21
 motion_mode = 1
 script = ExtResource("1_wjskg")
+sprite = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_uolxg")
@@ -35,10 +36,11 @@ shape = SubResource("CircleShape2D_uolxg")
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_nstj1")
 
-[node name="WeaponPivot" type="Marker2D" parent="."]
-position = Vector2(32, -32)
+[node name="WeaponPivot" type="Marker2D" parent="AnimatedSprite2D"]
+position = Vector2(320, -320)
+scale = Vector2(10, 10)
 
-[node name="Weapon" type="AnimatedSprite2D" parent="WeaponPivot"]
+[node name="Weapon" type="AnimatedSprite2D" parent="AnimatedSprite2D/WeaponPivot"]
 
 [node name="CharacteristicsManager" type="Node" parent="."]
 
