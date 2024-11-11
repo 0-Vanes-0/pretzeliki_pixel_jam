@@ -21,6 +21,11 @@ func physics_update(delta: float):
 	else:
 		player.velocity = player.velocity.lerp(Vector2.ZERO, 0.25)
 	
+	if player.velocity.length_squared() > 10:
+		player.sprite.play(player.Animations.RUN)
+	else:
+		player.sprite.play(player.Animations.IDLE)
+	
 	player.move_and_slide()
 
 
