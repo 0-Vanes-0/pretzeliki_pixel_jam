@@ -137,6 +137,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/t
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="shoot_entity_player"
 2d_physics/layer_5="shoot_entity_enemy"
+2d_physics/layer_6="biomat"
 
 [maaacks_game_template]
 

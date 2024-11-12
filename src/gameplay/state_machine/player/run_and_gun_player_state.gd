@@ -5,6 +5,7 @@ var _timer := 0.0
 
 
 func enter():
+	player.toggle_collision(true)
 	_timer = player.shoot_rate_time
 	#aim.activate() ??
 
@@ -23,7 +24,7 @@ func physics_update(delta: float):
 	
 	var move_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if move_direction:
-		player.velocity = player.velocity.lerp(move_direction * player.speed, 0.25)
+		player.velocity = player.velocity.lerp(move_direction * player.stats.speed, 0.25)
 	else:
 		player.velocity = player.velocity.lerp(Vector2.ZERO, 0.25)
 	player.move_and_slide()

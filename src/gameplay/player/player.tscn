@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://src/gameplay/state_machine/player/run_and_gun_player_state.gd" id="4_5fx8o"]
 [ext_resource type="Texture2D" uid="uid://dhymhm0ruahcm" path="res://assets/images/player/test_sprites/Gunner_Yellow_Run.png" id="4_fqere"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/player/dead_player_state.gd" id="5_duejh"]
-[ext_resource type="Script" path="res://src/gameplay/player/stats_manager.gd" id="5_fv7w5"]
+[ext_resource type="Script" path="res://src/gameplay/progression/stats_manager.gd" id="5_fv7w5"]
 [ext_resource type="Script" path="res://src/gameplay/player/weapon.gd" id="5_xrqr4"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/player/terminal_player_state.gd" id="6_40sp2"]
 
@@ -159,16 +159,18 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "weapon_pivot", "weapon")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "weapon_pivot", "weapon", "stats")]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 21
 motion_mode = 1
 script = ExtResource("1_wjskg")
 shoot_rate_time = 0.5
+coll_shape = NodePath("CollisionShape2D")
 sprite = NodePath("AnimatedSprite2D")
 weapon_pivot = NodePath("AnimatedSprite2D/WeaponPivot")
 weapon = NodePath("AnimatedSprite2D/WeaponPivot/Weapon")
+stats = NodePath("StatsManager")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.57079
@@ -196,7 +198,6 @@ script = ExtResource("5_fv7w5")
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_7j5u3")
 initial_state = NodePath("RunAndGunPlayerState")
-force_input = true
 
 [node name="RunAndGunPlayerState" type="Node" parent="StateMachine" node_paths=PackedStringArray("connections")]
 script = ExtResource("4_5fx8o")

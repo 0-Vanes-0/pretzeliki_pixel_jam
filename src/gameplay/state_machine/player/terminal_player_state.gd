@@ -3,7 +3,7 @@ extends PlayerState
 
 
 func enter():
-	pass
+	player.toggle_collision(false)
 
 
 func update(delta: float):
