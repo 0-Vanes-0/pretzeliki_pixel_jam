@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://d13roc8t5yibe"]
+
+[ext_resource type="Script" path="res://src/gameplay/enemies/enemy.gd" id="1_7uinp"]
+[ext_resource type="Texture2D" uid="uid://ctpq0wqq86qs6" path="res://icon.png" id="2_tchxh"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/state_machine.gd" id="3_6k51w"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/roam_enemy_state.gd" id="4_p5y1o"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chm7k"]
+radius = 32.0
+height = 128.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6oibf"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tchxh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite")]
+collision_layer = 4
+collision_mask = 11
+motion_mode = 1
+script = ExtResource("1_7uinp")
+coll_shape = NodePath("CollisionShape2D")
+sprite = NodePath("AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_chm7k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6oibf")
+animation = &"idle"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_6k51w")
+initial_state = NodePath("RoamEnemyState")
+
+[node name="RoamEnemyState" type="Node" parent="StateMachine"]
+script = ExtResource("4_p5y1o")
