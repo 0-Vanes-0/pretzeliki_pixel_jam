@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/roam_enemy_state.gd" id="4_p5y1o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chm7k"]
-radius = 32.0
-height = 128.0
+radius = 16.0
+height = 96.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6oibf"]
 animations = [{
@@ -30,21 +30,26 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast")]
 collision_layer = 4
 collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_7uinp")
 coll_shape = NodePath("CollisionShape2D")
 sprite = NodePath("AnimatedSprite2D")
+raycast = NodePath("RayCast2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_chm7k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
 sprite_frames = SubResource("SpriteFrames_6oibf")
 animation = &"idle"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(64, -64)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_6k51w")

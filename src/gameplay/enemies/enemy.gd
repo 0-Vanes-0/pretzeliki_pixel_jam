@@ -12,10 +12,11 @@ const Animations := {
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
 @export var sprite: AnimatedSprite2D
+@export var raycast: RayCast2D
 
 
 func _ready() -> void:
-	assert(coll_shape and sprite)
+	assert(coll_shape and sprite and raycast)
 
 
 func toggle_collision(enable: bool):
