@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ut5kpt4ixvps"]
+[gd_scene load_steps=4 format=3 uid="uid://ut5kpt4ixvps"]
 
 [ext_resource type="Script" path="res://resources/preloader.gd" id="1_lqdxa"]
 [ext_resource type="PackedScene" uid="uid://df5q8mjob32mb" path="res://src/gameplay/player/blaster_projectile.tscn" id="2_2g7c5"]
+[ext_resource type="PackedScene" uid="uid://blmu653ohjxak" path="res://src/gameplay/progression/biomat.tscn" id="3_mn2s0"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_lqdxa")
 blaster_projectile = ExtResource("2_2g7c5")
+biomat = ExtResource("3_mn2s0")

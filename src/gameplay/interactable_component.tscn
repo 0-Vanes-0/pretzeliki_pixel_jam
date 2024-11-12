@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://hi1yt4aj3n2m"]
+
+[ext_resource type="Script" path="res://src/gameplay/interactable_component.gd" id="1_qfwsb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ifrx6"]
+size = Vector2(32, 32)
+
+[node name="InteractableComponent" type="Area2D"]
+script = ExtResource("1_qfwsb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ifrx6")
+
+[node name="AddLabelOrSpriteOfButtonHere" type="Node2D" parent="."]

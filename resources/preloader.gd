@@ -5,9 +5,10 @@ extends Node
 
 @export_group("Game Objects")
 @export var blaster_projectile: PackedScene
+@export var biomat: PackedScene
 
 @export_group("UIs")
 
 
 func _ready() -> void:
-	assert(blaster_projectile)
+	assert(blaster_projectile and biomat)
