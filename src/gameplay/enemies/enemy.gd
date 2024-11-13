@@ -15,16 +15,21 @@ const Animations := {
 @export var coll_shape: CollisionShape2D
 @export var sprite: AnimatedSprite2D
 @export var raycast: RayCast2D
+@export_group("States", "state_")
+@export var state_machine: StateMachine
+@export var state_dead: DeadEnemyState
 
 
 func _ready() -> void:
 	assert(biomat_resource)
 	assert(coll_shape and sprite and raycast)
+	assert(state_machine and state_dead)
 
 
 func toggle_collision(enable: bool):
-	coll_shape.disabled = not enable
+	coll_shape.set_deferred("disabled", not enable)
 
 
-func emit_died():
-	died.emit(biomat_resource, self.position)
+func take_damage(amount: int):
+	#stats.adjust_hp(- amount)
+	state_machine.transition_to(state_dead)

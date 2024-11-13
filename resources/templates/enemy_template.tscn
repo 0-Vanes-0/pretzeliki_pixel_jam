@@ -1,9 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://d13roc8t5yibe"]
+[gd_scene load_steps=10 format=3 uid="uid://d13roc8t5yibe"]
 
 [ext_resource type="Script" path="res://src/gameplay/enemies/enemy.gd" id="1_7uinp"]
+[ext_resource type="Script" path="res://src/gameplay/progression/biomat_resource.gd" id="2_q63b0"]
 [ext_resource type="Texture2D" uid="uid://ctpq0wqq86qs6" path="res://icon.png" id="2_tchxh"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/state_machine.gd" id="3_6k51w"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/roam_enemy_state.gd" id="4_p5y1o"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/dead_enemy_state.gd" id="6_30pte"]
+
+[sub_resource type="Resource" id="Resource_jjy66"]
+script = ExtResource("2_q63b0")
+hp_buff = -1.0
+speed_buff_percent = -1.0
+ability_buff_type = 0
+ability_buff = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chm7k"]
 radius = 16.0
@@ -30,14 +39,17 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast", "state_machine", "state_dead")]
 collision_layer = 4
 collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_7uinp")
+biomat_resource = SubResource("Resource_jjy66")
 coll_shape = NodePath("CollisionShape2D")
 sprite = NodePath("AnimatedSprite2D")
 raycast = NodePath("RayCast2D")
+state_machine = NodePath("StateMachine")
+state_dead = NodePath("StateMachine/DeadEnemyState")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.57079
@@ -47,6 +59,7 @@ shape = SubResource("CapsuleShape2D_chm7k")
 modulate = Color(1, 0, 0, 1)
 sprite_frames = SubResource("SpriteFrames_6oibf")
 animation = &"idle"
+offset = Vector2(0, -32)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(64, -64)
@@ -55,5 +68,9 @@ target_position = Vector2(64, -64)
 script = ExtResource("3_6k51w")
 initial_state = NodePath("RoamEnemyState")
 
-[node name="RoamEnemyState" type="Node" parent="StateMachine"]
+[node name="RoamEnemyState" type="Node" parent="StateMachine" node_paths=PackedStringArray("connections")]
 script = ExtResource("4_p5y1o")
+connections = [NodePath("../DeadEnemyState")]
+
+[node name="DeadEnemyState" type="Node" parent="StateMachine"]
+script = ExtResource("6_30pte")

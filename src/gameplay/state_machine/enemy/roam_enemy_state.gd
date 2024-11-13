@@ -1,14 +1,9 @@
 class_name RoamEnemyState
 extends EnemyState
 
-#var _tween: Tween
+var _tween: Tween
 var _direction: Vector2
 var _distance: int
-
-var _timer: float
-var _standing_time: float
-var _is_standing: bool
-var _is_walking: bool
 
 
 func enter():
@@ -29,7 +24,7 @@ func physics_update(delta: float):
 
 
 func exit():
-	pass
+	_tween.kill()
 
 
 func _randomize_direction():
@@ -45,18 +40,18 @@ func _randomize_distance():
 
 
 func _create_move_tween():
-	var tween := create_tween()
-	tween.tween_callback(_randomize_distance)
-	tween.tween_callback(_randomize_direction)
-	tween.tween_property(
+	_tween = create_tween()
+	_tween.tween_callback(_randomize_distance)
+	_tween.tween_callback(_randomize_direction)
+	_tween.tween_property(
 			enemy, "velocity",
 			_direction * _distance,
 			1.0
 	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
-	tween.tween_interval(_distance / enemy.speed)
-	tween.tween_property(
+	_tween.tween_interval(_distance / enemy.speed)
+	_tween.tween_property(
 			enemy, "velocity",
 			Vector2.ZERO,
 			1.0
 	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
-	tween.finished.connect(_create_move_tween, CONNECT_ONE_SHOT)
+	_tween.finished.connect(_create_move_tween, CONNECT_ONE_SHOT)

@@ -21,9 +21,9 @@ func _ready() -> void:
 	self.body_entered.connect(
 			func(body: Node2D):
 				if body is Enemy:
-					# body.take_damage()
+					body.take_damage(1)
 					self.queue_free()
-				elif body is StaticBody2D:
+				elif body is TileMapLayer or body is StaticBody2D:
 					self.queue_free()
 	)
 
