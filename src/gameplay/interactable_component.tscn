@@ -22,6 +22,7 @@ bar = NodePath("TextureProgressBar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ifrx6")
+debug_color = Color(0.0781367, 0.649238, 0, 0.42)
 
 [node name="Label" type="Label" parent="."]
 visible = false

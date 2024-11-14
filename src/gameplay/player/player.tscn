@@ -159,7 +159,7 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "weapon_pivot", "weapon", "stats")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "weapon_pivot", "weapon", "stats", "state_machine", "state_run_and_gun", "state_terminal")]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 21
@@ -171,6 +171,9 @@ sprite = NodePath("AnimatedSprite2D")
 weapon_pivot = NodePath("AnimatedSprite2D/WeaponPivot")
 weapon = NodePath("AnimatedSprite2D/WeaponPivot/Weapon")
 stats = NodePath("StatsManager")
+state_machine = NodePath("StateMachine")
+state_run_and_gun = NodePath("StateMachine/RunAndGunPlayerState")
+state_terminal = NodePath("StateMachine/TerminalPlayerState")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.57079

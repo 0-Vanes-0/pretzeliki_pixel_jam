@@ -25,8 +25,4 @@ func _physics_process(delta: float) -> void:
 func _on_enemy_died(biomat_resource: BioMatResource, position: Vector2):
 	var biomat := BioMat.create(biomat_resource)
 	biomat.position = position
-	biomat.collected.connect(
-			func(resource: BioMatResource):
-				player.stats.add_biomat(resource)
-	)
 	biomats.add_child(biomat)

@@ -1,12 +1,12 @@
 class_name InteractableComponent
 extends Area2D
 
-signal interacted
+signal interacted(player: Player)
 
 const HOLD_TIME := 2.0 # seconds
 var _timer := 0.0
 var _holding := false
-var _player_inside := false
+var _player: Player
 @export var is_held := false
 @export var is_one_interaction := true
 @export_group("Required Children")
@@ -23,19 +23,19 @@ func _ready() -> void:
 	self.body_entered.connect(
 			func(body: Node2D):
 				if body is Player:
-					_player_inside = true
+					_player = body
 					label.show()
 	)
 	self.body_exited.connect(
 			func(body: Node2D):
 				if body is Player:
-					_player_inside = false
+					_player = null
 					label.hide()
 	)
 
 
 func _physics_process(delta: float) -> void:
-	if _player_inside and is_held and _holding:
+	if _player and is_held and _holding:
 		_timer += delta
 		bar.value = bar.max_value * (_timer / HOLD_TIME)
 		if _timer >= HOLD_TIME:
@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _player_inside:
+	if _player:
 		if event.is_action_pressed("interact"):
 			if is_held:
 				_holding = true
@@ -63,7 +63,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_interacted():
-	interacted.emit()
+	interacted.emit(_player)
 	if is_one_interaction:
 		_toggle_collision(false)
 		bar.modulate.a = 0.0

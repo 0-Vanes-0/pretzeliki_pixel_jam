@@ -14,11 +14,17 @@ const Animations := {
 @export var weapon_pivot: Marker2D
 @export var weapon: Weapon
 @export var stats: StatsManager
+@export_group("States", "state_")
+@export var state_machine: StateMachine
+@export var state_run_and_gun: RunAndGunPlayerState
+@export var state_terminal: TerminalPlayerState
+
 var current_look_direction := Vector2.RIGHT
 
 
 func _ready() -> void:
 	assert(coll_shape and sprite and weapon_pivot and weapon and stats)
+	assert(state_machine and state_run_and_gun and state_terminal)
 
 
 func get_weapon_gunpoint() -> Vector2:
