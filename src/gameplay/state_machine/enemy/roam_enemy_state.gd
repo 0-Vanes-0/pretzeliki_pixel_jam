@@ -45,7 +45,7 @@ func _on_roam_timer_timeout(from_timer = true) -> void:
 		idle_timer.start()
 		return
 	# TODO randomize roam_timer's wait_time
-	enemy.anim.play("walk")
+	enemy.anim.play("run")
 	var ray = enemy.raycast
 	ray.target_position = Vector2(randi_range(-100,100),randi_range(-100,100)).normalized() * 100
 	if !ray.is_colliding():
@@ -72,7 +72,7 @@ func _on_roam_timer_timeout(from_timer = true) -> void:
 		_walking = false
 		roam_timer.start()
 		await enemy.anim.animation_finished
-		enemy.anim.play("default")
+		enemy.anim.play("idle")
 
 
 func _on_idle_timer_timeout() -> void:
