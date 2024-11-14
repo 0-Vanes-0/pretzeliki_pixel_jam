@@ -15,8 +15,8 @@ ability_buff_type = 0
 ability_buff = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chm7k"]
-radius = 32.0
-height = 66.0
+radius = 16.0
+height = 96.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6oibf"]
 animations = [{

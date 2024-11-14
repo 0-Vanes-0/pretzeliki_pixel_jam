@@ -7,7 +7,7 @@ extends EnemyState
 @onready var idle_timer: Timer = $IdleTimer
 
 var _direction: Vector2
-var _walking = true
+var _walking := true
 
 func enter():
 	roam_timer.start()
@@ -32,7 +32,8 @@ func physics_update(delta: float):
 
 
 func exit():
-	pass
+	roam_timer.stop()
+	idle_timer.stop()
 
 
 func _on_roam_timer_timeout(from_timer = true) -> void:
@@ -75,7 +76,7 @@ func _on_roam_timer_timeout(from_timer = true) -> void:
 
 
 func _on_idle_timer_timeout() -> void:
-	_walking = false
+	_walking = true
 	#enemy.anim.play("idle") dont need, walk is set in in _on_roam_timer_timeout 
 	_on_roam_timer_timeout(false)
 	roam_timer.start()
