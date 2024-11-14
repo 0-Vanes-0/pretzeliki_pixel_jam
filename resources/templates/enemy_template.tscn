@@ -15,8 +15,8 @@ ability_buff_type = 0
 ability_buff = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chm7k"]
-radius = 16.0
-height = 96.0
+radius = 32.0
+height = 66.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6oibf"]
 animations = [{
@@ -44,6 +44,7 @@ collision_layer = 4
 collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_7uinp")
+speed = 2000.0
 biomat_resource = SubResource("Resource_jjy66")
 coll_shape = NodePath("CollisionShape2D")
 sprite = NodePath("AnimatedSprite2D")
@@ -57,6 +58,7 @@ shape = SubResource("CapsuleShape2D_chm7k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
+position = Vector2(0, 31)
 sprite_frames = SubResource("SpriteFrames_6oibf")
 animation = &"idle"
 offset = Vector2(0, -32)
@@ -72,5 +74,10 @@ initial_state = NodePath("RoamEnemyState")
 script = ExtResource("4_p5y1o")
 connections = [NodePath("../DeadEnemyState")]
 
+[node name="RoamTimer" type="Timer" parent="StateMachine/RoamEnemyState"]
+wait_time = 3.0
+
 [node name="DeadEnemyState" type="Node" parent="StateMachine"]
 script = ExtResource("6_30pte")
+
+[connection signal="timeout" from="StateMachine/RoamEnemyState/RoamTimer" to="StateMachine/RoamEnemyState" method="_on_roam_timer_timeout"]

@@ -19,6 +19,8 @@ const Animations := {
 @export var state_machine: StateMachine
 @export var state_dead: DeadEnemyState
 
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+
 
 func _ready() -> void:
 	assert(biomat_resource)

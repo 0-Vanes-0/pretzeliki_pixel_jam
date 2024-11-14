@@ -1,57 +1,65 @@
 class_name RoamEnemyState
 extends EnemyState
 
-var _tween: Tween
-var _direction: Vector2
-var _distance: int
+@export var raycast_distance : float = 50
 
+@onready var roam_timer: Timer = $RoamTimer
+
+var _direction: Vector2
+var _walking = true
 
 func enter():
+	roam_timer.start()
 	enemy.toggle_collision(true)
-	_create_move_tween()
 
 
 func update(delta: float):
 	super(delta)
-	if enemy.velocity.x != 0:
-		var scale_x := enemy.sprite.scale.y * signf(enemy.velocity.x)
-		enemy.sprite.scale = Vector2(scale_x, enemy.sprite.scale.y)
 
 
 func physics_update(delta: float):
 	super(delta)
-	enemy.move_and_slide()
+	if _walking:
+		if enemy.raycast.is_colliding():
+			roam_timer.stop()
+			_on_roam_timer_timeout()
+			roam_timer.start()
+		enemy.velocity = _direction * delta * enemy.speed
+		# FIXME add rotation
+		#rotateToDirection(delta, _direction)
+		enemy.move_and_slide()
 
 
 func exit():
-	_tween.kill()
+	pass
 
 
-func _randomize_direction():
-	_direction = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
-	enemy.raycast.target_position = _direction * 128
-	enemy.raycast.force_raycast_update()
-	if enemy.raycast.is_colliding():
-		_direction *= -1.0 # inverse
-
-
-func _randomize_distance():
-	_distance = randi_range(16, 128)
-
-
-func _create_move_tween():
-	_tween = create_tween()
-	_tween.tween_callback(_randomize_distance)
-	_tween.tween_callback(_randomize_direction)
-	_tween.tween_property(
-			enemy, "velocity",
-			_direction * _distance,
-			1.0
-	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
-	_tween.tween_interval(_distance / enemy.speed)
-	_tween.tween_property(
-			enemy, "velocity",
-			Vector2.ZERO,
-			1.0
-	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
-	_tween.finished.connect(_create_move_tween, CONNECT_ONE_SHOT)
+func _on_roam_timer_timeout() -> void:
+	enemy.anim.play("walk")
+	var ray = enemy.raycast
+	ray.target_position = Vector2(randi_range(-100,100),randi_range(-100,100)).normalized() * 100
+	if !ray.is_colliding():
+		_direction = ray.target_position.normalized()
+	else:
+		var x = ray.target_position.x
+		var y = ray.target_position.y
+		for i in range(12): # ищем свободную точку
+			var a = PI / 6.0 * i
+			var cs = cos(a)
+			var sn = sin(a)
+			var new_dir = Vector2(x*cs - y*sn, y*cs+x*sn)
+			ray.target_position = ray.target_position.rotated(a)# new_dir #Vector2(randi_range(-100,100),randi_range(-100,100)).normalized() * 400
+			await get_tree().create_timer(0.05).timeout
+			if !ray.is_colliding():
+				#ray.target_position = ray.target_position.normalized()
+				_direction = ray.target_position.normalized()
+				_walking = true
+				#await anim.animation_finished
+				#anim.play("walk")
+				return
+			#await get_tree().create_timer(0.01).timeout
+		print(name + " failed to find a way out")
+		_walking = false
+		roam_timer.start()
+		await enemy.anim.animation_finished
+		enemy.anim.play("default")

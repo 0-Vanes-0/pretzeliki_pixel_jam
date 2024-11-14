@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	player.current_look_direction = aim.get_direction()
-	main_camera.position = player.position + aim.get_direction() / 2
+	main_camera.position = lerp(main_camera.position, player.position + aim.get_direction() / 2, .3)
 	
 	$CanvasLayer/Label.text = str(Engine.get_frames_per_second()) + " fps"
 
