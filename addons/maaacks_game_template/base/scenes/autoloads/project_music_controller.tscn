@@ -5,3 +5,7 @@
 [node name="ProjectMusicController" type="Node"]
 process_mode = 3
 script = ExtResource("1_wbudo")
+
+[node name="Music Controller" type="FmodEventEmitter2D" parent="."]
+event_guid = "{00000074-0065-0000-7200-000073000000}"
+autoplay = true
