@@ -76,6 +76,7 @@ script = ExtResource("4_gf04b")
 position = Vector2(224, 0)
 
 [node name="BioMats" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("5_sw8md")
 
 [node name="PlayerStuff" type="Node2D" parent="."]
