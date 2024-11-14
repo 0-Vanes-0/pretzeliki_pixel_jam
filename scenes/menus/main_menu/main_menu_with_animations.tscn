@@ -391,9 +391,6 @@ event_guid = "{36bbd57d-f0df-4278-9eaa-6067fbdb1b4e}"
 event_name = "event:/UI/Menu/Hover"
 event_guid = "{36bbd57d-f0df-4278-9eaa-6067fbdb1b4e}"
 
-[node name="FmodBankLoader" type="FmodBankLoader" parent="." index="10"]
-bank_paths = ["res://assets/audio/banks/Desktop/Master.bank"]
-
 [connection signal="mouse_entered" from="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/PlayButton" to="." method="_on_play_button_mouse_entered"]
 [connection signal="mouse_entered" from="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/OptionsButton" to="." method="_on_options_button_mouse_entered"]
 [connection signal="mouse_entered" from="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/CreditsButton" to="." method="_on_credits_button_mouse_entered"]

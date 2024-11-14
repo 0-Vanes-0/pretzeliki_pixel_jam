@@ -8,3 +8,6 @@
 script = ExtResource("1_lqdxa")
 blaster_projectile = ExtResource("2_2g7c5")
 biomat = ExtResource("3_mn2s0")
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
+bank_paths = ["res://assets/audio/banks/Desktop/Master.bank", "res://assets/audio/banks/Desktop/Ambience.bank", "res://assets/audio/banks/Desktop/Music Controller.bank", "res://assets/audio/banks/Desktop/UI.bank"]
