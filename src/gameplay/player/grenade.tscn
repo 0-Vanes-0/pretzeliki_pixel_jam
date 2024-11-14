@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://c3f00lb1s4gs0"]
+
+[ext_resource type="Script" path="res://src/gameplay/player/grenade.gd" id="1_bro5s"]
+[ext_resource type="Texture2D" uid="uid://bapt6hr3s0a8d" path="res://assets/images/player/test_grenade/comet8.png" id="2_pb7cv"]
+[ext_resource type="Texture2D" uid="uid://cxmquk5hr0snl" path="res://assets/images/player/test_grenade/comet9.png" id="3_4kvmo"]
+[ext_resource type="Texture2D" uid="uid://c563w6pblcdim" path="res://assets/images/player/test_grenade/comet10.png" id="4_vdh34"]
+[ext_resource type="Texture2D" uid="uid://7g6q7adjnl7d" path="res://assets/images/player/test_grenade/comet11.png" id="5_ysbb6"]
+[ext_resource type="Texture2D" uid="uid://c7scmkgwbag3p" path="res://assets/images/player/test_grenade/comet12.png" id="6_0p6nw"]
+[ext_resource type="Texture2D" uid="uid://b5yqqkcyeqifs" path="res://assets/images/player/test_grenade/comet13.png" id="7_pm0qa"]
+[ext_resource type="Texture2D" uid="uid://b0qkw1b27k0gk" path="res://assets/images/player/test_grenade/comet14.png" id="8_l23cq"]
+[ext_resource type="Texture2D" uid="uid://u0cqwxxsfqfh" path="res://assets/images/player/test_grenade/comet6.png" id="9_uyv8u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4puu"]
+radius = 48.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ds2ss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pb7cv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4kvmo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vdh34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ysbb6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0p6nw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_pm0qa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_l23cq")
+}],
+"loop": false,
+"name": &"blow_up",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_uyv8u")
+}],
+"loop": false,
+"name": &"fly",
+"speed": 10.0
+}]
+
+[node name="Grenade" type="Area2D" node_paths=PackedStringArray("coll_shape")]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_bro5s")
+coll_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_j4puu")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ds2ss")
+animation = &"fly"
+offset = Vector2(-4, -7)
