@@ -4,6 +4,7 @@ extends EnemyState
 @export var raycast_distance : float = 50
 
 @onready var roam_timer: Timer = $RoamTimer
+@onready var idle_timer: Timer = $IdleTimer
 
 var _direction: Vector2
 var _walking = true
@@ -34,7 +35,15 @@ func exit():
 	pass
 
 
-func _on_roam_timer_timeout() -> void:
+func _on_roam_timer_timeout(from_timer = true) -> void:
+	if from_timer and randi() % 3 == 0:
+		_walking = false
+		enemy.anim.play("idle")
+		roam_timer.stop()
+		idle_timer.wait_time = randf_range(1.8, 2.5)
+		idle_timer.start()
+		return
+	# TODO randomize roam_timer's wait_time
 	enemy.anim.play("walk")
 	var ray = enemy.raycast
 	ray.target_position = Vector2(randi_range(-100,100),randi_range(-100,100)).normalized() * 100
@@ -63,3 +72,11 @@ func _on_roam_timer_timeout() -> void:
 		roam_timer.start()
 		await enemy.anim.animation_finished
 		enemy.anim.play("default")
+
+
+func _on_idle_timer_timeout() -> void:
+	_walking = false
+	#enemy.anim.play("idle") dont need, walk is set in in _on_roam_timer_timeout 
+	_on_roam_timer_timeout(false)
+	roam_timer.start()
+	#idle_timer.stop() dont need, it's oneshot
