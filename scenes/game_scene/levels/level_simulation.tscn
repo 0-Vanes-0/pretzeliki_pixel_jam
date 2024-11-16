@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://c6hx3r4stq5lb"]
+[gd_scene load_steps=16 format=4 uid="uid://c6hx3r4stq5lb"]
 
 [ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_ybok1"]
-[ext_resource type="Texture2D" uid="uid://ctpq0wqq86qs6" path="res://icon.png" id="2_q2bup"]
 [ext_resource type="TileSet" uid="uid://4rvifgyhow4k" path="res://assets/images/test_tileset.tres" id="3_4mrnn"]
 [ext_resource type="PackedScene" uid="uid://q2cjnyecsc6u" path="res://src/gameplay/player/player.tscn" id="3_gbgdk"]
 [ext_resource type="PackedScene" uid="uid://k562cctt2t6t" path="res://src/gameplay/progression/terminal.tscn" id="4_5jrnl"]
@@ -45,14 +44,6 @@ aim = NodePath("CanvasLayer/Aim")
 [node name="Environment" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Environment"]
-visible = false
-modulate = Color(1, 1, 1, 0.137255)
-position = Vector2(-352, -304)
-scale = Vector2(11, 11)
-texture = ExtResource("2_q2bup")
-centered = false
-
 [node name="Floor" type="TileMapLayer" parent="Environment"]
 z_index = -1
 use_parent_material = true
@@ -74,6 +65,15 @@ script = ExtResource("4_gf04b")
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("4_dip5j")]
 position = Vector2(224, 0)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("4_dip5j")]
+position = Vector2(208, 96)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("4_dip5j")]
+position = Vector2(288, 176)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("4_dip5j")]
+position = Vector2(144, 176)
 
 [node name="BioMats" type="Node2D" parent="."]
 y_sort_enabled = true
