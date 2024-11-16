@@ -17,6 +17,7 @@ shape = SubResource("CircleShape2D_mn1wb")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 autostart = true
 
