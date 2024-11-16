@@ -1,6 +1,7 @@
 class_name FollowingState
 extends EnemyState
 
+@export var speed_coeff : float = 1.5
 @export var desired_next_state : EnemyState
 @export var nav_agent : NavigationAgent2D
 
@@ -18,7 +19,7 @@ func enter():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_update(delta: float) -> void:
-	debug_label.text = str(enemy.state_machine.get_state()) + str(is_nav) + str(enemy.velocity)
+	#debug_label.text = str(enemy.state_machine.get_state()) + str(is_nav) + str(enemy.velocity)
 	if !is_nav:
 		return
 	
@@ -28,14 +29,14 @@ func physics_update(delta: float) -> void:
 	var ang = dir.angle()
 	# TODO enemy rotation
 	#body.rotation = lerp_angle(enemy..rotation, ang, 0.2) 
-	var vel = dir * enemy.speed * delta
+	var vel = dir * enemy.speed * speed_coeff * delta
 	nav_agent.set_velocity(vel)
 
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	if !is_nav:
 		return
-	prints(self, safe_velocity)
+	#prints(self, safe_velocity)
 	enemy.velocity = safe_velocity
 	nav_agent.is_target_reachable() # i dunno but this magic makes it work
 	#print(global_position, " ", nav_agent.target_position, " ", velocity)
