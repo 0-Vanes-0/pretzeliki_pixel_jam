@@ -2,8 +2,8 @@ class_name RunAndGunPlayerState
 extends PlayerState
 
 const GRENADE_DELAY := 2.0
-const DASH_DURATION := 0.25
-const DASH_RELOAD_TIME := 5.0 # TODO: take from biomats
+const DASH_DURATION := 0.1
+const DASH_RELOAD_TIME := 4.0 # TODO: take from biomats
 const DASH_STRENGTH := 5
 var _shooter_timer := 0.0
 var _grenade_timer := 0.0
@@ -71,4 +71,4 @@ func _dash():
 	var original_speed := player.stats.speed
 	player.stats.speed *= DASH_STRENGTH
 	await get_tree().create_timer(DASH_DURATION).timeout
-	player.stats.speed *= original_speed
+	player.stats.speed = original_speed
