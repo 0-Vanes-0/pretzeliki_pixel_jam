@@ -16,8 +16,8 @@ ability_buff_type = 0
 ability_buff = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chm7k"]
-radius = 30.0
-height = 68.0
+radius = 29.0
+height = 62.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6oibf"]
 animations = [{
@@ -88,8 +88,8 @@ shape = SubResource("CircleShape2D_o1tkp")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
-radius = 30.0
-max_speed = 10000.0
+radius = 40.0
+max_speed = 200.0
 debug_enabled = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
