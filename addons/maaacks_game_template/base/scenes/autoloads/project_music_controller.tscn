@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://addons/maaacks_game_template/base/scripts/music_controller.gd" id="1_wbudo"]
 
-[node name="ProjectMusicController" type="Node"]
+[node name="ProjectMusicController" type="Node" node_paths=PackedStringArray("emitter")]
 process_mode = 3
 script = ExtResource("1_wbudo")
+emitter = NodePath("MusicController")
 
 [node name="MusicController" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/Music/Game/Music Controller"
