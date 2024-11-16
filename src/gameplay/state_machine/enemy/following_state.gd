@@ -3,7 +3,8 @@ extends EnemyState
 
 @export var speed_coeff : float = 1.5
 @export var desired_next_state : EnemyState
-@export var nav_agent : NavigationAgent2D
+
+var nav_agent : NavigationAgent2D
 
 @export var debug_label : Label
 
@@ -16,6 +17,7 @@ func _ready() -> void:
 
 func enter():
 	is_nav = true
+	nav_agent = enemy.nav_agent
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_update(delta: float) -> void:
