@@ -1,12 +1,14 @@
 class_name RunAndGunPlayerState
 extends PlayerState
 
-var _timer := 0.0
+const GRENADE_DELAY := 2.0
+var _shooter_timer := 0.0
+var _grenade_timer := 0.0
 
 
 func enter():
 	player.toggle_collision(true)
-	_timer = player.shoot_rate_time
+	_shooter_timer = player.shoot_rate_time
 	#aim.activate() ??
 
 
@@ -20,7 +22,8 @@ func update(delta: float):
 func physics_update(delta: float):
 	super(delta)
 	
-	_timer += delta
+	_shooter_timer += delta
+	_grenade_timer += delta
 	
 	var move_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if move_direction:
@@ -34,13 +37,21 @@ func physics_update(delta: float):
 	else:
 		player.sprite.play(player.Animations.IDLE)
 	
-	if Input.is_action_pressed("shoot") and _timer >= player.shoot_rate_time:
+	if Input.is_action_pressed("shoot") and _shooter_timer >= player.shoot_rate_time:
+		var start_position := player.get_weapon_gunpoint()
+		var direction := player.current_look_direction.normalized() # TODO: direction is not accurate :/
+		var blaster_pro := BlasterProjectile.create(start_position, direction, Color.CRIMSON)
+		var parent := player.get_parent() as Node2D # $PlayerStuff
+		parent.add_child(blaster_pro)
+		_shooter_timer = 0.0
+	
+	if Input.is_action_pressed("grenade") and _grenade_timer >= GRENADE_DELAY:
 		var start_position := player.get_weapon_gunpoint()
 		var direction := player.current_look_direction.normalized()
-		var blaster_pro := BlasterProjectile.create(start_position, direction, Color.CRIMSON)
-		var parent := player.get_parent() as Node2D
-		parent.add_child(blaster_pro)
-		_timer = 0.0
+		var grenade := Grenade.create(10, start_position, direction) # TODO: add non-constant grenade damage
+		var parent := player.get_parent() as Node2D # $PlayerStuff
+		parent.add_child(grenade)
+		_grenade_timer = 0.0
 
 
 func exit():

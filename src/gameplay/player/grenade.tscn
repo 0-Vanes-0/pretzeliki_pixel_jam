@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c3f00lb1s4gs0"]
+[gd_scene load_steps=13 format=3 uid="uid://c3f00lb1s4gs0"]
 
 [ext_resource type="Script" path="res://src/gameplay/player/grenade.gd" id="1_bro5s"]
 [ext_resource type="Texture2D" uid="uid://bapt6hr3s0a8d" path="res://assets/images/player/test_grenade/comet8.png" id="2_pb7cv"]
@@ -50,11 +50,16 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Grenade" type="Area2D" node_paths=PackedStringArray("coll_shape")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ntxfh"]
+
+[node name="Grenade" type="Area2D" node_paths=PackedStringArray("coll_shape", "sprite", "contact_area", "contact_area_coll_shape")]
 collision_layer = 8
 collision_mask = 7
 script = ExtResource("1_bro5s")
 coll_shape = NodePath("CollisionShape2D")
+sprite = NodePath("AnimatedSprite2D")
+contact_area = NodePath("ContactArea")
+contact_area_coll_shape = NodePath("ContactArea/CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_j4puu")
@@ -64,3 +69,10 @@ disabled = true
 sprite_frames = SubResource("SpriteFrames_ds2ss")
 animation = &"fly"
 offset = Vector2(-4, -7)
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 21
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+shape = SubResource("CircleShape2D_ntxfh")
