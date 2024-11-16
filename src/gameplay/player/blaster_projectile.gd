@@ -9,7 +9,7 @@ var direction: Vector2
 
 static func create(start_position: Vector2, direction: Vector2, color := Color.WHITE) -> BlasterProjectile:
 	var projectile := Preloader.blaster_projectile.instantiate() as BlasterProjectile
-	assert(direction.is_normalized())
+	assert(projectile and direction.is_normalized())
 	projectile.position = start_position
 	projectile.direction = direction
 	projectile.modulate = color

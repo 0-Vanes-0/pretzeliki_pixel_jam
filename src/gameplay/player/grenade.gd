@@ -57,7 +57,7 @@ func _blow_up():
 	sprite.rotation = 0
 	sprite.play("blow_up")
 	_turn_on_blow_collision()
-	await get_tree().create_timer(BLOW_UP_EXIST_TIME).timeout
+	await get_tree().create_timer(BLOW_UP_EXIST_TIME, false, true).timeout
 	self.queue_free()
 
 
