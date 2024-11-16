@@ -22,6 +22,7 @@ const Animations := {
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
+var _player : Player
 
 func _ready() -> void:
 	assert(biomat_resource)
@@ -40,5 +41,6 @@ func take_damage(amount: int):
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(&"player"):
-		state_machine.transition_to(state_dead)
+		_player = body
+		state_machine.transition_to(state_following)
 	

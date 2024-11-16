@@ -87,6 +87,7 @@ shape = SubResource("CircleShape2D_o1tkp")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
+radius = 50.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_6k51w")
@@ -94,7 +95,7 @@ initial_state = NodePath("RoamEnemyState")
 
 [node name="RoamEnemyState" type="Node" parent="StateMachine" node_paths=PackedStringArray("connections")]
 script = ExtResource("4_p5y1o")
-connections = [NodePath("../DeadEnemyState")]
+connections = [NodePath("../DeadEnemyState"), NodePath("../FollowingState")]
 
 [node name="RoamTimer" type="Timer" parent="StateMachine/RoamEnemyState"]
 wait_time = 3.0
@@ -106,8 +107,17 @@ one_shot = true
 [node name="DeadEnemyState" type="Node" parent="StateMachine"]
 script = ExtResource("6_30pte")
 
-[node name="FollowingState" type="Node" parent="StateMachine"]
+[node name="FollowingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "debug_label")]
 script = ExtResource("7_l5nje")
+nav_agent = NodePath("../../NavigationAgent2D")
+debug_label = NodePath("../../Label")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -50.0
+offset_top = -61.0
+offset_right = 50.0
+offset_bottom = -38.0
+text = "fddf"
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="target_reached" from="NavigationAgent2D" to="StateMachine/FollowingState" method="_on_navigation_agent_2d_target_reached"]
