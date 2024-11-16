@@ -3,7 +3,9 @@ extends Area2D
 
 const GRAVITY_DURATION := 1.0
 const GRAVITY_STRENGTH := 200.0
+
 const ROOT_DURATION := 1.0
+const IN_ROOT_SPEED := 5.0
 
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
@@ -30,19 +32,20 @@ func _ready() -> void:
 	)
 	await Global.create_timer(0.1)
 	
-#	for enemy in _affected_enemies:
-#		var direction := (self.position - enemy.position).normalized()
-#		var force := direction * GRAVITY_STRENGTH
-#		enemy.velocity += force
+	for enemy in _affected_enemies:
+		var direction := (self.position - enemy.position).normalized()
+		var force := direction * GRAVITY_STRENGTH
+		enemy.velocity += force
 	
-#	await Global.create_timer(GRAVITY_DURATION)
+	await Global.create_timer(GRAVITY_DURATION)
 	
-#	for enemy in _affected_enemies:
-#		enemy.velocity = Vector2.ZERO
-#		enemy.can_move = false
+	for enemy in _affected_enemies:
+		enemy.velocity = Vector2.ZERO
+		enemy.current_speed = IN_ROOT_SPEED
 	
-#	await Global.create_timer(ROOT_DURATION)
-
-#	for enemy in _affected_enemies:
-#		pass
-#		enemy.can_move = true
+	await Global.create_timer(ROOT_DURATION)
+	
+	for enemy in _affected_enemies:
+		enemy.current_speed = enemy.speed
+	
+	self.queue_free()
