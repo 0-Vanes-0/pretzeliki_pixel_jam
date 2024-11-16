@@ -3,7 +3,6 @@ extends EnemyState
 
 
 @export var _projectile : PackedScene
-
 @export var shoot_cooldown : float = 1
 
 @onready var attack_timer: Timer = $AttackTimer

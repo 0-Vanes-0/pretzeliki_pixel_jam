@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://2t56abso7by2" path="res://src/gameplay/enemy_explosion.tscn" id="3_yysb0"]
 
 [node name="Explosive" instance=ExtResource("1_3mr14")]
-speed = 5000.0
+speed = 4000.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 modulate = Color(0.240788, 0.631229, 0.220055, 1)
@@ -17,6 +17,7 @@ target_desired_distance = 40.0
 radius = 33.0
 
 [node name="FollowingState" parent="StateMachine" index="2" node_paths=PackedStringArray("desired_next_state")]
+speed_coeff = 1.7
 desired_next_state = NodePath("../ExplosionState")
 
 [node name="ExplosionState" type="Node" parent="StateMachine" index="3"]
