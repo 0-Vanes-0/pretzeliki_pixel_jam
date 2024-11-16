@@ -48,6 +48,7 @@ main_camera = NodePath("PlayerStuff/MainCamera")
 aim = NodePath("CanvasLayer/Aim")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_7wtxo")
 
 [node name="Environment" type="Node2D" parent="NavigationRegion2D"]
