@@ -7,7 +7,6 @@ process_mode = 3
 script = ExtResource("1_wbudo")
 emitter = NodePath("MusicController")
 
-
 [node name="MusicController" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/Music/Game/Music Controller"
 event_guid = "{6313abb6-9bbe-4a7a-9840-9a8d1539fd77}"

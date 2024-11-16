@@ -18,5 +18,3 @@ func physics_update(delta: float):
 
 func exit():
 	pass
-
-
