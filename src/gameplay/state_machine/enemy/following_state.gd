@@ -44,6 +44,6 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 
 
 func _on_navigation_agent_2d_target_reached() -> void:
-	print(self, "REACHED")
+	prints(self, "REACHED")
 	enemy.state_machine.transition_to(desired_next_state)
 	is_nav = false

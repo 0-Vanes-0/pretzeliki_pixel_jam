@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://c6hx3r4stq5lb"]
+[gd_scene load_steps=18 format=4 uid="uid://c6hx3r4stq5lb"]
 
 [ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_ybok1"]
 [ext_resource type="TileSet" uid="uid://4rvifgyhow4k" path="res://assets/images/test_tileset.tres" id="3_4mrnn"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://src/collections/biomat_collection_node.gd" id="5_sw8md"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_dxiw1"]
 [ext_resource type="Script" path="res://src/gameplay/player/aim.gd" id="6_geyi0"]
+[ext_resource type="PackedScene" uid="uid://dqjlpmpv2cucc" path="res://src/gameplay/enemies/explosive.tscn" id="6_t7msm"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_0kljq"]
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="10_bjf8d"]
 
@@ -84,6 +85,9 @@ position = Vector2(288, 176)
 
 [node name="Enemy4" parent="Enemies" instance=ExtResource("4_dip5j")]
 position = Vector2(144, 176)
+
+[node name="Explosive" parent="Enemies" instance=ExtResource("6_t7msm")]
+position = Vector2(-279, 125)
 
 [node name="BioMats" type="Node2D" parent="."]
 y_sort_enabled = true
