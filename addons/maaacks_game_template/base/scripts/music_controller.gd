@@ -11,6 +11,9 @@ const BLEND_BUS_PREFIX : String = "Blend"
 const MAX_DEPTH = 16
 const MINIMUM_VOLUME_DB = -80
 
+@export var emitter: FmodEventEmitter2D
+@export var is_music_controller_on := true
+
 ## Detect stream players with matching audio bus.
 @export var audio_bus : StringName = &"Music"
 
@@ -168,6 +171,8 @@ func _on_added_music_player( node: Node ) -> void:
 	play_stream_player(node)
 
 func _enter_tree() -> void:
+	assert(emitter)
+	
 	AudioServer.add_bus()
 	blend_audio_bus_idx = AudioServer.bus_count - 1
 	blend_audio_bus = AppSettings.SYSTEM_BUS_NAME_PREFIX + BLEND_BUS_PREFIX + audio_bus
@@ -181,3 +186,30 @@ func _exit_tree():
 	var tree_node = get_tree()
 	if tree_node.node_added.is_connected(_on_added_music_player):
 		tree_node.node_added.disconnect(_on_added_music_player)
+
+
+func play_fmod(mode: String):
+	if is_music_controller_on:
+		var modes := {
+			"main_menu": {
+				"in_game": 0,
+				"intensity": 0,
+			},
+			"simulation": {
+				"in_game": 1,
+				"intensity": 0,
+			},
+			"battle": {
+				"in_game": 2,
+				"intensity": 0,
+			},
+			"battle_horde": {
+				"in_game": 2,
+				"intensity": 1,
+			},
+		}
+		assert(mode in modes.keys())
+		
+		emitter["event_parameter/In Game/value"] = modes[mode]["in_game"]
+		emitter["event_parameter/Intensity/value"] = modes[mode]["intensity"]
+		emitter.play()
