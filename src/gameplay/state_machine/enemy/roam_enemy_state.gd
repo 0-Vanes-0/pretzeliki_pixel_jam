@@ -57,7 +57,7 @@ func _on_roam_timer_timeout(from_timer = true) -> void:
 			var a = PI / 6.0 * i
 			var cs = cos(a)
 			var sn = sin(a)
-			var new_dir = Vector2(x*cs - y*sn, y*cs+x*sn)
+			var new_dir = Vector2(x*cs - y*sn, y*cs + x*sn)
 			ray.target_position = ray.target_position.rotated(a)# new_dir #Vector2(randi_range(-100,100),randi_range(-100,100)).normalized() * 400
 			await get_tree().create_timer(0.05).timeout
 			if !ray.is_colliding():

@@ -18,6 +18,7 @@ const Animations := {
 @export_group("States", "state_")
 @export var state_machine: StateMachine
 @export var state_dead: DeadEnemyState
+@export var state_following: FollowingState
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -35,3 +36,9 @@ func toggle_collision(enable: bool):
 func take_damage(amount: int):
 	#stats.adjust_hp(- amount)
 	state_machine.transition_to(state_dead)
+
+
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group(&"player"):
+		state_machine.transition_to(state_dead)
+	

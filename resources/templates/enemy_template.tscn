@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d13roc8t5yibe"]
+[gd_scene load_steps=12 format=3 uid="uid://d13roc8t5yibe"]
 
 [ext_resource type="Script" path="res://src/gameplay/enemies/enemy.gd" id="1_7uinp"]
 [ext_resource type="Script" path="res://src/gameplay/progression/biomat_resource.gd" id="2_q63b0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/gameplay/state_machine/state_machine.gd" id="3_6k51w"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/roam_enemy_state.gd" id="4_p5y1o"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/dead_enemy_state.gd" id="6_30pte"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/following_state.gd" id="7_l5nje"]
 
 [sub_resource type="Resource" id="Resource_jjy66"]
 script = ExtResource("2_q63b0")
@@ -45,7 +46,10 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast", "state_machine", "state_dead")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_o1tkp"]
+radius = 157.003
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast", "state_machine", "state_dead", "state_following")]
 collision_layer = 4
 collision_mask = 11
 motion_mode = 1
@@ -57,6 +61,7 @@ sprite = NodePath("AnimatedSprite2D")
 raycast = NodePath("RayCast2D")
 state_machine = NodePath("StateMachine")
 state_dead = NodePath("StateMachine/DeadEnemyState")
+state_following = NodePath("StateMachine/FollowingState")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.57079
@@ -71,6 +76,17 @@ offset = Vector2(0, -32)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(64, -64)
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_o1tkp")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_6k51w")
@@ -90,5 +106,11 @@ one_shot = true
 [node name="DeadEnemyState" type="Node" parent="StateMachine"]
 script = ExtResource("6_30pte")
 
+[node name="FollowingState" type="Node" parent="StateMachine"]
+script = ExtResource("7_l5nje")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="target_reached" from="NavigationAgent2D" to="StateMachine/FollowingState" method="_on_navigation_agent_2d_target_reached"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="StateMachine/FollowingState" method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="StateMachine/RoamEnemyState/RoamTimer" to="StateMachine/RoamEnemyState" method="_on_roam_timer_timeout"]
 [connection signal="timeout" from="StateMachine/RoamEnemyState/IdleTimer" to="StateMachine/RoamEnemyState" method="_on_idle_timer_timeout"]
