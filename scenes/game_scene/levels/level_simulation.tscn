@@ -75,15 +75,7 @@ script = ExtResource("4_gf04b")
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("4_dip5j")]
 position = Vector2(224, 0)
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("4_dip5j")]
-position = Vector2(208, 96)
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource("4_dip5j")]
-position = Vector2(288, 176)
-
-[node name="Enemy4" parent="Enemies" instance=ExtResource("4_dip5j")]
-position = Vector2(144, 176)
+speed = 50.0
 
 [node name="BioMats" type="Node2D" parent="."]
 y_sort_enabled = true

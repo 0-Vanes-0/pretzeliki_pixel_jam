@@ -9,7 +9,7 @@ const Animations := {
 	DIE = "die",
 }
 
-@export var speed: float = 200.0
+@export var speed: float = 50.0
 @export var biomat_resource: BioMatResource
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
@@ -23,6 +23,7 @@ const Animations := {
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
 var current_speed: float
+var _additional_forces: Array[Vector2]
 var _player : Player
 
 func _ready() -> void:
@@ -38,6 +39,22 @@ func toggle_collision(enable: bool):
 func take_damage(amount: int):
 	#stats.adjust_hp(- amount)
 	state_machine.transition_to(state_dead)
+
+
+func add_additional_force(force: Vector2):
+	_additional_forces.append(force)
+
+
+func apply_additional_forces() -> Vector2:
+	var summary_force := Vector2.ZERO
+	for force in _additional_forces:
+		summary_force += force
+	return summary_force
+
+
+func remove_oldest_additional_force():
+	if not _additional_forces.is_empty():
+		_additional_forces.remove_at(0)
 
 
 func _on_player_detector_body_entered(body: Node2D) -> void:

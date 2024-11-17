@@ -12,7 +12,7 @@ var _walking := true
 func enter():
 	roam_timer.start()
 	enemy.toggle_collision(true)
-	enemy.current_speed = enemy.speed / 2
+	enemy.current_speed = enemy.speed
 
 
 func update(delta: float):
@@ -26,9 +26,11 @@ func physics_update(delta: float):
 			roam_timer.stop()
 			_on_roam_timer_timeout()
 			roam_timer.start()
-		enemy.velocity = _direction * delta * enemy.current_speed
+		enemy.velocity = _direction * enemy.current_speed
+		enemy.velocity += enemy.apply_additional_forces()
 		# FIXME add rotation
 		#rotateToDirection(delta, _direction)
+		print(enemy.velocity)
 		enemy.move_and_slide()
 
 

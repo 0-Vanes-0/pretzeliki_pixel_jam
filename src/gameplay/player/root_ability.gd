@@ -2,7 +2,7 @@ class_name RootAbility
 extends Area2D
 
 const GRAVITY_DURATION := 1.0
-const GRAVITY_STRENGTH := 200.0
+const GRAVITY_STRENGTH := 1000.0
 
 const ROOT_DURATION := 1.0
 const IN_ROOT_SPEED := 5.0
@@ -35,12 +35,12 @@ func _ready() -> void:
 	for enemy in _affected_enemies:
 		var direction := (self.position - enemy.position).normalized()
 		var force := direction * GRAVITY_STRENGTH
-		enemy.velocity += force
+		enemy.add_additional_force(force)
 	
 	await Global.create_timer(GRAVITY_DURATION)
 	
 	for enemy in _affected_enemies:
-		enemy.velocity = Vector2.ZERO
+		enemy.remove_oldest_additional_force()
 		enemy.current_speed = IN_ROOT_SPEED
 	
 	await Global.create_timer(ROOT_DURATION)
