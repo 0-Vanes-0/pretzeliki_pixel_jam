@@ -31,7 +31,6 @@ func physics_update(delta: float) -> void:
 	# TODO enemy rotation
 	#body.rotation = lerp_angle(enemy..rotation, ang, 0.2) 
 	var vel = dir * enemy.current_speed * speed_coeff
-	vel += enemy.apply_additional_forces()
 	nav_agent.set_velocity(vel)
 
 

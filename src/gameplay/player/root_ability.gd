@@ -1,11 +1,8 @@
 class_name RootAbility
 extends Area2D
 
-const GRAVITY_DURATION := 1.0
-const GRAVITY_STRENGTH := 1000.0
-
-const ROOT_DURATION := 1.0
-const IN_ROOT_SPEED := 5.0
+const ROOT_DURATION := 2.0
+const IN_ROOT_SPEED := 0.0
 
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
@@ -33,14 +30,6 @@ func _ready() -> void:
 	await Global.create_timer(0.1)
 	
 	for enemy in _affected_enemies:
-		var direction := (self.position - enemy.position).normalized()
-		var force := direction * GRAVITY_STRENGTH
-		enemy.add_additional_force(force)
-	
-	await Global.create_timer(GRAVITY_DURATION)
-	
-	for enemy in _affected_enemies:
-		enemy.remove_oldest_additional_force()
 		enemy.current_speed = IN_ROOT_SPEED
 	
 	await Global.create_timer(ROOT_DURATION)
