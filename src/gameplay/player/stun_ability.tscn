@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwhse8roro6h"]
 
-[ext_resource type="Script" path="res://src/gameplay/player/root_ability.gd" id="1_wv7vg"]
+[ext_resource type="Script" path="res://src/gameplay/player/stun_ability.gd" id="1_h5c81"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bryn7"]
 radius = 96.0
 
-[node name="RootAbility" type="Area2D" node_paths=PackedStringArray("coll_shape")]
+[node name="StunAbility" type="Area2D" node_paths=PackedStringArray("coll_shape")]
 collision_layer = 8
 collision_mask = 4
-script = ExtResource("1_wv7vg")
+script = ExtResource("1_h5c81")
 coll_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

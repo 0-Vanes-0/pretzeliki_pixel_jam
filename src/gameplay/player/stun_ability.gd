@@ -1,4 +1,4 @@
-class_name RootAbility
+class_name StunAbility
 extends Area2D
 
 const ROOT_DURATION := 2.0
@@ -11,8 +11,8 @@ var spawn_position: Vector2
 var _affected_enemies: Array[Enemy] = []
 
 
-static func create(spawn_position: Vector2) -> RootAbility:
-	var root_ability := Preloader.root_ability.instantiate() as RootAbility
+static func create(spawn_position: Vector2) -> StunAbility:
+	var root_ability := Preloader.root_ability.instantiate() as StunAbility
 	assert(root_ability)
 	root_ability.spawn_position = spawn_position
 	return root_ability

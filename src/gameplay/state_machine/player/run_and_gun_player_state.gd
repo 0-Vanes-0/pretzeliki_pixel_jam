@@ -71,7 +71,7 @@ func physics_update(delta: float):
 	
 	if Input.is_action_pressed("root_ability") and _root_reload_timer >= ROOT_RELOAD_TIME:
 		var spawn_position := player.position + player.current_look_direction
-		var root_ability := RootAbility.create(spawn_position)
+		var root_ability := StunAbility.create(spawn_position)
 		player.add_sibling(root_ability)
 		_root_reload_timer = 0.0
 

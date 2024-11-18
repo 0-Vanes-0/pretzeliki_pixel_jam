@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://df5q8mjob32mb" path="res://src/gameplay/player/blaster_projectile.tscn" id="2_2g7c5"]
 [ext_resource type="PackedScene" uid="uid://blmu653ohjxak" path="res://src/gameplay/progression/biomat.tscn" id="3_mn2s0"]
 [ext_resource type="PackedScene" uid="uid://c3f00lb1s4gs0" path="res://src/gameplay/player/grenade.tscn" id="4_n8rrt"]
-[ext_resource type="PackedScene" uid="uid://bwhse8roro6h" path="res://src/gameplay/player/root_ability.tscn" id="5_2jhmj"]
+[ext_resource type="PackedScene" uid="uid://bwhse8roro6h" path="res://src/gameplay/player/stun_ability.tscn" id="5_2jhmj"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_lqdxa")
