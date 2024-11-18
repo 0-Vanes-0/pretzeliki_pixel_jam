@@ -12,6 +12,7 @@ extends Node2D
 func _ready() -> void:
 	assert(enemies and biomats and player and main_camera and aim)
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	# TODO connect all enemies
 	$Enemies/Enemy.died.connect(_on_enemy_died)
 
 

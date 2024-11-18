@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqjlpmpv2cucc"]
+
+[ext_resource type="PackedScene" uid="uid://d13roc8t5yibe" path="res://resources/templates/enemy_template.tscn" id="1_3mr14"]
+[ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/explosion_state.gd" id="2_8sk2p"]
+[ext_resource type="PackedScene" uid="uid://2t56abso7by2" path="res://src/gameplay/enemy_explosion.tscn" id="3_yysb0"]
+
+[node name="Explosive" instance=ExtResource("1_3mr14")]
+speed = 4000.0
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+modulate = Color(0.240788, 0.631229, 0.220055, 1)
+position = Vector2(-4.76837e-07, 25)
+scale = Vector2(0.8125, 0.8125)
+
+[node name="NavigationAgent2D" parent="." index="4"]
+target_desired_distance = 40.0
+radius = 33.0
+
+[node name="FollowingState" parent="StateMachine" index="2" node_paths=PackedStringArray("desired_next_state")]
+speed_coeff = 1.7
+desired_next_state = NodePath("../ExplosionState")
+
+[node name="ExplosionState" type="Node" parent="StateMachine" index="3"]
+script = ExtResource("2_8sk2p")
+_enemy_explosion = ExtResource("3_yysb0")

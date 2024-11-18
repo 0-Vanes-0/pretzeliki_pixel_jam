@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3shhof3y2uio"]
+
+[ext_resource type="Script" path="res://src/gameplay/psionic_projectile.gd" id="1_eem3n"]
+[ext_resource type="Texture2D" uid="uid://bgrx0nhd2m385" path="res://assets/images/player/SpongeBullet.png" id="2_r2m8x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6gkr"]
+size = Vector2(24, 10)
+
+[node name="PsionicProjectile" type="Area2D" node_paths=PackedStringArray("coll_shape", "sprite")]
+modulate = Color(0.303697, 0.684599, 0, 1)
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_eem3n")
+speed = 350.0
+coll_shape = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_e6gkr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(7, 7)
+texture = ExtResource("2_r2m8x")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

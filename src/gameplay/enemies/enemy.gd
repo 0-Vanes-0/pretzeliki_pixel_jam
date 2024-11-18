@@ -15,6 +15,7 @@ const Animations := {
 @export var coll_shape: CollisionShape2D
 @export var sprite: AnimatedSprite2D
 @export var raycast: RayCast2D
+@export var nav_agent: NavigationAgent2D
 @export_group("States", "state_")
 @export var state_machine: StateMachine
 @export var state_dead: DeadEnemyState
@@ -41,6 +42,6 @@ func take_damage(amount: int):
 
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
-	if body.is_in_group(&"player"):
+	if body.is_in_group(&"player") and state_machine.get_state() is RoamEnemyState:
 		_player = body
 		state_machine.transition_to(state_following)

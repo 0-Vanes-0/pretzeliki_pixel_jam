@@ -33,3 +33,7 @@ func get_weapon_gunpoint() -> Vector2:
 
 func toggle_collision(enable: bool):
 	coll_shape.set_deferred("disabled", not enable)
+
+
+func take_damage(damage : float):
+	pass
