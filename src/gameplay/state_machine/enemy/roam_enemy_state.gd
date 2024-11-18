@@ -17,6 +17,10 @@ func enter():
 
 func update(delta: float):
 	super(delta)
+	if _walking:
+		enemy.animate("run")
+	else:
+		enemy.animate("idle")
 
 
 func physics_update(delta: float):

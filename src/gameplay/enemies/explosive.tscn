@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dqjlpmpv2cucc"]
 
-[ext_resource type="PackedScene" uid="uid://d13roc8t5yibe" path="res://resources/templates/enemy_template.tscn" id="1_3mr14"]
+[ext_resource type="PackedScene" uid="uid://d13roc8t5yibe" path="res://src/gameplay/enemies/enemy_template.tscn" id="1_3mr14"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/explosion_state.gd" id="2_8sk2p"]
 [ext_resource type="PackedScene" uid="uid://2t56abso7by2" path="res://src/gameplay/enemy_explosion.tscn" id="3_yysb0"]
 

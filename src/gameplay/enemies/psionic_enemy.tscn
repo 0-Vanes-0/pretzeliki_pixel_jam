@@ -1,11 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkd07chpgo2kh"]
 
-[ext_resource type="PackedScene" uid="uid://d13roc8t5yibe" path="res://resources/templates/enemy_template.tscn" id="1_d86a4"]
+[ext_resource type="PackedScene" uid="uid://d13roc8t5yibe" path="res://src/gameplay/enemies/enemy_template.tscn" id="1_d86a4"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/psionic_shooting_state.gd" id="2_qyewn"]
 [ext_resource type="PackedScene" uid="uid://b3shhof3y2uio" path="res://src/gameplay/psionic_projectile.tscn" id="3_a0kul"]
 
 [node name="PsionicEnemy" instance=ExtResource("1_d86a4")]
-speed = 4500.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 modulate = Color(0.369501, 0.476576, 1, 1)

@@ -20,6 +20,10 @@ func enter():
 	enemy.current_speed = enemy.speed
 	nav_agent = enemy.nav_agent
 
+
+func update(delta: float):
+	enemy.animate("run")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_update(delta: float) -> void:
 	#debug_label.text = str(enemy.state_machine.get_state()) + str(is_nav) + str(enemy.velocity)

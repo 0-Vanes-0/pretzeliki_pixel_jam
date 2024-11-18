@@ -3,14 +3,9 @@ extends CharacterBody2D
 
 signal died(biomat_resource: BioMatResource, position: Vector2)
 
-const Animations := {
-	IDLE = "idle",
-	RUN = "run",
-	DIE = "die",
-}
-
 @export var speed: float = 50.0
 @export var biomat_resource: BioMatResource
+@export var sprite_offsets: Dictionary = { "idle": Vector2.ZERO, "run": Vector2.ZERO, "die": Vector2.ZERO }
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
 @export var sprite: AnimatedSprite2D
@@ -32,6 +27,12 @@ func _ready() -> void:
 	assert(state_machine and state_dead)
 
 
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group(&"player") and state_machine.get_state() is RoamEnemyState:
+		_player = body
+		state_machine.transition_to(state_following)
+
+
 func toggle_collision(enable: bool):
 	coll_shape.set_deferred("disabled", not enable)
 
@@ -41,7 +42,7 @@ func take_damage(amount: int):
 	state_machine.transition_to(state_dead)
 
 
-func _on_player_detector_body_entered(body: Node2D) -> void:
-	if body.is_in_group(&"player") and state_machine.get_state() is RoamEnemyState:
-		_player = body
-		state_machine.transition_to(state_following)
+func animate(anim: String):
+	if sprite.sprite_frames.has_animation(anim) and sprite_offsets.has(anim):
+		sprite.offset = sprite_offsets.get(anim)
+		sprite.play(anim)

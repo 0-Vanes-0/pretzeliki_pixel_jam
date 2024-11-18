@@ -16,7 +16,9 @@ static func create(resource: BioMatResource) -> BioMat:
 
 func _ready() -> void:
 	assert(interactable and sprite)
+	sprite.modulate = resource.color
 	interactable.interacted.connect(
 			func(player: Player):
 				player.stats.add_biomat(resource)
+				self.queue_free()
 	, CONNECT_ONE_SHOT)
