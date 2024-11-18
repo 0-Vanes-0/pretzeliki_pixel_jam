@@ -17,6 +17,7 @@ func _ready() -> void:
 
 func enter():
 	is_nav = true
+	enemy.current_speed = enemy.speed
 	nav_agent = enemy.nav_agent
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +32,7 @@ func physics_update(delta: float) -> void:
 	var ang = dir.angle()
 	# TODO enemy rotation
 	#body.rotation = lerp_angle(enemy..rotation, ang, 0.2) 
-	var vel = dir * enemy.speed * speed_coeff * delta
+	var vel = dir * enemy.current_speed * speed_coeff
 	nav_agent.set_velocity(vel)
 
 

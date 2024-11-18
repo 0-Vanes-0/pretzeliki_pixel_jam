@@ -9,4 +9,4 @@ func _physics_process(delta: float) -> void:
 
 
 func get_direction() -> Vector2:
-	return self.position - get_viewport_rect().size / 2
+	return (self.position - get_viewport_rect().size / 2) * 2

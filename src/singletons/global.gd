@@ -25,6 +25,11 @@ func setup():
 	RATIO = str(SCREEN_WIDTH / gcd) + RATIO + str(SCREEN_HEIGHT / gcd)
 	print_debug("\t", "SCREEN_WIDTH=", SCREEN_WIDTH, ", SCREEN_HEIGHT=", SCREEN_HEIGHT, ", RATIO=", RATIO)
 
+
+func create_timer(time: float):
+	await get_tree().create_timer(time, false, true).timeout
+
+
 # NOD
 func _gcd(a: int, b: int) -> int:
 	while a > 0 and b > 0:

@@ -12,6 +12,7 @@ var _walking := true
 func enter():
 	roam_timer.start()
 	enemy.toggle_collision(true)
+	enemy.current_speed = enemy.speed
 
 
 func update(delta: float):
@@ -25,7 +26,7 @@ func physics_update(delta: float):
 			roam_timer.stop()
 			_on_roam_timer_timeout()
 			roam_timer.start()
-		enemy.velocity = _direction * delta * enemy.speed
+		enemy.velocity = _direction * enemy.current_speed
 		# FIXME add rotation
 		#rotateToDirection(delta, _direction)
 		enemy.move_and_slide()
@@ -59,7 +60,7 @@ func _on_roam_timer_timeout(from_timer = true) -> void:
 			var sn = sin(a)
 			var new_dir = Vector2(x*cs - y*sn, y*cs + x*sn)
 			ray.target_position = ray.target_position.rotated(a)# new_dir #Vector2(randi_range(-100,100),randi_range(-100,100)).normalized() * 400
-			await get_tree().create_timer(0.05).timeout
+			await Global.create_timer(0.05)
 			if !ray.is_colliding():
 				#ray.target_position = ray.target_position.normalized()
 				_direction = ray.target_position.normalized()
@@ -67,7 +68,7 @@ func _on_roam_timer_timeout(from_timer = true) -> void:
 				#await anim.animation_finished
 				#anim.play("walk")
 				return
-			#await get_tree().create_timer(0.01).timeout
+			#await Global.create_timer(0.01)
 		print(name + " failed to find a way out")
 		_walking = false
 		roam_timer.start()

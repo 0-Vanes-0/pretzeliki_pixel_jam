@@ -9,6 +9,7 @@ extends Node2D
 
 static func create(resource: BioMatResource) -> BioMat:
 	var biomat := Preloader.biomat.instantiate() as BioMat
+	assert(biomat)
 	biomat.resource = resource
 	return biomat
 

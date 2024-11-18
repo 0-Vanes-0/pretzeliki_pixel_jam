@@ -9,7 +9,7 @@ const Animations := {
 	DIE = "die",
 }
 
-@export var speed: float = 200.0
+@export var speed: float = 50.0
 @export var biomat_resource: BioMatResource
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
@@ -23,6 +23,7 @@ const Animations := {
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
+var current_speed: float
 var _player : Player
 
 func _ready() -> void:
@@ -44,4 +45,3 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(&"player") and state_machine.get_state() is RoamEnemyState:
 		_player = body
 		state_machine.transition_to(state_following)
-	
