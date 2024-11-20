@@ -4,10 +4,7 @@ extends PlayerState
 const GRENADE_RELOAD_TIME := 2.0
 
 const DASH_DURATION := 0.1
-const DASH_RELOAD_TIME := 4.0 # TODO: take from biomats
 const DASH_STRENGTH := 5
-
-const ROOT_RELOAD_TIME := 30.0
 
 var _shooter_timer := 0.0
 var _grenade_timer := 0.0
@@ -19,8 +16,8 @@ func enter():
 	player.toggle_collision(true)
 	_shooter_timer = player.shoot_rate_time
 	_grenade_timer = GRENADE_RELOAD_TIME
-	_dash_reload_timer = DASH_RELOAD_TIME
-	_root_reload_timer = ROOT_RELOAD_TIME
+	_dash_reload_timer = player.stats.dash_reload_time
+	_root_reload_timer = player.stats.root_reload_time
 	#aim.activate() ??
 
 
@@ -65,11 +62,11 @@ func physics_update(delta: float):
 		player.add_sibling(grenade)
 		_grenade_timer = 0.0
 	
-	if Input.is_action_pressed("dash") and _dash_reload_timer >= DASH_RELOAD_TIME:
+	if player.has_dash_ability() and Input.is_action_pressed("dash") and _dash_reload_timer >= player.stats.dash_reload_time:
 		_dash() # <-- Calling async function here
 		_dash_reload_timer = 0.0
 	
-	if Input.is_action_pressed("root_ability") and _root_reload_timer >= ROOT_RELOAD_TIME:
+	if player.has_root_ability() and Input.is_action_pressed("root_ability") and _root_reload_timer >= player.stats.root_reload_time:
 		var spawn_position := player.position + player.current_look_direction
 		var root_ability := StunAbility.create(spawn_position)
 		player.add_sibling(root_ability)

@@ -196,8 +196,6 @@ script = ExtResource("5_xrqr4")
 [node name="StatsManager" type="Node" parent="."]
 script = ExtResource("5_fv7w5")
 
-[node name="AbilitiesManager" type="Node" parent="."]
-
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_7j5u3")
 initial_state = NodePath("RunAndGunPlayerState")

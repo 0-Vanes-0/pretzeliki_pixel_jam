@@ -41,6 +41,8 @@ func _ready() -> void:
 			func(body: Node2D):
 				if body is Enemy:
 					body.take_damage(damage)
+				elif body is Player:
+					body.take_damage(damage)
 	)
 
 

@@ -35,5 +35,13 @@ func toggle_collision(enable: bool):
 	coll_shape.set_deferred("disabled", not enable)
 
 
-func take_damage(damage: float):
-	pass
+func take_damage(damage: int):
+	stats.adjust_health(- damage)
+
+
+func has_dash_ability() -> bool:
+	return stats.dash_reload_time > 0
+
+
+func has_root_ability() -> bool:
+	return stats.root_reload_time > 0
