@@ -49,15 +49,15 @@ func physics_update(delta: float):
 		player.sprite.play(player.Animations.IDLE)
 	
 	if Input.is_action_pressed("shoot") and _shooter_timer >= player.shoot_rate_time:
-		var start_position := player.get_weapon_gunpoint()
-		var direction := player.current_look_direction.normalized() # TODO: direction is not accurate :/
+		var start_position := player.position + player.get_weapon_gunpoint()
+		var direction := (player.current_look_direction - player.get_weapon_gunpoint()).normalized()
 		var blaster_pro := BlasterProjectile.create(start_position, direction, Color.CRIMSON)
 		player.add_sibling(blaster_pro)
 		_shooter_timer = 0.0
 	
 	if Input.is_action_pressed("grenade") and _grenade_timer >= GRENADE_RELOAD_TIME:
-		var start_position := player.get_weapon_gunpoint()
-		var direction := player.current_look_direction.normalized()
+		var start_position := player.position + player.get_weapon_gunpoint()
+		var direction := (player.current_look_direction - player.get_weapon_gunpoint()).normalized()
 		var grenade := Grenade.create(10, start_position, direction) # TODO: add non-constant grenade damage
 		player.add_sibling(grenade)
 		_grenade_timer = 0.0

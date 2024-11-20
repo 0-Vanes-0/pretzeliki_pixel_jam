@@ -28,7 +28,7 @@ func _ready() -> void:
 
 
 func get_weapon_gunpoint() -> Vector2:
-	return self.position + sprite.position + weapon_pivot.position + weapon.position
+	return sprite.position + weapon_pivot.position + weapon.position
 
 
 func toggle_collision(enable: bool):
