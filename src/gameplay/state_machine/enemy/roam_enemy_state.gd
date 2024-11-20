@@ -44,13 +44,13 @@ func exit():
 func _on_roam_timer_timeout(from_timer = true) -> void:
 	if from_timer and randi() % 3 == 0:
 		_walking = false
-		enemy.anim.play("idle")
+		enemy.animate("idle")
 		roam_timer.stop()
 		idle_timer.wait_time = randf_range(1.8, 2.5)
 		idle_timer.start()
 		return
 	# TODO randomize roam_timer's wait_time
-	enemy.anim.play("run")
+	enemy.animate("run")
 	var ray = enemy.raycast
 	ray.target_position = Vector2(randi_range(-100,100),randi_range(-100,100)).normalized() * 100
 	if !ray.is_colliding():
@@ -76,8 +76,8 @@ func _on_roam_timer_timeout(from_timer = true) -> void:
 		print(name + " failed to find a way out")
 		_walking = false
 		roam_timer.start()
-		await enemy.anim.animation_finished
-		enemy.anim.play("idle")
+		await enemy.sprite.animation_finished
+		enemy.animate("idle")
 
 
 func _on_idle_timer_timeout() -> void:

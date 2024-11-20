@@ -14,7 +14,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	
 	for enemy in enemies.get_array():
-		enemy.died.connect(_on_enemy_died)
+		enemy.died.connect(_on_enemy_died, CONNECT_ONE_SHOT)
 
 
 func _physics_process(delta: float) -> void:

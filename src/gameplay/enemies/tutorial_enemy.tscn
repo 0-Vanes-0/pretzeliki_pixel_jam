@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dnped1nlmo4k1"]
+[gd_scene load_steps=33 format=3 uid="uid://dnped1nlmo4k1"]
 
 [ext_resource type="Script" path="res://src/gameplay/enemies/enemy.gd" id="1_74jxt"]
 [ext_resource type="Script" path="res://src/gameplay/progression/biomat_resource.gd" id="2_y88vs"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/enemy_state.gd" id="6_0f18b"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/dead_enemy_state.gd" id="6_divhq"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/following_state.gd" id="7_2cwd1"]
+[ext_resource type="Texture2D" uid="uid://dlwfbbv2cw7a8" path="res://assets/images/logo_vertical_color_dark.png" id="9_wnw4u"]
+[ext_resource type="Texture2D" uid="uid://5rltpvy6c5b" path="res://addons/maaacks_game_template/examples/assets/images/logo_vertical_color_dark.png" id="10_unxtq"]
 
 [sub_resource type="Resource" id="Resource_6dyt0"]
 script = ExtResource("2_y88vs")
@@ -147,7 +149,19 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_o1tkp"]
 radius = 157.003
 
-[node name="TutorialEnemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast", "nav_agent", "state_machine", "state_dead")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_trsb6"]
+atlas = ExtResource("9_wnw4u")
+region = Rect2(352, 240, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilh72"]
+atlas = ExtResource("10_unxtq")
+region = Rect2(384, 240, 32, 8)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_h16mh"]
+specular_texture = SubResource("AtlasTexture_ilh72")
+specular_color = Color(0.72, 1, 0.729333, 1)
+
+[node name="TutorialEnemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast", "nav_agent", "life_bar", "state_machine", "state_dead")]
 collision_layer = 4
 collision_mask = 11
 motion_mode = 1
@@ -163,6 +177,7 @@ coll_shape = NodePath("CollisionShape2D")
 sprite = NodePath("AnimatedSprite2D")
 raycast = NodePath("RayCast2D")
 nav_agent = NodePath("NavigationAgent2D")
+life_bar = NodePath("LifeBar")
 state_machine = NodePath("StateMachine")
 state_dead = NodePath("StateMachine/DeadEnemyState")
 
@@ -210,12 +225,15 @@ script = ExtResource("6_divhq")
 script = ExtResource("7_2cwd1")
 desired_next_state = NodePath("../EnemyState(DoNothing)")
 
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -50.0
-offset_top = -61.0
-offset_right = 50.0
-offset_bottom = -38.0
-text = "fddf"
+[node name="LifeBar" type="TextureProgressBar" parent="."]
+modulate = Color(0.5, 0, 0, 1)
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = -28.0
+value = 75.0
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_trsb6")
+texture_progress = SubResource("CanvasTexture_h16mh")
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
