@@ -37,7 +37,8 @@ func _ready() -> void:
 
 
 func add_biomat(biomat_resource: BioMatResource):
-	biomats_temp[biomat_resource.buff_type] = biomat_resource
+	var array: Array = biomats_temp[biomat_resource.buff_type]
+	array.append(biomat_resource)
 	_update_player_stats()
 
 
@@ -54,8 +55,8 @@ func adjust_health(value: int, is_from_biomat := false):
 func _update_player_stats(is_on_terminal := false):
 	for buff_type in biomats_temp.keys():
 		var chunk: int = BioMatResource.BUFFS_CHUNKS.get(buff_type)
-		var temp_array: Array[BioMatResource] = biomats_temp.get(buff_type)
-		var perm_array: Array[BioMatResource] = biomats_perm[buff_type]
+		var temp_array: Array = biomats_temp.get(buff_type)
+		var perm_array: Array = biomats_perm[buff_type]
 		if temp_array.size() >= chunk:
 			for i in chunk:
 				perm_array.append(temp_array.pop_back())
