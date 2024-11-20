@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://df4lgawc8vbc3"]
+
+[ext_resource type="Script" path="res://src/gameplay/environment/door.gd" id="1_hcwt2"]
+[ext_resource type="Texture2D" uid="uid://dxd571vg2y004" path="res://assets/images/tileset x1.png" id="2_xuarm"]
+[ext_resource type="PackedScene" uid="uid://hi1yt4aj3n2m" path="res://src/gameplay/environment/interactable_component.tscn" id="3_rmvth"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ierlm"]
+size = Vector2(32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbxje"]
+atlas = ExtResource("2_xuarm")
+region = Rect2(448, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5qow"]
+atlas = ExtResource("2_xuarm")
+region = Rect2(32, 76, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0xlkc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbxje")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5qow")
+}],
+"loop": true,
+"name": &"opened",
+"speed": 5.0
+}]
+
+[node name="Door" type="StaticBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "interactable1", "interactable2")]
+y_sort_enabled = true
+collision_mask = 0
+script = ExtResource("1_hcwt2")
+coll_shape = NodePath("CollisionShape2D")
+sprite = NodePath("AnimatedSprite2D")
+interactable1 = NodePath("InteractableComponentTop")
+interactable2 = NodePath("InteractableComponentBottom")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_ierlm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 16)
+sprite_frames = SubResource("SpriteFrames_0xlkc")
+animation = &"closed"
+offset = Vector2(0, -16)
+
+[node name="InteractableComponentTop" parent="." instance=ExtResource("3_rmvth")]
+position = Vector2(0, -8)
+is_held = true
+is_one_interaction = false
+
+[node name="InteractableComponentBottom" parent="." instance=ExtResource("3_rmvth")]
+position = Vector2(0, 32)
+is_held = true
+is_one_interaction = false

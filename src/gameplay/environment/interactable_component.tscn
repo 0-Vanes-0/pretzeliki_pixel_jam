@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://hi1yt4aj3n2m"]
 
-[ext_resource type="Script" path="res://src/gameplay/interactable_component.gd" id="1_qfwsb"]
+[ext_resource type="Script" path="res://src/gameplay/environment/interactable_component.gd" id="1_qfwsb"]
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="2_7ixyr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifrx6"]
@@ -26,6 +26,7 @@ debug_color = Color(0.0781367, 0.649238, 0, 0.42)
 
 [node name="Label" type="Label" parent="."]
 visible = false
+z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -43,6 +44,7 @@ horizontal_alignment = 1
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 visible = false
+z_index = 1
 offset_left = -16.0
 offset_top = -48.0
 offset_right = 16.0

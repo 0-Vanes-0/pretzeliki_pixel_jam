@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://blmu653ohjxak"]
 
 [ext_resource type="Script" path="res://src/gameplay/progression/biomat.gd" id="1_cuv6q"]
-[ext_resource type="PackedScene" uid="uid://hi1yt4aj3n2m" path="res://src/gameplay/interactable_component.tscn" id="2_4b5sk"]
+[ext_resource type="PackedScene" uid="uid://hi1yt4aj3n2m" path="res://src/gameplay/environment/interactable_component.tscn" id="2_4b5sk"]
 [ext_resource type="Script" path="res://src/gameplay/progression/biomat_resource.gd" id="2_ppm5y"]
 [ext_resource type="Texture2D" uid="uid://btaw01gtypppv" path="res://assets/images/bio_material.png" id="4_mywh1"]
 

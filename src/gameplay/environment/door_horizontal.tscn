@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://by0f0n3rofd1p"]
+
+[ext_resource type="Script" path="res://src/gameplay/environment/door.gd" id="1_hfhc4"]
+[ext_resource type="Texture2D" uid="uid://dxd571vg2y004" path="res://assets/images/tileset x1.png" id="2_f5r3k"]
+[ext_resource type="PackedScene" uid="uid://hi1yt4aj3n2m" path="res://src/gameplay/environment/interactable_component.tscn" id="3_dr78f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ierlm"]
+size = Vector2(8, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgwmt"]
+atlas = ExtResource("2_f5r3k")
+region = Rect2(288, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iec12"]
+atlas = ExtResource("2_f5r3k")
+region = Rect2(416, 72, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0xlkc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgwmt")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iec12")
+}],
+"loop": true,
+"name": &"opened",
+"speed": 5.0
+}]
+
+[node name="Door" type="StaticBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "interactable1", "interactable2")]
+collision_mask = 0
+script = ExtResource("1_hfhc4")
+coll_shape = NodePath("CollisionShape2D")
+sprite = NodePath("AnimatedSprite2D")
+interactable1 = NodePath("InteractableComponentRight")
+interactable2 = NodePath("InteractableComponentLeft")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 0)
+shape = SubResource("RectangleShape2D_ierlm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, 16)
+sprite_frames = SubResource("SpriteFrames_0xlkc")
+animation = &"closed"
+offset = Vector2(0, -16)
+
+[node name="InteractableComponentRight" parent="." instance=ExtResource("3_dr78f")]
+position = Vector2(32, 0)
+is_held = true
+is_one_interaction = false
+
+[node name="InteractableComponentLeft" parent="." instance=ExtResource("3_dr78f")]
+position = Vector2(-8, 0)
+is_held = true
+is_one_interaction = false
