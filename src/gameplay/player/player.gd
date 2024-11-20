@@ -36,7 +36,12 @@ func toggle_collision(enable: bool):
 
 
 func take_damage(damage: int):
-	stats.adjust_health(- damage)
+	if stats.armor > 0:
+		stats.armor -= 1
+		stats.adjust_health(- 1)
+	else:
+		stats.adjust_health(- damage)
+	# TODO: add short invulnerable delay ~0.5 sec
 
 
 func has_dash_ability() -> bool:
