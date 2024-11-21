@@ -5,6 +5,8 @@ signal health_depleted
 
 @export var max_hp: int = 100
 @export var speed: float = 200.0
+@export var blaster_damage: int = 2
+@export var grenade_damage: int = 10
 @export var biomats_temp := { # BioMatResource.BuffTypes: Array[BioMatResource]
 	BioMatResource.BuffTypes.TUTORIAL: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
 	BioMatResource.BuffTypes.DASH: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
@@ -25,6 +27,8 @@ var max_armor: float
 var armor: int
 var current_hp: int
 var current_speed: int
+var current_blaster_damage: int
+var current_grenade_damage: int
 
 
 func _ready() -> void:

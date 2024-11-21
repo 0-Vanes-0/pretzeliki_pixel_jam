@@ -6,10 +6,13 @@ extends Area2D
 @export var coll_shape: CollisionShape2D
 @export var sprite: Sprite2D
 var direction: Vector2
+var damage: int
 
-static func create(start_position: Vector2, direction: Vector2, color := Color.WHITE) -> BlasterProjectile:
+
+static func create(damage: int, start_position: Vector2, direction: Vector2, color := Color.WHITE) -> BlasterProjectile:
 	var projectile := Preloader.blaster_projectile.instantiate() as BlasterProjectile
 	assert(projectile and direction.is_normalized())
+	projectile.damage = damage
 	projectile.position = start_position
 	projectile.direction = direction
 	projectile.modulate = color
@@ -21,7 +24,7 @@ func _ready() -> void:
 	self.body_entered.connect(
 			func(body: Node2D):
 				if body is Enemy:
-					body.take_damage(1)
+					body.take_damage(damage)
 					self.queue_free()
 				elif body is TileMapLayer or body is StaticBody2D:
 					self.queue_free()
