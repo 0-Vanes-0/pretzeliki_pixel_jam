@@ -1,0 +1,170 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2u4fec425lvv"]
+
+[ext_resource type="Texture2D" uid="uid://5rltpvy6c5b" path="res://addons/maaacks_game_template/examples/assets/images/logo_vertical_color_dark.png" id="1_1ev6s"]
+[ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="1_gh0uy"]
+[ext_resource type="Script" path="res://src/ui/player_interface.gd" id="2_thtus"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bar8e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6o7e"]
+atlas = ExtResource("1_1ev6s")
+region = Rect2(432, 240, 64, 16)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2mvko"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_f8ajp"]
+
+[node name="PlayerInterface" type="MarginContainer" node_paths=PackedStringArray("hp_bar", "hp_label", "ammo_bar", "ammo_label", "grenade_label", "dash_bar", "stun_bar", "armor_bar")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_gh0uy")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("2_thtus")
+hp_bar = NodePath("VBoxContainer/HpHBox/HpBar")
+hp_label = NodePath("VBoxContainer/HpHBox/HpBar/HpLabel")
+ammo_bar = NodePath("VBoxContainer/AmmoHBox/AmmoBar")
+ammo_label = NodePath("VBoxContainer/AmmoHBox/AmmoBar/AmmoLabel")
+grenade_label = NodePath("VBoxContainer/GrenadeHBox/TextureRect2/GrenadeLabel")
+dash_bar = NodePath("VBoxContainer/Abilities/DashBar")
+stun_bar = NodePath("VBoxContainer/Abilities/StunBar")
+armor_bar = NodePath("VBoxContainer/Abilities/ArmorBar")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HpHBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HpHBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_bar8e")
+
+[node name="HpBar" type="TextureProgressBar" parent="VBoxContainer/HpHBox"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+value = 75.0
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_t6o7e")
+texture_progress = SubResource("CanvasTexture_2mvko")
+
+[node name="HpLabel" type="Label" parent="VBoxContainer/HpHBox/HpBar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -28.0
+offset_right = 42.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="AmmoHBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/AmmoHBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_bar8e")
+
+[node name="AmmoBar" type="TextureProgressBar" parent="VBoxContainer/AmmoHBox"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+value = 75.0
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_t6o7e")
+texture_progress = SubResource("CanvasTexture_2mvko")
+
+[node name="AmmoLabel" type="Label" parent="VBoxContainer/AmmoHBox/AmmoBar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -28.0
+offset_right = 42.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="GrenadeHBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/GrenadeHBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_bar8e")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/GrenadeHBox"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_bar8e")
+
+[node name="GrenadeLabel" type="Label" parent="VBoxContainer/GrenadeHBox/TextureRect2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -28.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Abilities" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 1
+
+[node name="DashBar" type="TextureProgressBar" parent="VBoxContainer/Abilities"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+value = 75.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = SubResource("CanvasTexture_f8ajp")
+
+[node name="StunBar" type="TextureProgressBar" parent="VBoxContainer/Abilities"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+value = 75.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = SubResource("CanvasTexture_f8ajp")
+
+[node name="ArmorBar" type="TextureProgressBar" parent="VBoxContainer/Abilities"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+value = 75.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = SubResource("CanvasTexture_f8ajp")

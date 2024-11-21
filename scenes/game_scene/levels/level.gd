@@ -7,10 +7,11 @@ extends Node2D
 @export var player: Player
 @export var main_camera: PhantomCamera2D
 @export var aim: Aim
+@export var player_interface: PlayerInterface
 
 
 func _ready() -> void:
-	assert(enemies and biomats and player and main_camera and aim)
+	assert(enemies and biomats and player and main_camera and aim and player_interface)
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	
 	for enemy in enemies.get_array():
