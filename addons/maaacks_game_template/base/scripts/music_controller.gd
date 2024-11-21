@@ -13,6 +13,7 @@ const MINIMUM_VOLUME_DB = -80
 
 @export var emitter: FmodEventEmitter2D
 @export var is_music_controller_on := true
+var is_fmod_music_playing := false
 
 ## Detect stream players with matching audio bus.
 @export var audio_bus : StringName = &"Music"
@@ -188,7 +189,7 @@ func _exit_tree():
 		tree_node.node_added.disconnect(_on_added_music_player)
 
 
-func play_fmod(mode: String):
+func play_music(mode: String):
 	if is_music_controller_on:
 		var modes := {
 			"main_menu": {
@@ -212,4 +213,6 @@ func play_fmod(mode: String):
 		
 		emitter["event_parameter/In Game/value"] = modes[mode]["in_game"]
 		emitter["event_parameter/Intensity/value"] = modes[mode]["intensity"]
-		emitter.play()
+		if not is_fmod_music_playing:
+			emitter.play()
+			is_fmod_music_playing = true

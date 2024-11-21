@@ -5,7 +5,7 @@ var animation_state_machine : AnimationNodeStateMachinePlayback
 
 func play_game():
 	GameLog.game_started()
-	ProjectMusicController.play_fmod("simulation")
+	ProjectMusicController.play_music("simulation")
 	super.play_game()
 
 func intro_done():
@@ -41,7 +41,7 @@ func _ready():
 	super._ready()
 	animation_state_machine = $MenuAnimationTree.get("parameters/playback")
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	ProjectMusicController.play_fmod("main_menu")
+	ProjectMusicController.play_music("main_menu")
 
 
 func _on_play_button_mouse_entered() -> void:
