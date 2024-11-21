@@ -34,6 +34,8 @@ var current_grenade_damage: int
 func _ready() -> void:
 	current_hp = max_hp
 	current_speed = speed
+	current_blaster_damage = blaster_damage
+	current_grenade_damage = grenade_damage
 	dash_reload_time = 0.0
 	root_reload_time = 0.0
 	max_armor = 0.0
