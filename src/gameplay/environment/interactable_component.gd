@@ -32,6 +32,7 @@ func _ready() -> void:
 					_player = null
 					label.hide()
 	)
+	Global.input_mode_changed.connect(_on_input_mode_changed)
 
 
 func _physics_process(delta: float) -> void:
@@ -70,13 +71,17 @@ func _on_interacted():
 		label.modulate.a = 0.0
 
 
-func _get_interact_action() -> String:
+func _on_input_mode_changed(input_mode: Global.InputModes):
 	var event: InputEvent
 	var events := InputMap.action_get_events("interact")
 	for e in events:
-		if e is InputEventKey: # TODO: add detecting joypad
+		if (
+				input_mode == Global.InputModes.KEYBOARD and (e is InputEventKey or e is InputEventMouse)
+				or input_mode == Global.InputModes.JOYPAD and (e is InputEventJoypadButton or e is InputEventJoypadMotion)
+		):
 			event = e
-	return InputEventHelper.get_text(event) if event != null else ""
+			break
+	label.text = InputEventHelper.get_text(event) if event != null else ""
 
 
 func _toggle_collision(enable: bool):

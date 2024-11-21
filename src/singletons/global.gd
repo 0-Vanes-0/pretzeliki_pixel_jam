@@ -2,20 +2,26 @@
 ## like pausing game, switching scenes, getting player data etc.
 extends Node
 
-var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
-var DEFAULT_DATA := {
-	
-}
+signal input_mode_changed(input_mode: InputModes)
 
-var settings := {
-	
+enum InputModes {
+	KEYBOARD, JOYPAD
 }
-var player_data := {
-	
-}
+var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
+var input_mode: InputModes = InputModes.KEYBOARD
+
 
 func _ready() -> void:
 	setup()
+
+
+func _input(event: InputEvent) -> void:
+	if (event is InputEventKey or event is InputEventMouse) and input_mode != InputModes.KEYBOARD:
+		input_mode = InputModes.KEYBOARD
+		input_mode_changed.emit(input_mode)
+	elif (event is InputEventJoypadButton or event is InputEventJoypadMotion) and input_mode != InputModes.JOYPAD:
+		input_mode = InputModes.JOYPAD
+		input_mode_changed.emit(input_mode)
 
 
 func setup():
