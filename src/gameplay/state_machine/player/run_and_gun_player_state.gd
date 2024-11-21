@@ -17,7 +17,7 @@ func enter():
 	_shooter_timer = player.shoot_rate_time
 	_grenade_timer = GRENADE_RELOAD_TIME
 	_dash_reload_timer = player.stats.dash_reload_time
-	_root_reload_timer = player.stats.root_reload_time
+	_root_reload_timer = player.stats.stun_reload_time
 	#aim.activate() ??
 
 
@@ -48,25 +48,27 @@ func physics_update(delta: float):
 	else:
 		player.sprite.play(player.Animations.IDLE)
 	
-	if Input.is_action_pressed("shoot") and _shooter_timer >= player.shoot_rate_time:
+	if Input.is_action_pressed("shoot") and player.stats.current_ammo > 0 and _shooter_timer >= player.shoot_rate_time:
 		var start_position := player.position + player.get_weapon_gunpoint()
 		var direction := (player.current_look_direction - player.get_weapon_gunpoint()).normalized()
 		var blaster_pro := BlasterProjectile.create(player.stats.current_blaster_damage, start_position, direction, Color.CRIMSON)
 		player.add_sibling(blaster_pro)
 		_shooter_timer = 0.0
+		player.stats.adjust_ammo(-1)
 	
-	if Input.is_action_pressed("grenade") and _grenade_timer >= GRENADE_RELOAD_TIME:
+	if Input.is_action_pressed("grenade") and player.stats.current_grenades > 0 and _grenade_timer >= GRENADE_RELOAD_TIME:
 		var start_position := player.position + player.get_weapon_gunpoint()
 		var direction := (player.current_look_direction - player.get_weapon_gunpoint()).normalized()
 		var grenade := Grenade.create(player.stats.current_grenade_damage, start_position, direction)
 		player.add_sibling(grenade)
 		_grenade_timer = 0.0
+		player.stats.adjust_grenades(-1)
 	
 	if player.has_dash_ability() and Input.is_action_pressed("dash") and _dash_reload_timer >= player.stats.dash_reload_time:
 		_dash() # <-- Calling async function here
 		_dash_reload_timer = 0.0
 	
-	if player.has_root_ability() and Input.is_action_pressed("root_ability") and _root_reload_timer >= player.stats.root_reload_time:
+	if player.has_root_ability() and Input.is_action_pressed("root_ability") and _root_reload_timer >= player.stats.stun_reload_time:
 		var spawn_position := player.position + player.current_look_direction
 		var root_ability := StunAbility.create(spawn_position)
 		player.add_sibling(root_ability)

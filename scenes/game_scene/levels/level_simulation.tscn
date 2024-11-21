@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://c6hx3r4stq5lb"]
+[gd_scene load_steps=21 format=4 uid="uid://c6hx3r4stq5lb"]
 
 [ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_ybok1"]
 [ext_resource type="TileSet" uid="uid://4rvifgyhow4k" path="res://assets/images/test_tileset.tres" id="3_4mrnn"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://nbqn4t4regdg" path="res://src/gameplay/enemies/melee_enemy.tscn" id="8_047lg"]
 [ext_resource type="PackedScene" uid="uid://dnped1nlmo4k1" path="res://src/gameplay/enemies/tutorial_enemy.tscn" id="9_gxbh7"]
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="10_bjf8d"]
+[ext_resource type="PackedScene" uid="uid://d2u4fec425lvv" path="res://src/ui/player_interface.tscn" id="17_fw6yh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7wtxo"]
 vertices = PackedVector2Array(-70, -102, -122, -102, -122, -130, -70, -130, 480.391, -321.25, 414.609, 461.648, 414, 286, 414, -294, -477.563, -328.773, -414, -294, -515.492, 385.469, -414, 286, -2, -198, 346, -226, 346, -102, 98, -102, 30, -166, 98, -34, 30, -34, -2, -166, -218, 94, -218, 62, -162, 62, -218, -70, -218, -130, -190, -130, -190, -98, -162, -70, -158, -98, -158, 30, -90, 30, -90, -34, 346, -34, 346, 218, -346, 218, -286, 94, -346, -226, -286, -198)
@@ -40,7 +41,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim")]
+[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim", "player_interface")]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_ybok1")
@@ -49,6 +50,7 @@ biomats = NodePath("BioMats")
 player = NodePath("PlayerStuff/Player")
 main_camera = NodePath("PlayerStuff/MainCamera")
 aim = NodePath("CanvasLayer/Aim")
+player_interface = NodePath("CanvasLayer/PlayerInterface")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 y_sort_enabled = true
@@ -149,6 +151,7 @@ position = Vector2(2256, 48)
 script = ExtResource("6_dxiw1")
 priority = 1
 tween_resource = SubResource("Resource_l44ko")
+tween_on_load = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -165,3 +168,5 @@ offset_bottom = 23.0
 theme = ExtResource("10_bjf8d")
 theme_override_font_sizes/font_size = 32
 text = "100"
+
+[node name="PlayerInterface" parent="CanvasLayer" instance=ExtResource("17_fw6yh")]
