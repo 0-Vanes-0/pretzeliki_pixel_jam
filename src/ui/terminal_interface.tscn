@@ -18,13 +18,14 @@ region = Rect2(432, 240, 64, 16)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_bmbe6"]
 
-[node name="TerminalInterface" type="Control" node_paths=PackedStringArray("hp_bar", "hp_label", "grenade_label", "dash_label", "dash_mutate_button", "stun_label", "stun_mutate_button", "armor_label", "armor_mutate_button", "trade_button")]
+[node name="TerminalInterface" type="Control" node_paths=PackedStringArray("hp_bar", "hp_label", "grenade_label", "dash_label", "dash_mutate_button", "stun_label", "stun_mutate_button", "armor_label", "armor_mutate_button", "trade_button", "dash_biomat_label", "stun_biomat_label", "armor_biomat_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_ebn1j")
 script = ExtResource("1_skmob")
 hp_bar = NodePath("MarginContainer/MarginContainer/VBoxContainer/HpHBox/HpBar")
 hp_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/HpHBox/HpBar/HpLabel")
@@ -36,6 +37,9 @@ stun_mutate_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/Stu
 armor_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/ArmorHBox/TextureRect2/ArmorLabel")
 armor_mutate_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/ArmorHBox/ArmorMutateButton")
 trade_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/TradeTempBioMatButton")
+dash_biomat_label = NodePath("MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/DashBioMatLabel")
+stun_biomat_label = NodePath("MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2/StunBioMatLabel")
+armor_biomat_label = NodePath("MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer3/ArmorBioMatLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -50,7 +54,6 @@ offset_right = -32.0
 offset_bottom = 146.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_ebn1j")
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -145,7 +148,7 @@ texture = SubResource("CanvasTexture_8ms1l")
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/DashHBox"]
 self_modulate = Color(0.3065, 0.5, 0.285, 1)
-custom_minimum_size = Vector2(80, 32)
+custom_minimum_size = Vector2(96, 32)
 layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("CanvasTexture_8ms1l")
@@ -185,7 +188,7 @@ texture = SubResource("CanvasTexture_8ms1l")
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/StunHBox"]
 self_modulate = Color(0.3065, 0.5, 0.285, 1)
-custom_minimum_size = Vector2(80, 32)
+custom_minimum_size = Vector2(96, 32)
 layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("CanvasTexture_8ms1l")
@@ -224,7 +227,7 @@ texture = SubResource("CanvasTexture_8ms1l")
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/ArmorHBox"]
 self_modulate = Color(0.3065, 0.5, 0.285, 1)
-custom_minimum_size = Vector2(80, 32)
+custom_minimum_size = Vector2(96, 32)
 layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("CanvasTexture_8ms1l")
@@ -257,6 +260,70 @@ stretch_mode = 5
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 text = "Сдать излишки"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 32.0
+offset_right = 608.0
+offset_bottom = 168.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer2"]
+self_modulate = Color(0.66, 0.51546, 0.1782, 1)
+layout_mode = 2
+texture = SubResource("CanvasTexture_dkmgc")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_m8sl8")
+
+[node name="DashBioMatLabel" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_m8sl8")
+
+[node name="StunBioMatLabel" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "5"
+horizontal_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_m8sl8")
+
+[node name="ArmorBioMatLabel" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/DashHBox/DashMutateButton" to="." method="_on_dash_mutate_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/StunHBox/StunMutateButton" to="." method="_on_stun_mutate_button_pressed"]
