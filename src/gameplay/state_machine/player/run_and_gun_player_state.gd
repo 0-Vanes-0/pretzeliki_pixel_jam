@@ -9,7 +9,7 @@ const DASH_STRENGTH := 5
 var _shooter_timer := 0.0
 var _grenade_timer := 0.0
 var _dash_reload_timer := 0.0
-var _root_reload_timer := 0.0
+var _stun_reload_timer := 0.0
 
 
 func enter():
@@ -17,7 +17,7 @@ func enter():
 	_shooter_timer = player.shoot_rate_time
 	_grenade_timer = GRENADE_RELOAD_TIME
 	_dash_reload_timer = player.stats.dash_reload_time
-	_root_reload_timer = player.stats.stun_reload_time
+	_stun_reload_timer = player.stats.stun_reload_time
 	#aim.activate() ??
 
 
@@ -34,7 +34,7 @@ func physics_update(delta: float):
 	_shooter_timer += delta
 	_grenade_timer += delta
 	_dash_reload_timer += delta
-	_root_reload_timer += delta
+	_stun_reload_timer += delta
 	
 	var move_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if move_direction:
@@ -67,12 +67,14 @@ func physics_update(delta: float):
 	if player.has_dash_ability() and Input.is_action_pressed("dash") and _dash_reload_timer >= player.stats.dash_reload_time:
 		_dash() # <-- Calling async function here
 		_dash_reload_timer = 0.0
+		player.stats.did_dash.emit()
 	
-	if player.has_root_ability() and Input.is_action_pressed("root_ability") and _root_reload_timer >= player.stats.stun_reload_time:
+	if player.has_stun_ability() and Input.is_action_pressed("stun_ability") and _stun_reload_timer >= player.stats.stun_reload_time:
 		var spawn_position := player.position + player.current_look_direction
-		var root_ability := StunAbility.create(spawn_position)
-		player.add_sibling(root_ability)
-		_root_reload_timer = 0.0
+		var stun_ability := StunAbility.create(spawn_position)
+		player.add_sibling(stun_ability)
+		_stun_reload_timer = 0.0
+		player.stats.did_stun.emit()
 
 
 func exit():

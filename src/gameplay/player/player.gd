@@ -37,9 +37,8 @@ func toggle_collision(enable: bool):
 
 func take_damage(damage: int):
 	if stats.current_armor > 0:
-		stats.current_armor -= 1
 		stats.adjust_health(-1)
-		stats.adjust_ammo(-1)
+		stats.adjust_armor(-1)
 	else:
 		stats.adjust_health(- damage)
 	# TODO: add short invulnerable delay ~0.5 sec
@@ -49,5 +48,5 @@ func has_dash_ability() -> bool:
 	return stats.dash_reload_time > 0
 
 
-func has_root_ability() -> bool:
+func has_stun_ability() -> bool:
 	return stats.stun_reload_time > 0

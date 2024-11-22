@@ -9,6 +9,8 @@ signal grenades_changed(value: int, max_value: int)
 signal grenades_depleted
 signal armor_changed(value: int, max_value: int)
 signal armor_depleted
+signal did_dash
+signal did_stun
 
 @export var max_hp: int = 100
 @export var speed: float = 200.0
@@ -43,6 +45,10 @@ var current_grenade_damage: int
 
 
 func _ready() -> void:
+	dash_reload_time = 0.0
+	stun_reload_time = 0.0
+	max_armor = 0.0
+	
 	current_armor = max_armor
 	current_hp = max_hp
 	current_speed = speed
@@ -50,9 +56,6 @@ func _ready() -> void:
 	current_grenades = max_grenades
 	current_blaster_damage = blaster_damage
 	current_grenade_damage = grenade_damage
-	dash_reload_time = 0.0
-	stun_reload_time = 0.0
-	max_armor = 0.0
 	_update_player_stats()
 
 

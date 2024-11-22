@@ -1,8 +1,8 @@
 class_name StunAbility
 extends Area2D
 
-const ROOT_DURATION := 2.0
-const IN_ROOT_SPEED := 0.0
+const STUN_DURATION := 2.0
+const IN_STUN_SPEED := 0.0
 
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
@@ -12,10 +12,10 @@ var _affected_enemies: Array[Enemy] = []
 
 
 static func create(spawn_position: Vector2) -> StunAbility:
-	var root_ability := Preloader.root_ability.instantiate() as StunAbility
-	assert(root_ability)
-	root_ability.spawn_position = spawn_position
-	return root_ability
+	var stun_ability := Preloader.stun_ability.instantiate() as StunAbility
+	assert(stun_ability)
+	stun_ability.spawn_position = spawn_position
+	return stun_ability
 
 
 func _ready() -> void:
@@ -30,9 +30,9 @@ func _ready() -> void:
 	await Global.create_timer(0.1)
 	
 	for enemy in _affected_enemies:
-		enemy.current_speed = IN_ROOT_SPEED
+		enemy.current_speed = IN_STUN_SPEED
 	
-	await Global.create_timer(ROOT_DURATION)
+	await Global.create_timer(STUN_DURATION)
 	
 	for enemy in _affected_enemies:
 		enemy.current_speed = enemy.speed

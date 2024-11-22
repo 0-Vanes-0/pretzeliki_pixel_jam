@@ -24,35 +24,25 @@ func _ready() -> void:
 	
 	ammo_bar.min_value = 0
 	set_ammo(_player.stats.max_ammo, _player.stats.max_ammo)
-	set_grenades(_player.stats.max_grenades)
+	set_grenades(_player.stats.max_grenades, _player.stats.max_grenades)
 	
 	dash_bar.min_value = 0
-	dash_bar.max_value = _player.stats.dash_reload_time
+	dash_bar.max_value = 100
 	dash_bar.value = dash_bar.max_value
 	
 	stun_bar.min_value = 0
-	stun_bar.max_value = _player.stats.stun_reload_time
+	stun_bar.max_value = 100
 	stun_bar.value = stun_bar.max_value
 	
 	armor_bar.min_value = 0
 	set_armor(_player.stats.max_armor, _player.stats.max_armor)
 	
-	_player.stats.health_changed.connect(
-			func(value: int, max_value: int):
-				set_hp(value, max_value)
-	)
-	_player.stats.ammo_changed.connect(
-			func(value: int, max_value: int):
-				set_ammo(value, max_value)
-	)
-	_player.stats.grenades_changed.connect(
-			func(value: int, max_value: int):
-				set_grenades(value)
-	)
-	_player.stats.armor_changed.connect(
-			func(value: int, max_value: int):
-				set_armor(value, max_value)
-	)
+	_player.stats.health_changed.connect(set_hp)
+	_player.stats.ammo_changed.connect(set_ammo)
+	_player.stats.grenades_changed.connect(set_grenades)
+	_player.stats.armor_changed.connect(set_armor)
+	_player.stats.did_dash.connect(reload_dash)
+	_player.stats.did_stun.connect(reload_stun)
 
 
 func set_hp(value: int, max_value: int = 0):
@@ -69,7 +59,7 @@ func set_ammo(value: int, max_value: int = 0):
 	ammo_label.text = str(ammo_bar.value) + "/" + str(ammo_bar.max_value)
 
 
-func set_grenades(value: int):
+func set_grenades(value: int, max_value: int):
 	grenade_label.text = str(value)
 
 
@@ -77,3 +67,37 @@ func set_armor(value: int, max_value: int = 0):
 	if max_value > 0:
 		armor_bar.max_value = max_value
 	armor_bar.value = value
+
+
+func reload_dash():
+	if _player.has_dash_ability():
+		dash_bar.value = dash_bar.min_value
+		#dash_bar.modulate.a = 0.5 # ?????
+		var tween := get_tree().create_tween()
+		tween.tween_property(
+				dash_bar, "value",
+				dash_bar.max_value,
+				_player.stats.dash_reload_time
+		)
+		tween.tween_callback(
+				func():
+					pass
+					#dash_bar.modulate.a = 1.0 # ?????
+		)
+
+
+func reload_stun():
+	if _player.has_stun_ability():
+		stun_bar.value = stun_bar.min_value
+		#stun_bar.modulate.a = 0.5 # ?????
+		var tween := get_tree().create_tween()
+		tween.tween_property(
+			stun_bar, "value",
+			stun_bar.max_value,
+			_player.stats.stun_reload_time
+		)
+		tween.tween_callback(
+			func():
+				pass
+				#stun_bar.modulate.a = 1.0 # ?????
+		)

@@ -7,10 +7,10 @@ extends Node
 @export var blaster_projectile: PackedScene
 @export var biomat: PackedScene
 @export var grenade: PackedScene
-@export var root_ability: PackedScene
+@export var stun_ability: PackedScene
 
 @export_group("UIs")
 
 
 func _ready() -> void:
-	assert(blaster_projectile and biomat and grenade and root_ability)
+	assert(blaster_projectile and biomat and grenade and stun_ability)
