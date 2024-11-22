@@ -1,6 +1,9 @@
 class_name Grenade
 extends Area2D
 
+const GRENADE_LAUNCH_SOUND := "{4498b93e-8ec4-489c-ad11-3d8f8d3c14c4}"
+const GRENADE_EXPLOSION_SOUND := "{8f2d0efe-5627-40b7-bd2f-1ae8a9fb65c4}"
+
 const MAX_DISTANCE := 256
 const BLOW_UP_EXIST_TIME := 0.4
 const SPEED := 750
@@ -32,6 +35,8 @@ func _ready() -> void:
 	sprite.play("fly")
 	sprite.rotate(direction.angle())
 	
+	Global.play_sound(GRENADE_LAUNCH_SOUND)
+	
 	contact_area.body_entered.connect(
 			func(body: Node2D):
 				# Don't care what body it is
@@ -54,6 +59,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _blow_up():
+	Global.play_sound(GRENADE_EXPLOSION_SOUND)
+	
 	direction = Vector2.ZERO
 	_turn_off_contact_collision()
 	sprite.rotation = 0
