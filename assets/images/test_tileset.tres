@@ -1,7 +1,6 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://4rvifgyhow4k"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://4rvifgyhow4k"]
 
 [ext_resource type="Texture2D" uid="uid://dxd571vg2y004" path="res://assets/images/tileset x1.png" id="1_3eqs4"]
-[ext_resource type="PackedScene" uid="uid://k562cctt2t6t" path="res://src/gameplay/progression/terminal.tscn" id="2_cnvuo"]
 [ext_resource type="PackedScene" uid="uid://by0f0n3rofd1p" path="res://src/gameplay/environment/door_horizontal.tscn" id="3_0gx7u"]
 [ext_resource type="PackedScene" uid="uid://df4lgawc8vbc3" path="res://src/gameplay/environment/door_vertical.tscn" id="4_v1k4j"]
 
@@ -89,7 +88,6 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_bf5hu"]
 resource_name = "interactables"
-scenes/1/scene = ExtResource("2_cnvuo")
 scenes/2/scene = ExtResource("3_0gx7u")
 scenes/3/scene = ExtResource("4_v1k4j")
 

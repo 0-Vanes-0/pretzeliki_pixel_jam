@@ -54,16 +54,20 @@ func _on_trade_temp_bio_mat_button_pressed() -> void:
 			hp_heal += BioMatResource.BUFF_TRADE_VALUES.get(buff_type).get("hp")
 			speed_restore_percent += BioMatResource.BUFF_TRADE_VALUES.get(buff_type).get("speed_percent")
 			grenades_restore += BioMatResource.BUFF_TRADE_VALUES.get(buff_type).get("grenades")
+		array.clear()
 	
 	_player.stats.adjust_health( int(hp_heal) )
 	_player.stats.adjust_speed(speed_restore_percent)
 	_player.stats.adjust_grenades( int(grenades_restore) )
+
+	trade_button.disabled = true
 
 
 func appear():
 	dash_mutate_button.disabled = not _can_mutate_dash()
 	stun_mutate_button.disabled = not _can_mutate_stun()
 	armor_mutate_button.disabled = not _can_mutate_armor()
+	trade_button.disabled = not _has_temp_biomats()
 	
 	self.position = Vector2.DOWN * Global.SCREEN_HEIGHT
 	self.show()
@@ -95,3 +99,10 @@ func _can_mutate_stun() -> bool:
 
 func _can_mutate_armor() -> bool:
 	return _player.stats.biomats_perm.get(BioMatResource.BuffTypes.DASH).size() / BioMatResource.BUFFS_CHUNKS.get(BioMatResource.BuffTypes.DASH) < _armor_upgrade_counter
+
+
+func _has_temp_biomats() -> bool:
+	var counter := 0
+	for array: Array in _player.stats.biomats_temp.values():
+		counter += array.size()
+	return counter > 0

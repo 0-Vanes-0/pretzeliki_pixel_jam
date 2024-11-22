@@ -167,6 +167,7 @@ collision_mask = 11
 motion_mode = 1
 wall_min_slide_angle = 0.698132
 script = ExtResource("1_74jxt")
+max_hp = 15
 biomat_resource = SubResource("Resource_6dyt0")
 sprite_offsets = {
 "die": Vector2(7, -48),
