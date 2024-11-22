@@ -14,4 +14,4 @@ grenade = ExtResource("4_n8rrt")
 stun_ability = ExtResource("5_2jhmj")
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
-bank_paths = ["res://assets/audio/banks/Desktop/Master.bank", "res://assets/audio/banks/Desktop/Ambience.bank", "res://assets/audio/banks/Desktop/Music Controller.bank", "res://assets/audio/banks/Desktop/UI.bank"]
+bank_paths = ["res://assets/audio/banks/Desktop/Master.strings.bank", "res://assets/audio/banks/Desktop/Master.bank", "res://assets/audio/banks/Desktop/Ambience.bank", "res://assets/audio/banks/Desktop/Music Controller.bank", "res://assets/audio/banks/Desktop/Player.bank", "res://assets/audio/banks/Desktop/UI.bank"]

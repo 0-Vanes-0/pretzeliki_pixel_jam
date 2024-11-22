@@ -36,6 +36,13 @@ func create_timer(time: float):
 	await get_tree().create_timer(time, false, true).timeout
 
 
+func play_sound(guid: String):
+	var event_emitter := FmodEventEmitter2D.new()
+	event_emitter.event_guid = guid
+	event_emitter.autoplay = true
+	event_emitter.stopped.connect(event_emitter.queue_free)
+	add_child(event_emitter)
+
 # NOD
 func _gcd(a: int, b: int) -> int:
 	while a > 0 and b > 0:

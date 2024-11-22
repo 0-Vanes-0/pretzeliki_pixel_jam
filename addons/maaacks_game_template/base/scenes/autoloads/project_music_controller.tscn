@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" path="res://addons/maaacks_game_template/base/scripts/music_controller.gd" id="1_wbudo"]
 
-[node name="ProjectMusicController" type="Node" node_paths=PackedStringArray("emitter")]
+[node name="ProjectMusicController" type="Node" node_paths=PackedStringArray("music_emitter", "ambience_emitter")]
 process_mode = 3
 script = ExtResource("1_wbudo")
-emitter = NodePath("MusicController")
+music_emitter = NodePath("MusicEmitter")
+ambience_emitter = NodePath("AmbienceEmitter")
 
-[node name="MusicController" type="FmodEventEmitter2D" parent="."]
+[node name="MusicEmitter" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/Music/Game/Music Controller"
 event_guid = "{6313abb6-9bbe-4a7a-9840-9a8d1539fd77}"
 "event_parameter/In Game/id" = -1186660596182811999
@@ -22,3 +23,7 @@ event_parameter/Intensity/min_value = 0.0
 event_parameter/Intensity/max_value = 1.0
 event_parameter/Intensity/default_value = 0.0
 event_parameter/Intensity/variant_type = 3
+
+[node name="AmbienceEmitter" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/Ambience/2D/Ambience"
+event_guid = "{bb91dde3-9a28-4aa0-98b9-0e7a77dfeb4c}"

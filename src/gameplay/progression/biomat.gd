@@ -1,6 +1,8 @@
 class_name BioMat
 extends Node2D
 
+const BIOMAT_SOUND := "{bfa1e85a-1273-4e1f-a7ad-27ab9c65d587}"
+
 @export var resource: BioMatResource
 @export_group("Required Children")
 @export var interactable: InteractableComponent
@@ -19,6 +21,7 @@ func _ready() -> void:
 	sprite.modulate = resource.color
 	interactable.interacted.connect(
 			func(player: Player):
+				Global.play_sound(BIOMAT_SOUND)
 				player.stats.add_biomat(resource)
 				self.queue_free()
 	, CONNECT_ONE_SHOT)

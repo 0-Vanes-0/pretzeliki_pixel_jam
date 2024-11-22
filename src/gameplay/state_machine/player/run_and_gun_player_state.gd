@@ -1,6 +1,9 @@
 class_name RunAndGunPlayerState
 extends PlayerState
 
+const GUNSHOT_SOUND := "{20de73e4-98d8-4a26-9a37-f3490550498d}"
+const DASH_SOUND := "{5ac49b05-6976-4ec8-9418-7e759066d149}"
+
 const GRENADE_RELOAD_TIME := 2.0
 
 const DASH_DURATION := 0.1
@@ -53,6 +56,7 @@ func physics_update(delta: float):
 		var direction := (player.current_look_direction - player.get_weapon_gunpoint()).normalized()
 		var blaster_pro := BlasterProjectile.create(player.stats.current_blaster_damage, start_position, direction, Color.CRIMSON)
 		player.add_sibling(blaster_pro)
+		Global.play_sound(GUNSHOT_SOUND)
 		_shooter_timer = 0.0
 		player.stats.adjust_ammo(-1)
 	
@@ -66,6 +70,7 @@ func physics_update(delta: float):
 	
 	if player.has_dash_ability() and Input.is_action_pressed("dash") and _dash_reload_timer >= player.stats.dash_reload_time:
 		_dash() # <-- Calling async function here
+		Global.play_sound(DASH_SOUND)
 		_dash_reload_timer = 0.0
 		player.stats.did_dash.emit()
 	

@@ -1,6 +1,8 @@
 class_name BlasterProjectile
 extends Area2D
 
+const BLASTER_IMPACT_SOUND := "{3fd3a43b-5633-475f-afe2-d739591b11d0}"
+
 @export var speed: float = 1000
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
@@ -24,6 +26,7 @@ func _ready() -> void:
 	self.body_entered.connect(
 			func(body: Node2D):
 				if body is Enemy:
+					Global.play_sound(BLASTER_IMPACT_SOUND)
 					body.take_damage(damage)
 					self.queue_free()
 				elif body is TileMapLayer or body is StaticBody2D:

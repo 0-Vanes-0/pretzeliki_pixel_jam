@@ -11,7 +11,8 @@ const BLEND_BUS_PREFIX : String = "Blend"
 const MAX_DEPTH = 16
 const MINIMUM_VOLUME_DB = -80
 
-@export var emitter: FmodEventEmitter2D
+@export var music_emitter: FmodEventEmitter2D
+@export var ambience_emitter: FmodEventEmitter2D
 @export var is_music_controller_on := true
 var is_fmod_music_playing := false
 
@@ -172,7 +173,7 @@ func _on_added_music_player( node: Node ) -> void:
 	play_stream_player(node)
 
 func _enter_tree() -> void:
-	assert(emitter)
+	assert(music_emitter and ambience_emitter)
 	
 	AudioServer.add_bus()
 	blend_audio_bus_idx = AudioServer.bus_count - 1
@@ -191,28 +192,36 @@ func _exit_tree():
 
 func play_music(mode: String):
 	if is_music_controller_on:
-		var modes := {
-			"main_menu": {
-				"in_game": 0,
-				"intensity": 0,
-			},
-			"simulation": {
-				"in_game": 1,
-				"intensity": 0,
-			},
-			"battle": {
-				"in_game": 2,
-				"intensity": 0,
-			},
-			"battle_horde": {
-				"in_game": 2,
-				"intensity": 1,
-			},
-		}
-		assert(mode in modes.keys())
+		if mode == "ambience":
+			ambience_emitter.play()
 		
-		emitter["event_parameter/In Game/value"] = modes[mode]["in_game"]
-		emitter["event_parameter/Intensity/value"] = modes[mode]["intensity"]
-		if not is_fmod_music_playing:
-			emitter.play()
-			is_fmod_music_playing = true
+		else:
+			var modes := {
+				"main_menu": {
+					"in_game": 0,
+					"intensity": 0,
+				},
+				"simulation": {
+					"in_game": 1,
+					"intensity": 0,
+				},
+				"battle": {
+					"in_game": 2,
+					"intensity": 0,
+				},
+				"battle_horde": {
+					"in_game": 2,
+					"intensity": 1,
+				},
+			}
+			assert(mode in modes.keys())
+			
+			music_emitter["event_parameter/In Game/value"] = modes[mode]["in_game"]
+			music_emitter["event_parameter/Intensity/value"] = modes[mode]["intensity"]
+			
+			if mode == "main_menu":
+				ambience_emitter.stop()
+			
+			if not is_fmod_music_playing:
+				music_emitter.play()
+				is_fmod_music_playing = true
