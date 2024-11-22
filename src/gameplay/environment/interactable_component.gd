@@ -4,8 +4,10 @@ extends Area2D
 signal interacted(player: Player)
 
 const HOLD_TIME := 2.0 # seconds
-var _timer := 0.0
+const INTERACT_DELAY := 2.0 # seconds
+var _hold_timer := 0.0
 var _holding := false
+var _interacted_timer: float
 var _player: Player
 @export var is_held := false
 @export var is_one_interaction := true
@@ -17,6 +19,7 @@ var _player: Player
 
 func _ready() -> void:
 	assert(coll_shape and label and bar)
+	_interacted_timer = INTERACT_DELAY
 	label.hide()
 	bar.hide()
 	
@@ -36,10 +39,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if _player:
+		_interacted_timer += delta
+	
 	if _player and is_held and _holding:
-		_timer += delta
-		bar.value = bar.max_value * (_timer / HOLD_TIME)
-		if _timer >= HOLD_TIME:
+		_hold_timer += delta
+		bar.value = bar.max_value * (_hold_timer / HOLD_TIME)
+		if _hold_timer >= HOLD_TIME:
 			_holding = false
 			bar.value = bar.min_value
 			label.show()
@@ -51,7 +57,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("interact"):
 			if is_held:
 				_holding = true
-				_timer = 0.0
+				_hold_timer = 0.0
 				label.hide()
 				bar.show()
 			else:
@@ -64,11 +70,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_interacted():
-	interacted.emit(_player)
-	if is_one_interaction:
-		_toggle_collision(false)
-		bar.modulate.a = 0.0
-		label.modulate.a = 0.0
+	if _interacted_timer >= INTERACT_DELAY:
+		interacted.emit(_player)
+		_interacted_timer = 0.0
+		if is_one_interaction:
+			_toggle_collision(false)
+			bar.modulate.a = 0.0
+			label.modulate.a = 0.0
 
 
 func _on_input_mode_changed(input_mode: Global.InputModes):

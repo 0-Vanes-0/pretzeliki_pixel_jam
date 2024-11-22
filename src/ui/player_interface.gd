@@ -43,6 +43,8 @@ func _ready() -> void:
 	_player.stats.armor_changed.connect(set_armor)
 	_player.stats.did_dash.connect(reload_dash)
 	_player.stats.did_stun.connect(reload_stun)
+	
+	self.show()
 
 
 func set_hp(value: int, max_value: int = 0):

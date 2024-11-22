@@ -21,13 +21,13 @@ signal did_stun
 @export var biomats_temp := { # BioMatResource.BuffTypes: Array[BioMatResource]
 	BioMatResource.BuffTypes.TUTORIAL: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
 	BioMatResource.BuffTypes.DASH: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
-	BioMatResource.BuffTypes.ROOT: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
+	BioMatResource.BuffTypes.STUN: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
 	BioMatResource.BuffTypes.ARMOR: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
 }
 @export var biomats_perm := { # BioMatResource.BuffTypes: Array[BioMatResource]
 	BioMatResource.BuffTypes.TUTORIAL: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
 	BioMatResource.BuffTypes.DASH: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
-	BioMatResource.BuffTypes.ROOT: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
+	BioMatResource.BuffTypes.STUN: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
 	BioMatResource.BuffTypes.ARMOR: Array([], TYPE_OBJECT, &"RefCounted", BioMatResource),
 }
 
@@ -56,25 +56,29 @@ func _ready() -> void:
 	current_grenades = max_grenades
 	current_blaster_damage = blaster_damage
 	current_grenade_damage = grenade_damage
-	_update_player_stats()
+	update_player_stats()
 
 
 func add_biomat(biomat_resource: BioMatResource):
 	var array: Array = biomats_temp[biomat_resource.buff_type]
 	array.append(biomat_resource)
-	_update_player_stats()
+	update_player_stats()
 
 
 func adjust_health(value: int, is_from_biomat := false):
 	var min_value: int = 0
 	if is_from_biomat:
-		min_value = 5
+		min_value = 10
 	
 	current_hp = clampi(current_hp + value, min_value, max_hp)
 	health_changed.emit(current_hp, max_hp)
 	
 	if current_hp == 0:
 		health_depleted.emit()
+
+
+func adjust_speed(value: int):
+	current_speed = clampf(current_speed + (speed * value / 100), 50.0, 500.0)
 
 
 func adjust_ammo(value: int):
@@ -98,7 +102,7 @@ func adjust_armor(value: int):
 		armor_depleted.emit()
 
 
-func _update_player_stats(is_on_terminal := false):
+func update_player_stats():
 	for buff_type in biomats_temp.keys():
 		var chunk: int = BioMatResource.BUFFS_CHUNKS.get(buff_type)
 		var temp_array: Array = biomats_temp.get(buff_type)
@@ -110,21 +114,25 @@ func _update_player_stats(is_on_terminal := false):
 		for biomat in temp_array:
 			current_hp += biomat.hp_buff
 			current_speed += speed * biomat.speed_buff_percent / 100
-	
-	if is_on_terminal:
-		var default_dash_reload_time: float = BioMatResource.BUFFS_DEFAULT_VALUES[BioMatResource.BuffTypes.DASH]
-		dash_reload_time = default_dash_reload_time
-		for biomat: BioMatResource in biomats_perm[BioMatResource.BuffTypes.DASH]:
-			dash_reload_time += biomat.buff_value
-		
-		var default_stun_reload_time: float = BioMatResource.BUFFS_DEFAULT_VALUES[BioMatResource.BuffTypes.ROOT]
-		stun_reload_time = default_stun_reload_time
-		for biomat: BioMatResource in biomats_perm[BioMatResource.BuffTypes.ROOT]:
-			stun_reload_time += biomat.buff_value
-		
-		var default_armor := BioMatResource.BUFFS_DEFAULT_VALUES[BioMatResource.BuffTypes.ARMOR]
-		max_armor = default_armor
-		for biomat: BioMatResource in biomats_perm[BioMatResource.BuffTypes.ROOT]:
-			max_armor += biomat.buff_value
-		
-		current_armor = int(max_armor)
+
+
+func update_dash_stats():
+	var default_dash_reload_time: float = BioMatResource.BUFFS_DEFAULT_VALUES[BioMatResource.BuffTypes.DASH]
+	dash_reload_time = default_dash_reload_time
+	for biomat: BioMatResource in biomats_perm[BioMatResource.BuffTypes.DASH]:
+		dash_reload_time += biomat.buff_value
+
+
+func update_stun_stats():
+	var default_stun_reload_time: float = BioMatResource.BUFFS_DEFAULT_VALUES[BioMatResource.BuffTypes.STUN]
+	stun_reload_time = default_stun_reload_time
+	for biomat: BioMatResource in biomats_perm[BioMatResource.BuffTypes.STUN]:
+		stun_reload_time += biomat.buff_value
+
+
+func update_armor_stats():
+	var default_armor := BioMatResource.BUFFS_DEFAULT_VALUES[BioMatResource.BuffTypes.ARMOR]
+	max_armor = default_armor
+	for biomat: BioMatResource in biomats_perm[BioMatResource.BuffTypes.STUN]:
+		max_armor += biomat.buff_value
+	current_armor = int(max_armor)

@@ -1,6 +1,9 @@
 class_name Player
 extends CharacterBody2D
 
+signal entered_terminal
+signal exited_terminal
+
 const Animations := {
 	IDLE = "idle",
 	RUN = "run",

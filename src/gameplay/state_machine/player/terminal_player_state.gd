@@ -3,6 +3,7 @@ extends PlayerState
 
 
 func enter():
+	player.entered_terminal.emit()
 	player.toggle_collision(true)
 	player.velocity = Vector2.ZERO
 	player.sprite.play(player.Animations.IDLE)
@@ -20,4 +21,4 @@ func physics_update(delta: float):
 
 
 func exit():
-	pass
+	player.exited_terminal.emit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://c6hx3r4stq5lb"]
+[gd_scene load_steps=22 format=4 uid="uid://c6hx3r4stq5lb"]
 
 [ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_ybok1"]
 [ext_resource type="TileSet" uid="uid://4rvifgyhow4k" path="res://assets/images/test_tileset.tres" id="3_4mrnn"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dnped1nlmo4k1" path="res://src/gameplay/enemies/tutorial_enemy.tscn" id="9_gxbh7"]
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="10_bjf8d"]
 [ext_resource type="PackedScene" uid="uid://d2u4fec425lvv" path="res://src/ui/player_interface.tscn" id="17_fw6yh"]
+[ext_resource type="PackedScene" uid="uid://cgf7coyunqw70" path="res://src/ui/terminal_interface.tscn" id="18_rwiwy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7wtxo"]
 vertices = PackedVector2Array(-70, -102, -122, -102, -122, -130, -70, -130, 480.391, -321.25, 414.609, 461.648, 414, 286, 414, -294, -477.563, -328.773, -414, -294, -515.492, 385.469, -414, 286, -2, -198, 346, -226, 346, -102, 98, -102, 30, -166, 98, -34, 30, -34, -2, -166, -218, 94, -218, 62, -162, 62, -218, -70, -218, -130, -190, -130, -190, -98, -162, -70, -158, -98, -158, 30, -90, 30, -90, -34, 346, -34, 346, 218, -346, 218, -286, 94, -346, -226, -286, -198)
@@ -41,7 +42,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim", "player_interface")]
+[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim", "player_interface", "terminal_interface")]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_ybok1")
@@ -51,6 +52,7 @@ player = NodePath("PlayerStuff/Player")
 main_camera = NodePath("PlayerStuff/MainCamera")
 aim = NodePath("CanvasLayer/Aim")
 player_interface = NodePath("CanvasLayer/PlayerInterface")
+terminal_interface = NodePath("CanvasLayer/TerminalInterface")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 y_sort_enabled = true
@@ -155,12 +157,6 @@ tween_on_load = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Aim" type="AnimatedSprite2D" parent="CanvasLayer" node_paths=PackedStringArray("_player")]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_qgw23")
-script = ExtResource("6_geyi0")
-_player = NodePath("../../PlayerStuff/Player")
-
 [node name="Label" type="Label" parent="CanvasLayer"]
 texture_filter = 1
 offset_right = 40.0
@@ -169,4 +165,13 @@ theme = ExtResource("10_bjf8d")
 theme_override_font_sizes/font_size = 32
 text = "100"
 
+[node name="TerminalInterface" parent="CanvasLayer" instance=ExtResource("18_rwiwy")]
+visible = false
+
+[node name="Aim" type="AnimatedSprite2D" parent="CanvasLayer"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_qgw23")
+script = ExtResource("6_geyi0")
+
 [node name="PlayerInterface" parent="CanvasLayer" instance=ExtResource("17_fw6yh")]
+visible = false

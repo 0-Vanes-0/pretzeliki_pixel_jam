@@ -1,0 +1,264 @@
+[gd_scene load_steps=10 format=3 uid="uid://cgf7coyunqw70"]
+
+[ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="1_ebn1j"]
+[ext_resource type="Script" path="res://src/ui/terminal_interface.gd" id="1_skmob"]
+[ext_resource type="Texture2D" uid="uid://5rltpvy6c5b" path="res://addons/maaacks_game_template/examples/assets/images/logo_vertical_color_dark.png" id="3_28dpd"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_dkmgc"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_m8sl8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdh3j"]
+atlas = ExtResource("3_28dpd")
+region = Rect2(432, 240, 64, 16)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_lf7pc"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8ms1l"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bmbe6"]
+
+[node name="TerminalInterface" type="Control" node_paths=PackedStringArray("hp_bar", "hp_label", "grenade_label", "dash_label", "dash_mutate_button", "stun_label", "stun_mutate_button", "armor_label", "armor_mutate_button", "trade_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_skmob")
+hp_bar = NodePath("MarginContainer/MarginContainer/VBoxContainer/HpHBox/HpBar")
+hp_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/HpHBox/HpBar/HpLabel")
+grenade_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/GrenadeHBox/TextureRect2/GrenadeLabel")
+dash_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/DashHBox/TextureRect2/DashLabel")
+dash_mutate_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/DashHBox/DashMutateButton")
+stun_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/StunHBox/TextureRect2/StunLabel")
+stun_mutate_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/StunHBox/StunMutateButton")
+armor_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/ArmorHBox/TextureRect2/ArmorLabel")
+armor_mutate_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/ArmorHBox/ArmorMutateButton")
+trade_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/TradeTempBioMatButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -148.0
+offset_right = -32.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ebn1j")
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+self_modulate = Color(0.66, 0.51546, 0.1782, 1)
+layout_mode = 2
+texture = SubResource("CanvasTexture_dkmgc")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HpHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/HpHBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_m8sl8")
+
+[node name="HpBar" type="TextureProgressBar" parent="MarginContainer/MarginContainer/VBoxContainer/HpHBox"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 75.0
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_mdh3j")
+texture_progress = SubResource("CanvasTexture_lf7pc")
+
+[node name="HpLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HpHBox/HpBar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -28.0
+offset_right = 42.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="GrenadeHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/GrenadeHBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_8ms1l")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/GrenadeHBox"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+texture = SubResource("CanvasTexture_8ms1l")
+
+[node name="GrenadeLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GrenadeHBox/TextureRect2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -28.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="DashHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/DashHBox"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = SubResource("CanvasTexture_8ms1l")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/DashHBox"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("CanvasTexture_8ms1l")
+
+[node name="DashLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/DashHBox/TextureRect2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -28.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "5 сек
+"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="DashMutateButton" type="TextureButton" parent="MarginContainer/MarginContainer/VBoxContainer/DashHBox"]
+self_modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = SubResource("CanvasTexture_bmbe6")
+stretch_mode = 5
+
+[node name="StunHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/StunHBox"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = SubResource("CanvasTexture_8ms1l")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/StunHBox"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("CanvasTexture_8ms1l")
+
+[node name="StunLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/StunHBox/TextureRect2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -28.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "30 сек"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="StunMutateButton" type="TextureButton" parent="MarginContainer/MarginContainer/VBoxContainer/StunHBox"]
+self_modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = SubResource("CanvasTexture_bmbe6")
+stretch_mode = 5
+
+[node name="ArmorHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/ArmorHBox"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = SubResource("CanvasTexture_8ms1l")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/ArmorHBox"]
+self_modulate = Color(0.3065, 0.5, 0.285, 1)
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("CanvasTexture_8ms1l")
+
+[node name="ArmorLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/ArmorHBox/TextureRect2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -28.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "1 шт"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ArmorMutateButton" type="TextureButton" parent="MarginContainer/MarginContainer/VBoxContainer/ArmorHBox"]
+self_modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = SubResource("CanvasTexture_bmbe6")
+stretch_mode = 5
+
+[node name="TradeTempBioMatButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "Сдать излишки"
+
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/DashHBox/DashMutateButton" to="." method="_on_dash_mutate_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/StunHBox/StunMutateButton" to="." method="_on_stun_mutate_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ArmorHBox/ArmorMutateButton" to="." method="_on_armor_mutate_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/TradeTempBioMatButton" to="." method="_on_trade_temp_bio_mat_button_pressed"]
