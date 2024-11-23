@@ -27,7 +27,7 @@ pause_menu_layer = NodePath("../PauseMenuLayer")
 [node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("level_container")]
 script = ExtResource("3_b8jlh")
 level_container = NodePath("../Anchor")
-files = Array[String](["res://scenes/game_scene/levels/level_simulation.tscn"])
+files = Array[String](["res://scenes/game_scene/levels/level_simulation.tscn", "res://scenes/game_scene/levels/level_ship.tscn"])
 directory = "res://scenes/game_scene/levels"
 
 [node name="BackgroundMusicPlayer" parent="." instance=ExtResource("4_elswi")]

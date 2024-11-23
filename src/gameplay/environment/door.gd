@@ -21,10 +21,10 @@ func _ready() -> void:
 func _on_door_interacted(_player: Player):
 	if coll_shape.disabled:
 		_toggle_collision(true)
-		sprite.play("closed")
+		sprite.play("closing")
 	else:
 		_toggle_collision(false)
-		sprite.play("opened")
+		sprite.play("opening")
 	
 	_nav_region.bake_navigation_polygon()
 

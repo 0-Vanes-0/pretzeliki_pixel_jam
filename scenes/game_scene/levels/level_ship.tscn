@@ -1,0 +1,136 @@
+[gd_scene load_steps=18 format=4 uid="uid://c3etrveicrpw5"]
+
+[ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_fde5d"]
+[ext_resource type="TileSet" uid="uid://3icu00jl7uwh" path="res://assets/images/tileset/ship_tileset.tres" id="2_vbnoj"]
+[ext_resource type="Texture2D" uid="uid://cduvp8mtghhbm" path="res://assets/images/background.png" id="2_wdlan"]
+[ext_resource type="Script" path="res://src/collections/enemy_collection_node.gd" id="3_43bao"]
+[ext_resource type="Script" path="res://src/collections/biomat_collection_node.gd" id="4_8u01k"]
+[ext_resource type="PackedScene" uid="uid://q2cjnyecsc6u" path="res://src/gameplay/player/player.tscn" id="5_1gtox"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_j8lnp"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_u4i1f"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_qtsxb"]
+[ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="9_jdngp"]
+[ext_resource type="PackedScene" uid="uid://cgf7coyunqw70" path="res://src/ui/terminal_interface.tscn" id="10_dar65"]
+[ext_resource type="Texture2D" uid="uid://82ouxpgsuqt6" path="res://assets/images/aim.png" id="11_crw7u"]
+[ext_resource type="Script" path="res://src/gameplay/player/aim.gd" id="12_qy0km"]
+[ext_resource type="PackedScene" uid="uid://d2u4fec425lvv" path="res://src/ui/player_interface.tscn" id="13_873ve"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_pguav"]
+vertices = PackedVector2Array(118, 118, -118, 118, -118, -118, 118, -118)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-128, -128, 128, -128, 128, 128, -128, 128)])
+agent_radius = 30.0
+
+[sub_resource type="Resource" id="Resource_a47at"]
+script = ExtResource("8_qtsxb")
+duration = 1.0
+transition = 4
+ease = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6bvlv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_crw7u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LevelShip" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim", "player_interface", "terminal_interface", "fade")]
+script = ExtResource("1_fde5d")
+enemies = NodePath("Enemies")
+biomats = NodePath("BioMats")
+player = NodePath("PlayerStuff/Player")
+main_camera = NodePath("PlayerStuff/MainCamera")
+aim = NodePath("CanvasLayer/Aim")
+player_interface = NodePath("CanvasLayer/PlayerInterface")
+terminal_interface = NodePath("CanvasLayer/TerminalInterface")
+fade = NodePath("CanvasLayer/Fade")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(720, 360)
+autoscroll = Vector2(1, 0)
+
+[node name="Stars" type="Sprite2D" parent="Parallax2D"]
+modulate = Color(1, 1, 1, 0.992157)
+texture = ExtResource("2_wdlan")
+centered = false
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+y_sort_enabled = true
+navigation_polygon = SubResource("NavigationPolygon_pguav")
+
+[node name="Environment" type="Node2D" parent="NavigationRegion2D"]
+y_sort_enabled = true
+
+[node name="Floor" type="TileMapLayer" parent="NavigationRegion2D/Environment"]
+tile_map_data = PackedByteArray("AAD8//7/AQAiABcAAAD8////AQAiABcAAAD8/wAAAQAiABcAAAD8/wEAAQAiABcAAAD8/wIAAQAiABcAAAD8/wMAAQAiABcAAAD8/wQAAQAiABcAAAD8/wUAAQAiABcAAAD9//7/AQAiABcAAAD9////AQAiABcAAAD9/wAAAQAiABcAAAD9/wEAAQAiABcAAAD9/wIAAQAiABcAAAD9/wMAAQAiABcAAAD9/wQAAQAiABcAAAD9/wUAAQAiABcAAAD+//7/AQAiABcAAAD+////AQAiABcAAAD+/wAAAQAiABcAAAD+/wEAAQAiABcAAAD+/wIAAQAiABcAAAD+/wMAAQAiABcAAAD+/wQAAQAiABcAAAD+/wUAAQAiABcAAAD///7/AQAiABcAAAD/////AQAiABcAAAD//wAAAQAjABcAAAD//wEAAQAjABcAAAD//wIAAQAjABcAAAD//wMAAQAjABcAAAD//wQAAQAjABcAAAD//wUAAQAjABcAAAAAAP7/AQAiABcAAAAAAP//AQAiABcAAAAAAAAAAQAjABcAAAAAAAEAAQAjABcAAAAAAAIAAQAjABcAAAAAAAMAAQAjABcAAAAAAAQAAQAjABcAAAAAAAUAAQAjABcAAAABAP7/AQAiABcAAAABAP//AQAiABcAAAABAAAAAQAiABcAAAABAAEAAQAiABcAAAABAAIAAQAiABcAAAABAAMAAQAiABcAAAABAAQAAQAiABcAAAABAAUAAQAiABcAAAACAP7/AQAiABcAAAACAP//AQAiABcAAAACAAAAAQAiABcAAAACAAEAAQAiABcAAAACAAIAAQAiABcAAAACAAMAAQAiABcAAAACAAQAAQAiABcAAAACAAUAAQAiABcAAAADAP7/AQAiABcAAAADAP//AQAiABcAAAADAAAAAQAiABcAAAADAAEAAQAiABcAAAADAAIAAQAiABcAAAADAAMAAQAiABcAAAADAAQAAQAiABcAAAADAAUAAQAiABcAAAAAAAYAAQAkABcAAAAAAAcAAQAkABcAAAABAAcAAQAkABcAAAACAAcAAQAkABcAAAADAAcAAQAkABcAAAAEAAcAAQAkABcAAAAFAAcAAQAkABcAAAD//wYAAQAiABcAAAD+/wYAAQAiABcAAAD9/wYAAQAiABcAAAD8/wYAAQAiABcAAAD7/wYAAQAiABcAAAD7/wcAAQAiABcAAAD8/wcAAQAiABcAAAD9/wcAAQAiABcAAAD+/wcAAQAiABcAAAD//wcAAQAiABcAAAD7/wgAAQAiABcAAAD8/wgAAQAiABcAAAD9/wgAAQAiABcAAAD+/wgAAQAiABcAAAD//wgAAQAiABcAAAAAAAgAAQAiABcAAAABAAgAAQAiABcAAAACAAgAAQAiABcAAAADAAgAAQAiABcAAAAEAAgAAQAiABcAAAAFAAgAAQAiABcAAAABAAYAAQAiABcAAAACAAYAAQAiABcAAAADAAYAAQAiABcAAAAEAAYAAQAiABcAAAAFAAYAAQAiABcAAAD6/wYAAQAiABcAAAD6/wcAAQAiABcAAAD6/wgAAQAiABcAAAAGAAcAAQAkABcAAAAHAAcAAQAkABcAAAAIAAcAAQAkABcAAAAGAAYAAQAiABcAAAAHAAYAAQAiABcAAAAIAAYAAQAiABcAAAAGAAgAAQAiABcAAAAHAAgAAQAiABcAAAAIAAgAAQAiABcAAAA=")
+tile_set = ExtResource("2_vbnoj")
+
+[node name="Walls" type="TileMapLayer" parent="NavigationRegion2D/Environment"]
+tile_map_data = PackedByteArray("AAAEAAIAAQAbAAMAAAAEAAMAAQAbAAMAAAAEAAEAAQAbAAMAAAAEAAAAAQAbAAMAAAAEAP//AQAbAAMAAAAEAP3/AQAbAAMAAAAEAP7/AQAbAAMAAAAEAPz/AQAdAAMAAAADAP3/AQABAAEAAAACAP3/AQABAAEAAAABAP3/AQABAAEAAAAAAP3/AQABAAEAAAD///3/AQABAAEAAAD+//3/AQABAAEAAAD9//3/AQABAAEAAAD8//3/AQABAAEAAAADAPz/AQAaAAEAAAACAPz/AQAaAAEAAAABAPz/AQAaAAEAAAD///z/AQAaAAEAAAD+//z/AQAaAAEAAAD9//z/AQAaAAEAAAAAAPz/AQAaAAEAAAD8//z/AQAaAAEAAAD7//z/AQAcAAMAAAD7//3/AQAaAAMAAAD7//7/AQAaAAMAAAD7////AQAaAAMAAAD7/wAAAQAaAAMAAAD7/wEAAQAaAAMAAAD7/wIAAQAaAAMAAAD7/wMAAQAaAAMAAAAAAAUAAgAAAAAAAQD5/wcAAQAaAAMAAAD5/wYAAQAaAAMAAAD+/wQAAQAaAAIAAAD9/wQAAQAaAAIAAAD8/wQAAQAgAAgAAAD8/wUAAQAGAAEAAAD9/wUAAQAGAAEAAAD+/wUAAQAGAAEAAAD//wUAAQAGAAEAAAD//wQAAQAaAAIAAAABAAQAAQAaAAIAAAACAAQAAQAaAAIAAAADAAQAAQAfAAgAAAABAAUAAQAYABMAAAACAAUAAQAGAAEAAAADAAUAAQAGAAEAAAD7/wUAAQAGAAEAAAD6/wUAAQAGAAEAAAD7/wQAAQAaAAIAAAD6/wQAAQAaAAIAAAAEAAQAAQAaAAIAAAAFAAQAAQAaAAIAAAAGAAQAAQAaAAIAAAAHAAQAAQAaAAIAAAAIAAQAAQAaAAIAAAAEAAUAAQAGAAEAAAAFAAUAAQAGAAEAAAAGAAUAAQAGAAEAAAAHAAUAAQAGAAEAAAAIAAUAAQAGAAEAAAD6//z/AQAbAAMAAAD6//3/AQAbAAMAAAD6//7/AQAbAAMAAAD6////AQAbAAMAAAD6/wAAAQAbAAMAAAD6/wEAAQAbAAMAAAD6/wIAAQAbAAMAAAD6/wMAAQAbAAMAAAD7//v/AQAaAAIAAAD8//v/AQAaAAIAAAD9//v/AQAaAAIAAAD+//v/AQAaAAIAAAD///v/AQAaAAIAAAAAAPv/AQAaAAIAAAABAPv/AQAaAAIAAAACAPv/AQAaAAIAAAADAPv/AQAaAAIAAAAFAP3/AQAaAAMAAAAFAPz/AQAaAAMAAAAEAPv/AQAaAAIAAAAFAP7/AQAaAAMAAAAFAP//AQAaAAMAAAAFAAAAAQAaAAMAAAAFAAEAAQAaAAMAAAAFAAIAAQAaAAMAAAAFAAMAAQAaAAMAAAD6/wgAAQAaAAIAAAD7/wgAAQAaAAIAAAD8/wgAAQAaAAIAAAD9/wgAAQAaAAIAAAD+/wgAAQAaAAIAAAD//wgAAQAaAAIAAAAAAAgAAQAaAAIAAAABAAgAAQAaAAIAAAACAAgAAQAaAAIAAAADAAgAAQAaAAIAAAAEAAgAAQAaAAIAAAAFAAgAAQAaAAIAAAAGAAgAAQAaAAIAAAAHAAgAAQAaAAIAAAAIAAgAAQAaAAIAAAD6/wkAAQAaAAEAAAD7/wkAAQAaAAEAAAD8/wkAAQAaAAEAAAD9/wkAAQAaAAEAAAD+/wkAAQAaAAEAAAD//wkAAQAaAAEAAAAAAAkAAQAaAAEAAAABAAkAAQAaAAEAAAACAAkAAQAaAAEAAAADAAkAAQAaAAEAAAAEAAkAAQAaAAEAAAAFAAkAAQAaAAEAAAAGAAkAAQAaAAEAAAAHAAkAAQAaAAEAAAAIAAkAAQAaAAEAAAD5/wkAAQAaAAEAAAD4/wgAAQAbAAMAAAD4/wcAAQAbAAMAAAD4/wYAAQAbAAMAAAD4/wUAAQAbAAMAAAD5/wQAAQAaAAIAAAD5/wgAAQAaAAMAAAA=")
+tile_set = ExtResource("2_vbnoj")
+
+[node name="Entities" type="TileMapLayer" parent="NavigationRegion2D/Environment"]
+tile_map_data = PackedByteArray("AAAAAP3/AQAeAAwAAAAAAP7/AQAeAA0AAAD///7/AQAdAA0AAAD9//3/AQAZAAwAAAD9//7/AQAZAA0AAAD+//3/AQAaAAwAAAD+//7/AQAaAA0AAAABAP3/AQAbAAwAAAABAP7/AQAbAA0AAAACAP3/AQAcAAwAAAACAP7/AQAcAA0AAAA=")
+tile_set = ExtResource("2_vbnoj")
+
+[node name="Terminals" type="Node2D" parent="NavigationRegion2D/Environment"]
+
+[node name="Enemies" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("3_43bao")
+
+[node name="BioMats" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("4_8u01k")
+
+[node name="PlayerStuff" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="PlayerStuff" instance=ExtResource("5_1gtox")]
+
+[node name="Camera2D" type="Camera2D" parent="PlayerStuff"]
+
+[node name="PhantomCameraHost" type="Node" parent="PlayerStuff/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("6_j8lnp")
+
+[node name="MainCamera" type="Node2D" parent="PlayerStuff"]
+script = ExtResource("7_u4i1f")
+priority = 1
+tween_resource = SubResource("Resource_a47at")
+tween_on_load = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("9_jdngp")
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="TerminalInterface" parent="CanvasLayer" instance=ExtResource("10_dar65")]
+visible = false
+
+[node name="Aim" type="AnimatedSprite2D" parent="CanvasLayer"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_6bvlv")
+script = ExtResource("12_qy0km")
+
+[node name="PlayerInterface" parent="CanvasLayer" instance=ExtResource("13_873ve")]
+visible = false
+
+[node name="Fade" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
