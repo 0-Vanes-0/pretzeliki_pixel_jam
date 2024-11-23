@@ -37,7 +37,7 @@ region = Rect2(172, 204, 40, 40)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nq04e"]
 
-[node name="TerminalInterface" type="Control" node_paths=PackedStringArray("hp_bar", "hp_label", "grenade_label", "dash_label", "dash_mutate_button", "stun_label", "stun_mutate_button", "armor_label", "armor_mutate_button", "trade_button", "dash_biomat_label", "stun_biomat_label", "armor_biomat_label")]
+[node name="TerminalInterface" type="Control" node_paths=PackedStringArray("hp_bar", "hp_label", "grenade_label", "dash_hbox", "dash_label", "dash_mutate_button", "stun_hbox", "stun_label", "stun_mutate_button", "armor_hbox", "armor_label", "armor_mutate_button", "trade_button", "dash_biomat_label", "stun_biomat_label", "armor_biomat_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,10 +49,13 @@ script = ExtResource("1_skmob")
 hp_bar = NodePath("MarginContainer/MarginContainer/VBoxContainer/HpHBox/HpBar")
 hp_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/HpHBox/HpBar/HpLabel")
 grenade_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/GrenadeHBox/TextureRect2/GrenadeLabel")
+dash_hbox = NodePath("MarginContainer/MarginContainer/VBoxContainer/DashHBox")
 dash_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/DashHBox/TextureRect2/DashLabel")
 dash_mutate_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/DashHBox/DashMutateButton")
+stun_hbox = NodePath("MarginContainer/MarginContainer/VBoxContainer/StunHBox")
 stun_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/StunHBox/TextureRect4/StunLabel")
 stun_mutate_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/StunHBox/StunMutateButton")
+armor_hbox = NodePath("MarginContainer/MarginContainer/VBoxContainer/ArmorHBox")
 armor_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/ArmorHBox/TextureRect3/ArmorLabel")
 armor_mutate_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/ArmorHBox/ArmorMutateButton")
 trade_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/TradeTempBioMatButton")
@@ -204,6 +207,13 @@ texture_pressed = ExtResource("11_8wdlx")
 texture_disabled = ExtResource("12_5idd8")
 stretch_mode = 5
 
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/DashHBox"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+text = "Рывок в сторону"
+autowrap_mode = 2
+
 [node name="StunHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -249,6 +259,13 @@ texture_pressed = ExtResource("11_8wdlx")
 texture_disabled = ExtResource("12_5idd8")
 stretch_mode = 5
 
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/StunHBox"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+text = "Оглуш. по обл."
+autowrap_mode = 2
+
 [node name="ArmorHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -293,6 +310,13 @@ texture_normal = ExtResource("10_u1fi2")
 texture_pressed = ExtResource("11_8wdlx")
 texture_disabled = ExtResource("12_5idd8")
 stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/ArmorHBox"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+text = "Сниж. урона"
+autowrap_mode = 2
 
 [node name="TradeTempBioMatButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 texture_filter = 1

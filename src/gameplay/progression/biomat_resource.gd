@@ -44,6 +44,3 @@ const BUFF_TRADE_VALUES := {
 @export var speed_buff_percent: float = -1.0 # TODO: float or int?
 @export var buff_type: BuffTypes = BuffTypes.NONE
 @export var buff_value: float = 0.0
-
-
-

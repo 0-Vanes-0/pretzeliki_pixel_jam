@@ -38,6 +38,9 @@ func update(delta: float):
 		player.animate("idle")
 	
 	player.weapon_pivot.rotation = Vector2(absf(player.current_look_direction.x), player.current_look_direction.y).angle()
+	
+	player.hands.visible = Global.suit_state == "ship_naked"
+	player.weapon.visible = not Global.suit_state == "ship_naked"
 
 
 func physics_update(delta: float):

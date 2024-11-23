@@ -5,10 +5,13 @@ extends Control
 @export var hp_bar: TextureProgressBar
 @export var hp_label: Label
 @export var grenade_label: Label
+@export var dash_hbox: HBoxContainer
 @export var dash_label: Label
 @export var dash_mutate_button: TextureButton
+@export var stun_hbox: HBoxContainer
 @export var stun_label: Label
 @export var stun_mutate_button: TextureButton
+@export var armor_hbox: HBoxContainer
 @export var armor_label: Label
 @export var armor_mutate_button: TextureButton
 @export var trade_button: Button
@@ -25,6 +28,7 @@ var _armor_upgrade_counter: int = 0
 
 func _ready() -> void:
 	assert(hp_bar and hp_label and grenade_label and dash_label and dash_mutate_button and stun_label and stun_mutate_button and armor_label and armor_mutate_button and trade_button)
+	assert(dash_hbox and stun_hbox and armor_hbox)
 	assert(dash_biomat_label and stun_biomat_label and armor_biomat_label)
 	_player = get_tree().get_first_node_in_group("player")
 	assert(_player)
@@ -55,17 +59,21 @@ func _on_armor_mutate_button_pressed() -> void:
 
 
 func _on_trade_temp_bio_mat_button_pressed() -> void:
+	var max_hp_buff: int = 0
 	var hp_heal := 0.0
 	var speed_restore_percent := 0.0
 	var grenades_restore := 0.0
 	for buff_type in _player.stats.biomats_temp.keys():
 		var array: Array = _player.stats.biomats_temp.get(buff_type)
 		for biomat: BioMatResource in array:
+			if buff_type == BioMatResource.BuffTypes.TUTORIAL:
+				max_hp_buff += 10
 			hp_heal += BioMatResource.BUFF_TRADE_VALUES.get(buff_type).get("hp")
 			speed_restore_percent += BioMatResource.BUFF_TRADE_VALUES.get(buff_type).get("speed_percent")
 			grenades_restore += BioMatResource.BUFF_TRADE_VALUES.get(buff_type).get("grenades")
 		array.clear()
 	
+	_player.stats.max_hp += max_hp_buff
 	_player.stats.adjust_health( int(hp_heal) )
 	_player.stats.adjust_speed(speed_restore_percent)
 	_player.stats.adjust_grenades( int(grenades_restore) )
@@ -73,10 +81,18 @@ func _on_trade_temp_bio_mat_button_pressed() -> void:
 	_set_hp(_player.stats.current_hp, _player.stats.max_hp)
 	_set_grenades(_player.stats.current_grenades)
 	
+	dash_biomat_label.text = str(_get_biomat_count(BioMatResource.BuffTypes.DASH))
+	stun_biomat_label.text = str(_get_biomat_count(BioMatResource.BuffTypes.STUN) + _get_biomat_count(BioMatResource.BuffTypes.TUTORIAL))
+	armor_biomat_label.text = str(_get_biomat_count(BioMatResource.BuffTypes.ARMOR))
+	
 	trade_button.disabled = true
 
 
 func appear():
+	dash_hbox.visible = _player.has_dash_ability()
+	stun_hbox.visible = _player.has_stun_ability()
+	armor_hbox.visible = _player.stats.max_armor > 0
+	
 	dash_mutate_button.disabled = _get_dash_upgrades_count() == _dash_upgrade_counter
 	stun_mutate_button.disabled = _get_stun_upgrades_count() == _stun_upgrade_counter
 	armor_mutate_button.disabled = _get_armor_upgrades_count() == _armor_upgrade_counter
@@ -86,7 +102,7 @@ func appear():
 	_set_grenades(_player.stats.current_grenades)
 	
 	dash_biomat_label.text = str(_get_biomat_count(BioMatResource.BuffTypes.DASH))
-	stun_biomat_label.text = str(_get_biomat_count(BioMatResource.BuffTypes.STUN))
+	stun_biomat_label.text = str(_get_biomat_count(BioMatResource.BuffTypes.STUN) + _get_biomat_count(BioMatResource.BuffTypes.TUTORIAL))
 	armor_biomat_label.text = str(_get_biomat_count(BioMatResource.BuffTypes.ARMOR))
 	
 	self.position = Vector2.DOWN * Global.SCREEN_HEIGHT
@@ -153,6 +169,8 @@ func _set_armor(value: int):
 
 func _get_biomat_count(type: BioMatResource.BuffTypes) -> int:
 	match type:
+		BioMatResource.BuffTypes.TUTORIAL:
+			return _player.stats.biomats_temp.get(BioMatResource.BuffTypes.TUTORIAL).size()
 		BioMatResource.BuffTypes.DASH:
 			return _player.stats.biomats_temp.get(BioMatResource.BuffTypes.DASH).size() + (_get_dash_upgrades_count() - _dash_upgrade_counter) * BioMatResource.BUFFS_CHUNKS.get(BioMatResource.BuffTypes.DASH)
 		BioMatResource.BuffTypes.STUN:

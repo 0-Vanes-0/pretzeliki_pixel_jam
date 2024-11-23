@@ -306,7 +306,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "weapon_pivot", "weapon", "gunpoint", "stats", "state_machine", "state_run_and_gun", "state_terminal") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "weapon_pivot", "weapon", "hands", "gunpoint", "stats", "state_machine", "state_run_and_gun", "state_terminal") groups=["player"]]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 21
@@ -317,6 +317,7 @@ coll_shape = NodePath("CollisionShape2D")
 sprite = NodePath("AnimatedSprite2D")
 weapon_pivot = NodePath("AnimatedSprite2D/WeaponPivot")
 weapon = NodePath("AnimatedSprite2D/WeaponPivot/Weapon")
+hands = NodePath("AnimatedSprite2D/Hands")
 gunpoint = NodePath("AnimatedSprite2D/WeaponPivot/Weapon/Gunpoint")
 stats = NodePath("StatsManager")
 state_machine = NodePath("StateMachine")
@@ -328,7 +329,6 @@ rotation = -1.57079
 shape = SubResource("CapsuleShape2D_cq18o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_nstj1")
 animation = &"run_sim"
 frame_progress = 0.660079
@@ -347,9 +347,10 @@ script = ExtResource("5_xrqr4")
 [node name="Gunpoint" type="Marker2D" parent="AnimatedSprite2D/WeaponPivot/Weapon"]
 position = Vector2(10.0073, 3.11688)
 
-[node name="Hands" type="AnimatedSprite2D" parent="AnimatedSprite2D/WeaponPivot"]
+[node name="Hands" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 visible = false
-position = Vector2(-0.976599, -3.0077)
+position = Vector2(0.519549, -10.9615)
+rotation = -0.587747
 sprite_frames = SubResource("SpriteFrames_x4axr")
 animation = &"hands"
 

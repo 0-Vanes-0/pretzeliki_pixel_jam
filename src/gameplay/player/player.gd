@@ -10,6 +10,7 @@ signal exited_terminal
 @export var sprite: AnimatedSprite2D
 @export var weapon_pivot: Marker2D
 @export var weapon: Weapon
+@export var hands: AnimatedSprite2D
 @export var gunpoint: Marker2D
 @export var stats: StatsManager
 @export_group("States", "state_")
@@ -21,7 +22,7 @@ var current_look_direction := Vector2.RIGHT
 
 
 func _ready() -> void:
-	assert(coll_shape and sprite and weapon_pivot and weapon and stats and gunpoint)
+	assert(coll_shape and sprite and weapon_pivot and weapon and stats and gunpoint and hands)
 	assert(state_machine and state_run_and_gun and state_terminal)
 
 

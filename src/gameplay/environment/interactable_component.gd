@@ -25,7 +25,7 @@ func _ready() -> void:
 	
 	self.body_entered.connect(
 			func(body: Node2D):
-				if body is Player:
+				if body is Player and Global.suit_state != "ship_naked":
 					_player = body
 					label.show()
 	)

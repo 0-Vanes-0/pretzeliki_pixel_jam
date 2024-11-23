@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://yp3262t488rg"]
+[gd_scene load_steps=17 format=3 uid="uid://yp3262t488rg"]
 
 [ext_resource type="PackedScene" uid="uid://bu27h8eg72121" path="res://scenes/menus/main_menu/main_menu.tscn" id="1_ps28m"]
+[ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="2_boyfx"]
 [ext_resource type="Script" path="res://scenes/menus/main_menu/main_menu_with_animations.gd" id="2_dt6ey"]
 
 [sub_resource type="Animation" id="1"]
@@ -348,6 +349,7 @@ transitions = ["Intro", "OpenMainMenu", SubResource("11"), "OpenMainMenu", "Open
 graph_offset = Vector2(-180.277, 49)
 
 [node name="MainMenu" instance=ExtResource("1_ps28m")]
+theme = ExtResource("2_boyfx")
 script = ExtResource("2_dt6ey")
 
 [node name="MenuAnimationPlayer" type="AnimationPlayer" parent="." index="1"]
