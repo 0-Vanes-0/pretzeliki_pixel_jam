@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://c3etrveicrpw5"]
+[gd_scene load_steps=22 format=4 uid="uid://c3etrveicrpw5"]
 
 [ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_8yqfk"]
 [ext_resource type="Texture2D" uid="uid://cduvp8mtghhbm" path="res://assets/images/background.png" id="2_ta5i2"]
@@ -6,8 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://k562cctt2t6t" path="res://src/gameplay/progression/terminal.tscn" id="4_j67no"]
 [ext_resource type="Script" path="res://src/collections/enemy_collection_node.gd" id="5_gil7m"]
 [ext_resource type="Script" path="res://src/collections/biomat_collection_node.gd" id="6_4u353"]
+[ext_resource type="PackedScene" uid="uid://nbqn4t4regdg" path="res://src/gameplay/enemies/melee_enemy.tscn" id="6_yscp4"]
+[ext_resource type="PackedScene" uid="uid://bkd07chpgo2kh" path="res://src/gameplay/enemies/psionic_enemy.tscn" id="7_6527e"]
 [ext_resource type="PackedScene" uid="uid://q2cjnyecsc6u" path="res://src/gameplay/player/player.tscn" id="7_wekfc"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_l0o07"]
+[ext_resource type="PackedScene" uid="uid://dqjlpmpv2cucc" path="res://src/gameplay/enemies/explosive.tscn" id="8_ovufr"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_p82f6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_67qbm"]
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="11_2drq8"]
@@ -79,7 +82,7 @@ tile_map_data = PackedByteArray("AAAEAAIAAQAbAAMAAAAEAAMAAQAbAAMAAAAEAAEAAQAbAAM
 tile_set = ExtResource("3_y2fd6")
 
 [node name="Entities" type="TileMapLayer" parent="NavigationRegion2D/Environment"]
-tile_map_data = PackedByteArray("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")
+tile_map_data = PackedByteArray("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")
 tile_set = ExtResource("3_y2fd6")
 
 [node name="Terminals" type="Node2D" parent="NavigationRegion2D/Environment"]
@@ -107,6 +110,75 @@ text = "Спасательные капсулы
 [node name="Enemies" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("5_gil7m")
+
+[node name="MeleeEnemy3" parent="Enemies" instance=ExtResource("6_yscp4")]
+position = Vector2(1171, 517)
+
+[node name="MeleeEnemy2" parent="Enemies" instance=ExtResource("6_yscp4")]
+position = Vector2(3462, -8)
+
+[node name="MeleeEnemy" parent="Enemies" instance=ExtResource("6_yscp4")]
+position = Vector2(5209, -212)
+
+[node name="PsionicEnemy4" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(878, -135)
+
+[node name="PsionicEnemy2" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(1964, 184)
+
+[node name="PsionicEnemy3" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(1806, 293)
+
+[node name="PsionicEnemy" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(102, 238)
+
+[node name="PsionicEnemy5" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(3602, 559)
+
+[node name="PsionicEnemy7" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(1442, 106)
+
+[node name="PsionicEnemy6" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(276, -340)
+
+[node name="PsionicEnemy9" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(4060, -512)
+
+[node name="PsionicEnemy8" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(3199, -148)
+
+[node name="Explosive" parent="Enemies" instance=ExtResource("8_ovufr")]
+position = Vector2(599, 10)
+
+[node name="Explosive2" parent="Enemies" instance=ExtResource("8_ovufr")]
+position = Vector2(1165, 185)
+
+[node name="Explosive3" parent="Enemies" instance=ExtResource("8_ovufr")]
+position = Vector2(3578, -332)
+
+[node name="Explosive4" parent="Enemies" instance=ExtResource("8_ovufr")]
+position = Vector2(4651, -234)
+
+[node name="Explosive5" parent="Enemies" instance=ExtResource("8_ovufr")]
+position = Vector2(5548, 548)
+
+[node name="PsionicEnemy11" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(5912, 220)
+
+[node name="PsionicEnemy10" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(5782, 597)
+
+[node name="MeleeEnemy4" parent="Enemies" instance=ExtResource("6_yscp4")]
+position = Vector2(5547, 387)
+
+[node name="PsionicEnemy12" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(2390, -617)
+
+[node name="PsionicEnemy13" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(2526, -626)
+
+[node name="PsionicEnemy14" parent="Enemies" instance=ExtResource("7_6527e")]
+position = Vector2(2663, -138)
 
 [node name="BioMats" type="Node2D" parent="."]
 y_sort_enabled = true
