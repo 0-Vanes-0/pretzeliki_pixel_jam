@@ -1311,6 +1311,9 @@ texture_region_size = Vector2i(32, 32)
 33:6/0/y_sort_origin = 16
 34:6/0 = 0
 34:6/0/y_sort_origin = 16
+34:1/0 = 0
+33:2/0 = 0
+31:2/0 = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_dy1ye"]
 resource_name = "doors"
