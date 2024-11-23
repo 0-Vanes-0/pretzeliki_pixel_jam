@@ -43,6 +43,16 @@ func play_sound(guid: String):
 	event_emitter.stopped.connect(event_emitter.queue_free)
 	add_child(event_emitter)
 
+
+func play_voice(quote: String):
+	var stream := Preloader.get("voice_" + quote) as AudioStream
+	if stream:
+		var asp := AudioStreamPlayer.new()
+		asp.stream = stream
+		asp.autoplay = true
+		asp.finished.connect(asp.queue_free)
+		self.add_child(asp)
+
 # NOD
 func _gcd(a: int, b: int) -> int:
 	while a > 0 and b > 0:

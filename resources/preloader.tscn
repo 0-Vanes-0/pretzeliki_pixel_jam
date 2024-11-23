@@ -1,10 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://ut5kpt4ixvps"]
+[gd_scene load_steps=17 format=3 uid="uid://ut5kpt4ixvps"]
 
 [ext_resource type="Script" path="res://resources/preloader.gd" id="1_lqdxa"]
 [ext_resource type="PackedScene" uid="uid://df5q8mjob32mb" path="res://src/gameplay/player/blaster_projectile.tscn" id="2_2g7c5"]
 [ext_resource type="PackedScene" uid="uid://blmu653ohjxak" path="res://src/gameplay/progression/biomat.tscn" id="3_mn2s0"]
 [ext_resource type="PackedScene" uid="uid://c3f00lb1s4gs0" path="res://src/gameplay/player/grenade.tscn" id="4_n8rrt"]
 [ext_resource type="PackedScene" uid="uid://bwhse8roro6h" path="res://src/gameplay/player/stun_ability.tscn" id="5_2jhmj"]
+[ext_resource type="AudioStream" uid="uid://cf13p6jmtkokt" path="res://assets/audio/voice/death.wav" id="6_gb5hf"]
+[ext_resource type="AudioStream" uid="uid://bcbtgobb04wuk" path="res://assets/audio/voice/goal_reached.wav" id="7_1h781"]
+[ext_resource type="AudioStream" uid="uid://7o1cpyssm30n" path="res://assets/audio/voice/level_near_end.wav" id="8_yqgsw"]
+[ext_resource type="AudioStream" uid="uid://dam1x4wl7vcuq" path="res://assets/audio/voice/near_death.wav" id="9_oe7pm"]
+[ext_resource type="AudioStream" uid="uid://b2piq4u1vcyk" path="res://assets/audio/voice/new_mutation.wav" id="10_4nhm1"]
+[ext_resource type="AudioStream" uid="uid://dww0yub6dhu17" path="res://assets/audio/voice/no_grenades.wav" id="11_4ool1"]
+[ext_resource type="AudioStream" uid="uid://cb60divo5kwdb" path="res://assets/audio/voice/permanent_biomat.wav" id="12_2xep7"]
+[ext_resource type="AudioStream" uid="uid://v2vnrtiyfcd1" path="res://assets/audio/voice/putting_biomat.wav" id="13_en4wc"]
+[ext_resource type="AudioStream" uid="uid://76k55dnhb426" path="res://assets/audio/voice/ship_start.wav" id="14_asp6m"]
+[ext_resource type="AudioStream" uid="uid://b3tflmf1qmj3q" path="res://assets/audio/voice/simulation_end.wav" id="15_8l8nx"]
+[ext_resource type="AudioStream" uid="uid://cqb5yu13tym6h" path="res://assets/audio/voice/simulation_start.wav" id="16_wakbi"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_lqdxa")
@@ -12,6 +23,17 @@ blaster_projectile = ExtResource("2_2g7c5")
 biomat = ExtResource("3_mn2s0")
 grenade = ExtResource("4_n8rrt")
 stun_ability = ExtResource("5_2jhmj")
+voice_death = ExtResource("6_gb5hf")
+voice_goal_reached = ExtResource("7_1h781")
+voice_level_near_end = ExtResource("8_yqgsw")
+voice_near_death = ExtResource("9_oe7pm")
+voice_new_mutation = ExtResource("10_4nhm1")
+voice_no_grenades = ExtResource("11_4ool1")
+voice_permanent_biomat = ExtResource("12_2xep7")
+voice_putting_biomat = ExtResource("13_en4wc")
+voice_ship_start = ExtResource("14_asp6m")
+voice_simulation_end = ExtResource("15_8l8nx")
+voice_simulation_start = ExtResource("16_wakbi")
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
 bank_paths = ["res://assets/audio/banks/Desktop/Master.strings.bank", "res://assets/audio/banks/Desktop/Master.bank", "res://assets/audio/banks/Desktop/Ambience.bank", "res://assets/audio/banks/Desktop/Music Controller.bank", "res://assets/audio/banks/Desktop/Player.bank", "res://assets/audio/banks/Desktop/UI.bank"]
