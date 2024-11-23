@@ -22,7 +22,7 @@ func enter():
 
 
 func update(delta: float):
-	enemy.animate("run")
+	pass#enemy.animate("run")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_update(delta: float) -> void:
@@ -35,6 +35,10 @@ func physics_update(delta: float) -> void:
 	var dir = enemy.global_position.direction_to(nav_agent.get_next_path_position())
 	var ang = dir.angle()
 	# TODO enemy rotation
+	if ang < PI / 2 and ang > -PI/2:
+		enemy.sprite.play("run_right")
+	else:
+		enemy.sprite.play("run_left")
 	#body.rotation = lerp_angle(enemy..rotation, ang, 0.2) 
 	var vel = dir * enemy.current_speed * speed_coeff
 	nav_agent.set_velocity(vel)

@@ -1,15 +1,218 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkd07chpgo2kh"]
+[gd_scene load_steps=30 format=3 uid="uid://bkd07chpgo2kh"]
 
 [ext_resource type="PackedScene" uid="uid://d13roc8t5yibe" path="res://src/gameplay/enemies/enemy_template.tscn" id="1_d86a4"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/psionic_shooting_state.gd" id="2_qyewn"]
 [ext_resource type="PackedScene" uid="uid://b3shhof3y2uio" path="res://src/gameplay/psionic_projectile.tscn" id="3_a0kul"]
+[ext_resource type="Texture2D" uid="uid://cabxgmm0oxdsu" path="res://assets/images/enemies/Psionic/slime_eye_psionic.png" id="3_m3ey1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5ica"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qr1k"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mjmv"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujd5w"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00xmy"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nbf2"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h45dd"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dr2t2"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_has1w"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cw2n0"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1coh"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jacb7"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i1ey"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvsfn"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tt7wo"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwfg4"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3b3j3"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6i7qw"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ek28"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkn0k"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(96, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olq6f"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18tmf"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i12a"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52v7s"]
+atlas = ExtResource("3_m3ey1")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s3r6j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5ica")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qr1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mjmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujd5w")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00xmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nbf2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h45dd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dr2t2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_has1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw2n0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1coh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jacb7")
+}],
+"loop": true,
+"name": &"run_left",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4i1ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvsfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tt7wo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwfg4")
+}],
+"loop": true,
+"name": &"run_right",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3b3j3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6i7qw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ek28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkn0k")
+}],
+"loop": true,
+"name": &"shoot_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olq6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18tmf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4i12a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52v7s")
+}],
+"loop": true,
+"name": &"shoot_right",
+"speed": 5.0
+}]
 
 [node name="PsionicEnemy" instance=ExtResource("1_d86a4")]
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 modulate = Color(0.369501, 0.476576, 1, 1)
-position = Vector2(3.8147e-06, 14)
-scale = Vector2(0.484375, 0.484375)
+sprite_frames = SubResource("SpriteFrames_s3r6j")
+animation = &"shoot_right"
+autoplay = "idle"
 
 [node name="NavigationAgent2D" parent="." index="4"]
 target_desired_distance = 100.0

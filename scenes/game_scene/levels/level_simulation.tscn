@@ -39,7 +39,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim", "player_interface", "terminal_interface", "fade")]
+[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim", "player_interface", "terminal_interface")]
 process_mode = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -51,7 +51,6 @@ main_camera = NodePath("PlayerStuff/MainCamera")
 aim = NodePath("CanvasLayer/Aim")
 player_interface = NodePath("CanvasLayer/PlayerInterface")
 terminal_interface = NodePath("CanvasLayer/TerminalInterface")
-fade = NodePath("CanvasLayer/Fade")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 y_sort_enabled = true
@@ -129,6 +128,7 @@ script = ExtResource("5_sw8md")
 
 [node name="PlayerStuff" type="Node2D" parent="."]
 y_sort_enabled = true
+position = Vector2(-7, 6)
 
 [node name="Player" parent="PlayerStuff" instance=ExtResource("3_gbgdk")]
 position = Vector2(2256, 48)

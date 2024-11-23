@@ -17,10 +17,10 @@ func enter():
 
 func update(delta: float):
 	super(delta)
-	if _walking:
-		enemy.animate("run")
-	else:
-		enemy.animate("idle")
+	#if _walking:
+		#enemy.animate("run")
+	#else:
+		#enemy.animate("idle")
 
 
 func physics_update(delta: float):
@@ -32,6 +32,11 @@ func physics_update(delta: float):
 			roam_timer.start()
 		enemy.velocity = _direction * enemy.current_speed
 		# FIXME add rotation
+		var ang = _direction.angle()
+		if ang < PI / 2 and ang > -PI/2:
+			enemy.animate("run_right")
+		else:
+			enemy.animate("run_left")
 		#rotateToDirection(delta, _direction)
 		enemy.move_and_slide()
 
@@ -50,11 +55,16 @@ func _on_roam_timer_timeout(from_timer = true) -> void:
 		idle_timer.start()
 		return
 	# TODO randomize roam_timer's wait_time
-	enemy.animate("run")
+	#enemy.animate("run")
 	var ray = enemy.raycast
 	ray.target_position = Vector2(randi_range(-100,100),randi_range(-100,100)).normalized() * 100
 	if !ray.is_colliding():
 		_direction = ray.target_position.normalized()
+		var ang = _direction.angle()
+		if ang < PI / 2 and ang > -PI/2:
+			enemy.animate("run_right")
+		else:
+			enemy.animate("run_left")
 	else:
 		var x = ray.target_position.x
 		var y = ray.target_position.y
