@@ -876,6 +876,8 @@ texture_region_size = Vector2i(32, 32)
 32:11/0 = 0
 33:13/0 = 0
 34:13/0 = 0
+33:6/0 = 0
+34:6/0 = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_dy1ye"]
 resource_name = "doors"
