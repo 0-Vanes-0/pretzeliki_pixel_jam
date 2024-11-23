@@ -1,18 +1,37 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2u4fec425lvv"]
+[gd_scene load_steps=15 format=3 uid="uid://d2u4fec425lvv"]
 
-[ext_resource type="Texture2D" uid="uid://5rltpvy6c5b" path="res://addons/maaacks_game_template/examples/assets/images/logo_vertical_color_dark.png" id="1_1ev6s"]
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="1_gh0uy"]
 [ext_resource type="Script" path="res://src/ui/player_interface.gd" id="2_thtus"]
+[ext_resource type="Texture2D" uid="uid://bmtulptvb10f8" path="res://assets/images/UI.png" id="3_8bns3"]
+[ext_resource type="Texture2D" uid="uid://dbs2ri1k87ge8" path="res://resources/atlases_from_assets/bar_under.tres" id="4_cyinf"]
+[ext_resource type="Texture2D" uid="uid://dy4fi0hv1ont7" path="res://resources/atlases_from_assets/bar_progress.tres" id="5_ryrup"]
+[ext_resource type="Theme" uid="uid://fx71gvhlfcb" path="res://resources/godot_themes/labels_overlay.tres" id="6_mbrtv"]
+[ext_resource type="Texture2D" uid="uid://b0ud8pgdpofd7" path="res://resources/atlases_from_assets/ui_field.tres" id="6_ndnfj"]
+[ext_resource type="Texture2D" uid="uid://c5f2hwsm5pe50" path="res://resources/atlases_from_assets/ui_big_field.tres" id="7_3e64r"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_bar8e"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6thb"]
+atlas = ExtResource("3_8bns3")
+region = Rect2(4, 12, 24, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t6o7e"]
-atlas = ExtResource("1_1ev6s")
-region = Rect2(432, 240, 64, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3r6i"]
+atlas = ExtResource("3_8bns3")
+region = Rect2(4, 44, 24, 20)
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_2mvko"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pto4y"]
+atlas = ExtResource("3_8bns3")
+region = Rect2(4, 76, 24, 20)
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_f8ajp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_61pec"]
+atlas = ExtResource("3_8bns3")
+region = Rect2(236, 204, 40, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejul5"]
+atlas = ExtResource("3_8bns3")
+region = Rect2(304, 204, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rhls"]
+atlas = ExtResource("3_8bns3")
+region = Rect2(176, 204, 32, 40)
 
 [node name="PlayerInterface" type="MarginContainer" node_paths=PackedStringArray("hp_bar", "hp_label", "ammo_bar", "ammo_label", "grenade_label", "dash_bar", "stun_bar", "armor_bar")]
 anchors_preset = 15
@@ -44,31 +63,36 @@ layout_mode = 2
 theme_override_constants/separation = 4
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HpHBox"]
-custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = SubResource("CanvasTexture_bar8e")
+texture = SubResource("AtlasTexture_i6thb")
+stretch_mode = 2
 
 [node name="HpBar" type="TextureProgressBar" parent="VBoxContainer/HpHBox"]
-self_modulate = Color(0.3065, 0.5, 0.285, 1)
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 value = 75.0
-nine_patch_stretch = true
-texture_under = SubResource("AtlasTexture_t6o7e")
-texture_progress = SubResource("CanvasTexture_2mvko")
+stretch_margin_left = 4
+stretch_margin_top = 3
+stretch_margin_right = 4
+stretch_margin_bottom = 3
+texture_under = ExtResource("4_cyinf")
+texture_progress = ExtResource("5_ryrup")
+texture_progress_offset = Vector2(4, 4)
 
 [node name="HpLabel" type="Label" parent="VBoxContainer/HpHBox/HpBar"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = -28.0
-offset_right = 42.0
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -9.0
+offset_right = 45.0
+offset_bottom = 6.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+theme = ExtResource("6_mbrtv")
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -76,19 +100,18 @@ vertical_alignment = 2
 [node name="AmmoHBox" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/AmmoHBox"]
-custom_minimum_size = Vector2(32, 32)
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/AmmoHBox"]
 layout_mode = 2
-texture = SubResource("CanvasTexture_bar8e")
+texture = SubResource("AtlasTexture_w3r6i")
+stretch_mode = 2
 
 [node name="AmmoBar" type="TextureProgressBar" parent="VBoxContainer/AmmoHBox"]
-self_modulate = Color(0.3065, 0.5, 0.285, 1)
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 value = 75.0
-nine_patch_stretch = true
-texture_under = SubResource("AtlasTexture_t6o7e")
-texture_progress = SubResource("CanvasTexture_2mvko")
+texture_under = ExtResource("4_cyinf")
+texture_progress = ExtResource("5_ryrup")
+texture_progress_offset = Vector2(4, 4)
 
 [node name="AmmoLabel" type="Label" parent="VBoxContainer/AmmoHBox/AmmoBar"]
 layout_mode = 1
@@ -98,10 +121,12 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -42.0
-offset_top = -28.0
+offset_top = -23.0
 offset_right = 42.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("6_mbrtv")
 text = "20"
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -109,16 +134,14 @@ vertical_alignment = 2
 [node name="GrenadeHBox" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/GrenadeHBox"]
-custom_minimum_size = Vector2(32, 32)
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/GrenadeHBox"]
 layout_mode = 2
-texture = SubResource("CanvasTexture_bar8e")
+texture = SubResource("AtlasTexture_pto4y")
+stretch_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/GrenadeHBox"]
-self_modulate = Color(0.3065, 0.5, 0.285, 1)
-custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
-texture = SubResource("CanvasTexture_bar8e")
+texture = ExtResource("6_ndnfj")
 
 [node name="GrenadeLabel" type="Label" parent="VBoxContainer/GrenadeHBox/TextureRect2"]
 layout_mode = 1
@@ -128,10 +151,12 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -12.0
-offset_top = -28.0
+offset_top = -19.0
 offset_right = 12.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("6_mbrtv")
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -142,28 +167,25 @@ size_flags_vertical = 10
 alignment = 1
 
 [node name="DashBar" type="TextureProgressBar" parent="VBoxContainer/Abilities"]
-self_modulate = Color(0.3065, 0.5, 0.285, 1)
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 value = 75.0
 fill_mode = 4
-nine_patch_stretch = true
-texture_progress = SubResource("CanvasTexture_f8ajp")
+texture_under = ExtResource("7_3e64r")
+texture_progress = SubResource("AtlasTexture_61pec")
+texture_progress_offset = Vector2(8, 12)
 
 [node name="StunBar" type="TextureProgressBar" parent="VBoxContainer/Abilities"]
-self_modulate = Color(0.3065, 0.5, 0.285, 1)
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 value = 75.0
 fill_mode = 4
-nine_patch_stretch = true
-texture_progress = SubResource("CanvasTexture_f8ajp")
+texture_under = ExtResource("7_3e64r")
+texture_progress = SubResource("AtlasTexture_ejul5")
+texture_progress_offset = Vector2(12, 8)
 
 [node name="ArmorBar" type="TextureProgressBar" parent="VBoxContainer/Abilities"]
-self_modulate = Color(0.3065, 0.5, 0.285, 1)
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 value = 75.0
 fill_mode = 4
-nine_patch_stretch = true
-texture_progress = SubResource("CanvasTexture_f8ajp")
+texture_under = ExtResource("7_3e64r")
+texture_progress = SubResource("AtlasTexture_2rhls")
+texture_progress_offset = Vector2(12, 12)
