@@ -9,6 +9,8 @@ enum InputModes {
 }
 var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
 var input_mode: InputModes = InputModes.KEYBOARD
+var suit_state := "simulation" # / "ship_naked" / "ship"
+var level_loader: LevelListLoader
 
 
 func _ready() -> void:
@@ -50,6 +52,7 @@ func play_voice(quote: String):
 		var asp := AudioStreamPlayer.new()
 		asp.stream = stream
 		asp.autoplay = true
+		asp.volume_db = -15
 		asp.finished.connect(asp.queue_free)
 		self.add_child(asp)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://c6hx3r4stq5lb"]
+[gd_scene load_steps=20 format=4 uid="uid://ntdqjm3rmkli"]
 
 [ext_resource type="Script" path="res://scenes/game_scene/levels/level.gd" id="1_ybok1"]
 [ext_resource type="TileSet" uid="uid://4rvifgyhow4k" path="res://assets/images/test_tileset.tres" id="3_4mrnn"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_0kljq"]
 [ext_resource type="PackedScene" uid="uid://dnped1nlmo4k1" path="res://src/gameplay/enemies/tutorial_enemy.tscn" id="9_gxbh7"]
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="10_bjf8d"]
+[ext_resource type="Script" path="res://scenes/game_scene/levels/timer.gd" id="16_wywx3"]
 [ext_resource type="PackedScene" uid="uid://d2u4fec425lvv" path="res://src/ui/player_interface.tscn" id="17_fw6yh"]
 [ext_resource type="PackedScene" uid="uid://cgf7coyunqw70" path="res://src/ui/terminal_interface.tscn" id="18_rwiwy"]
 
@@ -39,7 +40,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim", "player_interface", "terminal_interface", "fade")]
+[node name="LevelSimulation" type="Node2D" node_paths=PackedStringArray("enemies", "biomats", "player", "main_camera", "aim", "player_interface", "terminal_interface")]
 process_mode = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -51,7 +52,6 @@ main_camera = NodePath("PlayerStuff/MainCamera")
 aim = NodePath("CanvasLayer/Aim")
 player_interface = NodePath("CanvasLayer/PlayerInterface")
 terminal_interface = NodePath("CanvasLayer/TerminalInterface")
-fade = NodePath("CanvasLayer/Fade")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 y_sort_enabled = true
@@ -178,5 +178,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 1
+process_callback = 0
+wait_time = 120.0
+autostart = true
+script = ExtResource("16_wywx3")
+
+[connection signal="timeout" from="Timer" to="Timer" method="_on_timeout"]
 
 [editable path="NavigationRegion2D/Environment/Terminals/Terminal"]

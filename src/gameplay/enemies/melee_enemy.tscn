@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d13roc8t5yibe" path="res://src/gameplay/enemies/enemy_template.tscn" id="1_mgltd"]
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/melee_attack_state.gd" id="2_4ree5"]
 
-[node name="MeleeEnemy" instance=ExtResource("1_mgltd")]
+[node name="MeleeEnemy" groups=["enemy"] instance=ExtResource("1_mgltd")]
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 modulate = Color(0.620575, 0.533061, 1.92523e-07, 1)

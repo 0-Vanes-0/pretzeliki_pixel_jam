@@ -71,6 +71,7 @@ func advance_and_load_level():
 		load_level()
 
 func _ready():
+	Global.level_loader = self
 	if Engine.is_editor_hint():
 		# Text files get a `.remap` extension added on export.
 		_refresh_files()

@@ -161,7 +161,7 @@ region = Rect2(384, 240, 32, 8)
 specular_texture = SubResource("AtlasTexture_ilh72")
 specular_color = Color(0.72, 1, 0.729333, 1)
 
-[node name="TutorialEnemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast", "nav_agent", "life_bar", "state_machine", "state_dead")]
+[node name="TutorialEnemy" type="CharacterBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "raycast", "nav_agent", "life_bar", "state_machine", "state_dead") groups=["enemy"]]
 collision_layer = 4
 collision_mask = 11
 motion_mode = 1

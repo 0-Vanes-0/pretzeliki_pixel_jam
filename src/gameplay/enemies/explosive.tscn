@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/gameplay/state_machine/enemy/explosion_state.gd" id="2_8sk2p"]
 [ext_resource type="PackedScene" uid="uid://2t56abso7by2" path="res://src/gameplay/enemy_explosion.tscn" id="3_yysb0"]
 
-[node name="Explosive" instance=ExtResource("1_3mr14")]
+[node name="Explosive" groups=["enemy"] instance=ExtResource("1_3mr14")]
 speed = 4000.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
