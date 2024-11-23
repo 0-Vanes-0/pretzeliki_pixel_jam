@@ -3,15 +3,13 @@
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="1_gh0uy"]
 [ext_resource type="Script" path="res://src/ui/player_interface.gd" id="2_thtus"]
 [ext_resource type="Texture2D" uid="uid://bmtulptvb10f8" path="res://assets/images/UI.png" id="3_8bns3"]
+[ext_resource type="Texture2D" uid="uid://1g85m4i4n7qg" path="res://resources/atlases_from_assets/heart_ui.tres" id="3_q3fwl"]
 [ext_resource type="Texture2D" uid="uid://dbs2ri1k87ge8" path="res://resources/atlases_from_assets/bar_under.tres" id="4_cyinf"]
 [ext_resource type="Texture2D" uid="uid://dy4fi0hv1ont7" path="res://resources/atlases_from_assets/bar_progress.tres" id="5_ryrup"]
 [ext_resource type="Theme" uid="uid://fx71gvhlfcb" path="res://resources/godot_themes/labels_overlay.tres" id="6_mbrtv"]
 [ext_resource type="Texture2D" uid="uid://b0ud8pgdpofd7" path="res://resources/atlases_from_assets/ui_field.tres" id="6_ndnfj"]
 [ext_resource type="Texture2D" uid="uid://c5f2hwsm5pe50" path="res://resources/atlases_from_assets/ui_big_field.tres" id="7_3e64r"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i6thb"]
-atlas = ExtResource("3_8bns3")
-region = Rect2(4, 12, 24, 20)
+[ext_resource type="Texture2D" uid="uid://cl5e8tg1r3fog" path="res://resources/atlases_from_assets/dash_icon.tres" id="10_qofc8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w3r6i"]
 atlas = ExtResource("3_8bns3")
@@ -20,10 +18,6 @@ region = Rect2(4, 44, 24, 20)
 [sub_resource type="AtlasTexture" id="AtlasTexture_pto4y"]
 atlas = ExtResource("3_8bns3")
 region = Rect2(4, 76, 24, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_61pec"]
-atlas = ExtResource("3_8bns3")
-region = Rect2(236, 204, 40, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ejul5"]
 atlas = ExtResource("3_8bns3")
@@ -64,7 +58,7 @@ theme_override_constants/separation = 4
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HpHBox"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_i6thb")
+texture = ExtResource("3_q3fwl")
 stretch_mode = 2
 
 [node name="HpBar" type="TextureProgressBar" parent="VBoxContainer/HpHBox"]
@@ -171,7 +165,7 @@ layout_mode = 2
 value = 75.0
 fill_mode = 4
 texture_under = ExtResource("7_3e64r")
-texture_progress = SubResource("AtlasTexture_61pec")
+texture_progress = ExtResource("10_qofc8")
 texture_progress_offset = Vector2(8, 12)
 
 [node name="StunBar" type="TextureProgressBar" parent="VBoxContainer/Abilities"]
