@@ -31,6 +31,13 @@ func update(delta: float):
 	if player.current_look_direction.x != 0:
 		var scale_x := player.sprite.scale.y * signf(player.current_look_direction.x)
 		player.sprite.scale = Vector2(scale_x, player.sprite.scale.y)
+	
+	if player.velocity.length_squared() > 10:
+		player.animate("run")
+	else:
+		player.animate("idle")
+	
+	player.weapon_pivot.rotation = Vector2(absf(player.current_look_direction.x), player.current_look_direction.y).angle()
 
 
 func physics_update(delta: float):
@@ -48,11 +55,6 @@ func physics_update(delta: float):
 	else:
 		player.velocity = player.velocity.lerp(Vector2.ZERO, 0.25)
 	player.move_and_slide()
-	
-	if player.velocity.length_squared() > 10:
-		player.sprite.play(player.Animations.RUN)
-	else:
-		player.sprite.play(player.Animations.IDLE)
 	
 	if Input.is_action_pressed("shoot") and player.stats.current_ammo > 0 and _shooter_timer >= player.shoot_rate_time and _blaster_reload_timer >= ONE_BLASTER_RELOAD_TIME * player.stats.max_ammo:
 		var start_position := player.position + player.get_weapon_gunpoint()
