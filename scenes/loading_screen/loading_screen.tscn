@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://bg4xn7nyshv5e"]
+[gd_scene load_steps=4 format=3 uid="uid://bg4xn7nyshv5e"]
 
 [ext_resource type="PackedScene" uid="uid://cd0jbh4metflb" path="res://addons/maaacks_game_template/base/scenes/loading_screen/loading_screen.tscn" id="1_dlsr6"]
 [ext_resource type="Script" path="res://scenes/loading_screen/loading_screen.gd" id="2_fa04q"]
+[ext_resource type="Texture2D" uid="uid://cduvp8mtghhbm" path="res://assets/images/background.png" id="3_aoapf"]
 
 [node name="LoadingScreen" instance=ExtResource("1_dlsr6")]
 script = ExtResource("2_fa04q")
+
+[node name="BackgroundTextureRect" parent="Control" index="2"]
+texture = ExtResource("3_aoapf")
+expand_mode = 0

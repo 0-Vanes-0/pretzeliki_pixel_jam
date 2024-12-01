@@ -1,7 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbwmrnp0af35y"]
+[gd_scene load_steps=3 format=3 uid="uid://cbwmrnp0af35y"]
 
 [ext_resource type="Script" path="res://addons/maaacks_game_template/base/scenes/autoloads/scene_loader.gd" id="1_l0dhx"]
+[ext_resource type="PackedScene" uid="uid://bg4xn7nyshv5e" path="res://scenes/loading_screen/loading_screen.tscn" id="2_q4mae"]
 
 [node name="SceneLoader" type="Node"]
 script = ExtResource("1_l0dhx")
-loading_screen_path = "res://addons/maaacks_game_template/base/scenes/loading_screen/loading_screen.tscn"
+loading_screen_scene = ExtResource("2_q4mae")

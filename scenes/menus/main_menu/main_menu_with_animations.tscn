@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://yp3262t488rg"]
+[gd_scene load_steps=18 format=3 uid="uid://yp3262t488rg"]
 
 [ext_resource type="PackedScene" uid="uid://bu27h8eg72121" path="res://scenes/menus/main_menu/main_menu.tscn" id="1_ps28m"]
 [ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="2_boyfx"]
 [ext_resource type="Script" path="res://scenes/menus/main_menu/main_menu_with_animations.gd" id="2_dt6ey"]
+[ext_resource type="Texture2D" uid="uid://cduvp8mtghhbm" path="res://assets/images/background.png" id="4_3f3ug"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "Intro"
@@ -362,14 +363,25 @@ tree_root = SubResource("AnimationNodeStateMachine_vikuh")
 anim_player = NodePath("../MenuAnimationPlayer")
 parameters/conditions/intro_done = false
 
+[node name="BackgroundTextureRect" parent="." index="4"]
+texture = ExtResource("4_3f3ug")
+expand_mode = 0
+
 [node name="VersionContainer" parent="VersionMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
 
 [node name="TitleContainer" parent="MenuContainer/TitleMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
 
+[node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
+text = "Xenophager"
+
 [node name="SubTitleContainer" parent="MenuContainer/SubTitleMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
+
+[node name="SubTitleLabel" parent="MenuContainer/SubTitleMargin/SubTitleContainer" index="0"]
+theme_override_colors/font_color = Color(0.3065, 0.5, 0.285, 1)
+text = "Революция  генной  инженерии!"
 
 [node name="MenuButtonsContainer" parent="MenuContainer/MenuButtonsMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
@@ -377,17 +389,29 @@ modulate = Color(1, 1, 1, 0)
 [node name="MenuButtonsBoxContainer" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer" index="0"]
 lock = true
 
+[node name="PlayButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="0"]
+text = "  Запустить тест  "
+
 [node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/PlayButton" index="0"]
 event_name = "event:/UI/Menu/Hover"
 event_guid = "{36bbd57d-f0df-4278-9eaa-6067fbdb1b4e}"
+
+[node name="OptionsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="1"]
+text = "Настройки"
 
 [node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/OptionsButton" index="0"]
 event_name = "event:/UI/Menu/Hover"
 event_guid = "{36bbd57d-f0df-4278-9eaa-6067fbdb1b4e}"
 
+[node name="CreditsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="2"]
+text = "Титры"
+
 [node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/CreditsButton" index="0"]
 event_name = "event:/UI/Menu/Hover"
 event_guid = "{36bbd57d-f0df-4278-9eaa-6067fbdb1b4e}"
+
+[node name="ExitButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="3"]
+text = "  Покинуть интерфейс  "
 
 [node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/ExitButton" index="0"]
 event_name = "event:/UI/Menu/Hover"
