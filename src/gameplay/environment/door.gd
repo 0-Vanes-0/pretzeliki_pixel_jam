@@ -1,6 +1,9 @@
 class_name Door
 extends StaticBody2D
 
+const OPEN_DELAY := 1.2 # sec
+const CLOSE_DELAY := 0.8 # sec
+
 @export_group("Required Children")
 @export var coll_shape: CollisionShape2D
 @export var sprite: AnimatedSprite2D
@@ -30,4 +33,5 @@ func _on_door_interacted(_player: Player):
 
 
 func _toggle_collision(enabled: bool):
+	await Global.create_timer(CLOSE_DELAY if enabled else OPEN_DELAY)
 	coll_shape.set_deferred("disabled", not enabled)

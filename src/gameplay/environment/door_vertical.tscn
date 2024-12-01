@@ -156,6 +156,7 @@ interactable1 = NodePath("InteractableComponentTop")
 interactable2 = NodePath("InteractableComponentBottom")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_ierlm")
 
