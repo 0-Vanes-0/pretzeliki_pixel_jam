@@ -30,6 +30,7 @@ func _ready() -> void:
 	life_bar.min_value = 0
 	life_bar.max_value = max_hp
 	_set_life_bar_value(current_hp)
+	nav_agent.debug_enabled = false
 
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
