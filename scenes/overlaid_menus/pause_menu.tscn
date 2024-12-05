@@ -1,10 +1,149 @@
-[gd_scene load_steps=4 format=3 uid="uid://gkvinfkbye6d"]
+[gd_scene load_steps=5 format=3 uid="uid://gkvinfkbye6d"]
 
-[ext_resource type="PackedScene" uid="uid://b5cd6sa8qq4vc" path="res://addons/maaacks_game_template/base/scenes/overlaid_menu/menus/pause_menu.tscn" id="1_xqxoo"]
+[ext_resource type="Theme" uid="uid://dsswp5c0qh6fr" path="res://resources/godot_themes/default_theme.tres" id="1_f423w"]
 [ext_resource type="Script" path="res://scenes/overlaid_menus/pause_menu.gd" id="2_ii3ug"]
 [ext_resource type="PackedScene" uid="uid://4d0psd3ykbyc" path="res://scenes/overlaid_menus/mini_options_overlaid_menu.tscn" id="3_un3r1"]
+[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scripts/capture_focus.gd" id="3_uow3y"]
 
-[node name="PauseMenu" instance=ExtResource("1_xqxoo")]
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_f423w")
 script = ExtResource("2_ii3ug")
 options_packed_scene = ExtResource("3_un3r1")
 main_menu_scene = "res://scenes/menus/main_menu/main_menu_with_animations.tscn"
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.12549)
+
+[node name="MenuPanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelColor" type="ColorRect" parent="MenuPanelContainer"]
+layout_mode = 2
+color = Color(0.0352941, 0.0823529, 0.105882, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 16
+
+[node name="BoxContainer" type="BoxContainer" parent="MenuPanelContainer/MarginContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="TitleMargin" type="MarginContainer" parent="MenuPanelContainer/MarginContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MenuPanelContainer/MarginContainer/BoxContainer/TitleMargin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Передышка..."
+horizontal_alignment = 1
+
+[node name="DescriptionMargin" type="MarginContainer" parent="MenuPanelContainer/MarginContainer/BoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="MenuPanelContainer/MarginContainer/BoxContainer/DescriptionMargin"]
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="MenuButtonsMargin" type="MarginContainer" parent="MenuPanelContainer/MarginContainer/BoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="MenuButtons" type="BoxContainer" parent="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+vertical = true
+script = ExtResource("3_uow3y")
+
+[node name="CloseButton" type="Button" parent="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin/MenuButtons"]
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+text = "  Возобновить  "
+
+[node name="OptionsButton" type="Button" parent="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin/MenuButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+text = "Настройки"
+
+[node name="MainMenuButton" type="Button" parent="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin/MenuButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+text = "Выйти в меню"
+
+[node name="ExitButton" type="Button" parent="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin/MenuButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+text = " Выключить симуляцию "
+
+[node name="ConfirmRestart" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+position = Vector2i(0, 36)
+dialog_text = "Restart the game?"
+
+[node name="ConfirmMainMenu" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Подтверждение"
+position = Vector2i(0, 36)
+size = Vector2i(222, 100)
+ok_button_text = "   Да   "
+dialog_text = "Вернуться в меню?"
+cancel_button_text = "  Нет "
+
+[node name="ConfirmExit" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Подтверждение"
+size = Vector2i(236, 100)
+ok_button_text = "   Да   "
+dialog_text = "Уничтожить процесс?"
+cancel_button_text = "  Нет "
+
+[connection signal="pressed" from="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin/MenuButtons/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin/MenuButtons/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin/MenuButtons/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="MenuPanelContainer/MarginContainer/BoxContainer/MenuButtonsMargin/MenuButtons/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="confirmed" from="ConfirmRestart" to="." method="_on_confirm_restart_confirmed"]
+[connection signal="confirmed" from="ConfirmMainMenu" to="." method="_on_confirm_main_menu_confirmed"]
+[connection signal="confirmed" from="ConfirmExit" to="." method="_on_confirm_exit_confirmed"]

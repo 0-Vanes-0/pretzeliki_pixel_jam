@@ -1,7 +1,18 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dsswp5c0qh6fr"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dsswp5c0qh6fr"]
 
 [ext_resource type="FontFile" uid="uid://c0xqw362yokwg" path="res://assets/fonts/Minecraftia-Regular.ttf" id="1_bp1hi"]
+[ext_resource type="StyleBox" uid="uid://bmyfhld81q8yr" path="res://resources/godot_styles/button_style_disabled.tres" id="1_sf5qp"]
+[ext_resource type="StyleBox" uid="uid://c1sx8il7clso0" path="res://resources/godot_styles/button_style_normal.tres" id="2_eq0fs"]
+[ext_resource type="StyleBox" uid="uid://cq8hs2guni8gg" path="res://resources/godot_styles/button_style_pressed.tres" id="3_wa6op"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cl1oa"]
 
 [resource]
 default_font = ExtResource("1_bp1hi")
 default_font_size = 16
+AcceptDialog/styles/embedded_border = null
+Button/styles/disabled = ExtResource("1_sf5qp")
+Button/styles/focus = SubResource("StyleBoxEmpty_cl1oa")
+Button/styles/hover = ExtResource("2_eq0fs")
+Button/styles/normal = ExtResource("2_eq0fs")
+Button/styles/pressed = ExtResource("3_wa6op")

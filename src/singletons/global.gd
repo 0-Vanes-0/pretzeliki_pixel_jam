@@ -3,13 +3,17 @@
 extends Node
 
 signal input_mode_changed(input_mode: InputModes)
+signal suit_state_changed
 
 enum InputModes {
 	KEYBOARD, JOYPAD
 }
 var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
 var input_mode: InputModes = InputModes.KEYBOARD
-var suit_state := "simulation" # / "ship_naked" / "ship"
+var suit_state := "simulation" : # "simulation" / "ship_naked" / "ship"
+	set(value):
+		suit_state_changed.emit()
+		suit_state = value
 var level_loader: LevelListLoader
 
 
