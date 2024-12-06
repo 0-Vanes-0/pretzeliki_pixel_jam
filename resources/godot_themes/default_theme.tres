@@ -5,14 +5,16 @@
 [ext_resource type="StyleBox" uid="uid://c1sx8il7clso0" path="res://resources/godot_styles/button_style_normal.tres" id="2_eq0fs"]
 [ext_resource type="StyleBox" uid="uid://cq8hs2guni8gg" path="res://resources/godot_styles/button_style_pressed.tres" id="3_wa6op"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cl1oa"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yn7s8"]
 
 [resource]
 default_font = ExtResource("1_bp1hi")
 default_font_size = 16
 AcceptDialog/styles/embedded_border = null
+Button/colors/font_color = Color(0.472, 0.8, 0.707067, 1)
 Button/styles/disabled = ExtResource("1_sf5qp")
-Button/styles/focus = SubResource("StyleBoxEmpty_cl1oa")
+Button/styles/focus = SubResource("StyleBoxEmpty_yn7s8")
 Button/styles/hover = ExtResource("2_eq0fs")
+Button/styles/hover_pressed = ExtResource("3_wa6op")
 Button/styles/normal = ExtResource("2_eq0fs")
 Button/styles/pressed = ExtResource("3_wa6op")

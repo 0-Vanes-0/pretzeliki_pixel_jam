@@ -39,6 +39,7 @@ visible = false
 [node name="Anchor" type="Node2D" parent="."]
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="InputDisplayLabel" type="Label" parent="."]
 visible = false

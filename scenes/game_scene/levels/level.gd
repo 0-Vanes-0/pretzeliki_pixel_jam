@@ -27,6 +27,7 @@ func _ready() -> void:
 	player.exited_terminal.connect(
 			func():
 				terminal_interface.disappear()
+				player_interface.update_content()
 				var tween := create_tween()
 				tween.tween_interval(1.0)
 				tween.tween_callback(player_interface.show)

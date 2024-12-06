@@ -44,7 +44,15 @@ func _ready() -> void:
 	_player.stats.did_dash.connect(reload_dash)
 	_player.stats.did_stun.connect(reload_stun)
 	
+	update_content()
+	
 	self.show()
+
+
+func update_content():
+	dash_bar.visible = _player.has_dash_ability()
+	stun_bar.visible = _player.has_stun_ability()
+	armor_bar.visible = _player.has_armor_ability()
 
 
 func set_hp(value: int, max_value: int = 0):

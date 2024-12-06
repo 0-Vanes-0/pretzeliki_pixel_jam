@@ -57,6 +57,10 @@ func has_stun_ability() -> bool:
 	return stats.stun_reload_time > 0
 
 
+func has_armor_ability() -> bool:
+	return stats.max_armor > 0
+
+
 func animate(anim: String):
 	var suffix: String = (
 			"_sim" if Global.suit_state == "simulation"

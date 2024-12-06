@@ -8,18 +8,18 @@
 [node name="MasterOptionsMenu" instance=ExtResource("1_2bsak")]
 
 [node name="TabContainer" parent="." index="0"]
-current_tab = 2
+current_tab = 0
 
-[node name="Controls" parent="TabContainer" index="1" instance=ExtResource("2_fp830")]
-visible = false
+[node name="Управление" parent="TabContainer" index="1" instance=ExtResource("2_fp830")]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Audio" parent="TabContainer" index="2" instance=ExtResource("3_n1ng3")]
+[node name="Аудио" parent="TabContainer" index="2" instance=ExtResource("3_n1ng3")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Video" parent="TabContainer" index="3" instance=ExtResource("4_6pt8g")]
+[node name="Видео" parent="TabContainer" index="3" instance=ExtResource("4_6pt8g")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
