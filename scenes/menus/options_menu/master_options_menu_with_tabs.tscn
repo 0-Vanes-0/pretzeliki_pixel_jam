@@ -8,14 +8,14 @@
 [node name="MasterOptionsMenu" instance=ExtResource("1_2bsak")]
 
 [node name="TabContainer" parent="." index="0"]
-current_tab = 0
+current_tab = 1
 
 [node name="Управление" parent="TabContainer" index="1" instance=ExtResource("2_fp830")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="Аудио" parent="TabContainer" index="2" instance=ExtResource("3_n1ng3")]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

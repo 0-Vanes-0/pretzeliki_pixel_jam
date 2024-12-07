@@ -13,7 +13,6 @@ const MINIMUM_VOLUME_DB = -80
 
 @export var music_emitter: FmodEventEmitter2D
 @export var ambience_emitter: FmodEventEmitter2D
-@export var is_music_controller_on := true
 var is_fmod_music_playing := false
 
 ## Detect stream players with matching audio bus.
@@ -190,38 +189,50 @@ func _exit_tree():
 		tree_node.node_added.disconnect(_on_added_music_player)
 
 
+func _ready() -> void:
+	Global.audio_setting_changed.connect(_on_audio_setting_changed)
+
+
 func play_music(mode: String):
-	if is_music_controller_on:
-		if mode == "ambience":
-			ambience_emitter.play()
+	if mode == "ambience":
+		ambience_emitter.play()
+	
+	else:
+		var modes := {
+			"main_menu": {
+				"in_game": 0,
+				"intensity": 0,
+			},
+			"simulation": {
+				"in_game": 1,
+				"intensity": 0,
+			},
+			"battle": {
+				"in_game": 2,
+				"intensity": 0,
+			},
+			"battle_horde": {
+				"in_game": 2,
+				"intensity": 1,
+			},
+		}
+		assert(mode in modes.keys())
 		
-		else:
-			var modes := {
-				"main_menu": {
-					"in_game": 0,
-					"intensity": 0,
-				},
-				"simulation": {
-					"in_game": 1,
-					"intensity": 0,
-				},
-				"battle": {
-					"in_game": 2,
-					"intensity": 0,
-				},
-				"battle_horde": {
-					"in_game": 2,
-					"intensity": 1,
-				},
-			}
-			assert(mode in modes.keys())
-			
-			music_emitter["event_parameter/In Game/value"] = modes[mode]["in_game"]
-			music_emitter["event_parameter/Intensity/value"] = modes[mode]["intensity"]
-			
-			if mode == "main_menu":
-				ambience_emitter.stop()
-			
-			if not is_fmod_music_playing:
-				music_emitter.play()
-				is_fmod_music_playing = true
+		music_emitter["event_parameter/In Game/value"] = modes[mode]["in_game"]
+		music_emitter["event_parameter/Intensity/value"] = modes[mode]["intensity"]
+		
+		if mode == "main_menu":
+			ambience_emitter.stop()
+		
+		if not is_fmod_music_playing:
+			music_emitter.play()
+			is_fmod_music_playing = true
+
+
+func _on_audio_setting_changed():
+	var INITIAL_VOLUME := 12 # db
+	var master_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Master"))
+	var music_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Music"))
+	var sounds_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Sounds"))
+	ambience_emitter.volume = INITIAL_VOLUME * (master_volume * sounds_volume)
+	music_emitter.volume = INITIAL_VOLUME * (master_volume * music_volume)

@@ -4,6 +4,7 @@ extends Node
 
 signal input_mode_changed(input_mode: InputModes)
 signal suit_state_changed
+signal audio_setting_changed
 
 enum InputModes {
 	KEYBOARD, JOYPAD
@@ -42,11 +43,17 @@ func create_timer(time: float):
 	await get_tree().create_timer(time, false, true).timeout
 
 
-func play_sound(guid: String):
+func play_sound(guid: String, volume_multiplier := 1.0):
 	var event_emitter := FmodEventEmitter2D.new()
 	event_emitter.event_guid = guid
 	event_emitter.autoplay = true
 	event_emitter.stopped.connect(event_emitter.queue_free)
+	
+	var INITIAL_VOLUME := 12 # db
+	var master_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Master"))
+	var sounds_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Sounds"))
+	event_emitter.volume = INITIAL_VOLUME * (master_volume * sounds_volume * volume_multiplier)
+	
 	add_child(event_emitter)
 
 
@@ -59,6 +66,10 @@ func play_voice(quote: String):
 		asp.volume_db = -15
 		asp.finished.connect(asp.queue_free)
 		self.add_child(asp)
+
+
+func is_sound_on() -> bool:
+	return Config.get_config("AudioSettings", "Mute", false)
 
 # NOD
 func _gcd(a: int, b: int) -> int:

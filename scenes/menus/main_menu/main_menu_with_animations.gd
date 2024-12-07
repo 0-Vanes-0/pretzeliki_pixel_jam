@@ -54,19 +54,30 @@ func _ready():
 
 
 func _on_play_button_mouse_entered() -> void:
+	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/PlayButton/FmodEventEmitter2D.volume = _get_volume()
 	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/PlayButton/FmodEventEmitter2D.play()
 
 
 func _on_options_button_mouse_entered() -> void:
+	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/OptionsButton/FmodEventEmitter2D.volume = _get_volume()
 	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/OptionsButton/FmodEventEmitter2D.play()
 
 
 func _on_credits_button_mouse_entered() -> void:
+	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/CreditsButton/FmodEventEmitter2D.volume = _get_volume()
 	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/CreditsButton/FmodEventEmitter2D.play()
 
 
 func _on_exit_button_mouse_entered() -> void:
+	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/ExitButton/FmodEventEmitter2D.volume = _get_volume()
 	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/ExitButton/FmodEventEmitter2D.play()
+
+
+func _get_volume() -> float: # TODO: make it somewhere global -_-
+	var INITIAL_VOLUME := 12 # db
+	var master_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Master"))
+	var sounds_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Sounds"))
+	return INITIAL_VOLUME * (master_volume * sounds_volume)
 
 
 func _on_exit_button_pressed():

@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _blow_up():
-	Global.play_sound(GRENADE_EXPLOSION_SOUND)
+	Global.play_sound(GRENADE_EXPLOSION_SOUND, 0.2)
 	
 	direction = Vector2.ZERO
 	_turn_off_contact_collision()
