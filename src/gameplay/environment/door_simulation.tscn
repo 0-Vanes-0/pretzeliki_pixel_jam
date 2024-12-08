@@ -1,0 +1,151 @@
+[gd_scene load_steps=20 format=3 uid="uid://bwu2k18isahlx"]
+
+[ext_resource type="Script" path="res://src/gameplay/environment/door.gd" id="1_h0abo"]
+[ext_resource type="Texture2D" uid="uid://dxd571vg2y004" path="res://assets/images/tileset x1.png" id="2_ximuu"]
+[ext_resource type="PackedScene" uid="uid://hi1yt4aj3n2m" path="res://src/gameplay/environment/interactable_component.tscn" id="3_0u21h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ierlm"]
+size = Vector2(32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3086"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(384, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6dgk"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(320, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34yyr"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(256, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j12ac"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(192, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkdoe"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(128, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scqj8"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(64, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sflte"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(0, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q0wg"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(0, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfhnd"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(64, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgjtm"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(128, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dfay"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(192, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7grqi"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(256, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oodqk"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(320, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b2dq"]
+atlas = ExtResource("2_ximuu")
+region = Rect2(384, 512, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r657n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3086")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6dgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34yyr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j12ac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jkdoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scqj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sflte")
+}],
+"loop": false,
+"name": &"closing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4q0wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfhnd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgjtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dfay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7grqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oodqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b2dq")
+}],
+"loop": false,
+"name": &"opening",
+"speed": 5.0
+}]
+
+[node name="Door" type="StaticBody2D" node_paths=PackedStringArray("coll_shape", "sprite", "interactable1", "interactable2")]
+y_sort_enabled = true
+collision_mask = 0
+script = ExtResource("1_h0abo")
+coll_shape = NodePath("CollisionShape2D")
+sprite = NodePath("AnimatedSprite2D")
+interactable1 = NodePath("InteractableComponentTop")
+interactable2 = NodePath("InteractableComponentBottom")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_ierlm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 16)
+sprite_frames = SubResource("SpriteFrames_r657n")
+animation = &"closing"
+frame = 6
+frame_progress = 1.0
+offset = Vector2(0, -16)
+
+[node name="InteractableComponentTop" parent="." instance=ExtResource("3_0u21h")]
+position = Vector2(0, -8)
+is_held = true
+is_one_interaction = false
+
+[node name="InteractableComponentBottom" parent="." instance=ExtResource("3_0u21h")]
+position = Vector2(0, 32)
+is_held = true
+is_one_interaction = false
