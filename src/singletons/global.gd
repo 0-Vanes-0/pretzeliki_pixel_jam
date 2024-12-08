@@ -43,16 +43,14 @@ func create_timer(time: float):
 	await get_tree().create_timer(time, false, true).timeout
 
 
-func play_sound(guid: String, volume_multiplier := 1.0):
+func play_fmod_sound(guid: String, volume_multiplier := 1.0):
 	var event_emitter := FmodEventEmitter2D.new()
 	event_emitter.event_guid = guid
 	event_emitter.autoplay = true
 	event_emitter.stopped.connect(event_emitter.queue_free)
 	
 	var INITIAL_VOLUME := 12 # db
-	var master_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Master"))
-	var sounds_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Sounds"))
-	event_emitter.volume = INITIAL_VOLUME * (master_volume * sounds_volume * volume_multiplier)
+	event_emitter.volume = INITIAL_VOLUME * (get_volume_float(true) * volume_multiplier)
 	
 	add_child(event_emitter)
 
@@ -61,15 +59,19 @@ func play_voice(quote: String):
 	var stream := Preloader.get("voice_" + quote) as AudioStream
 	if stream:
 		var asp := AudioStreamPlayer.new()
+		asp.bus = "Sounds"
 		asp.stream = stream
-		asp.autoplay = true
-		asp.volume_db = -15
+		asp.volume_db = 0 #linear_to_db(Global.get_volume_float(true))
 		asp.finished.connect(asp.queue_free)
 		self.add_child(asp)
+		asp.play()
 
 
-func is_sound_on() -> bool:
-	return Config.get_config("AudioSettings", "Mute", false)
+func get_volume_float(of_sound: bool) -> float:
+	var master_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Master"))
+	var music_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Music"))
+	var sounds_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Sounds"))
+	return master_volume * (sounds_volume if of_sound else music_volume)
 
 # NOD
 func _gcd(a: int, b: int) -> int:

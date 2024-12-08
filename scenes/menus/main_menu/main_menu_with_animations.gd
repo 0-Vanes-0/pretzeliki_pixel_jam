@@ -73,11 +73,9 @@ func _on_exit_button_mouse_entered() -> void:
 	$MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/ExitButton/FmodEventEmitter2D.play()
 
 
-func _get_volume() -> float: # TODO: make it somewhere global -_-
+func _get_volume() -> float:
 	var INITIAL_VOLUME := 12 # db
-	var master_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Master"))
-	var sounds_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Sounds"))
-	return INITIAL_VOLUME * (master_volume * sounds_volume)
+	return INITIAL_VOLUME * Global.get_volume_float(true)
 
 
 func _on_exit_button_pressed():

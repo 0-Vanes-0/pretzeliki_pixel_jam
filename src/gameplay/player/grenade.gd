@@ -35,7 +35,7 @@ func _ready() -> void:
 	sprite.play("fly")
 	sprite.rotate(direction.angle())
 	
-	Global.play_sound(GRENADE_LAUNCH_SOUND)
+	Global.play_fmod_sound(GRENADE_LAUNCH_SOUND)
 	
 	contact_area.body_entered.connect(
 			func(body: Node2D):
@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _blow_up():
-	Global.play_sound(GRENADE_EXPLOSION_SOUND, 0.1)
+	Global.play_fmod_sound(GRENADE_EXPLOSION_SOUND, 0.1)
 	
 	direction = Vector2.ZERO
 	_turn_off_contact_collision()

@@ -21,7 +21,7 @@ func _ready() -> void:
 	sprite.modulate = resource.color
 	interactable.interacted.connect(
 			func(player: Player):
-				Global.play_sound(BIOMAT_SOUND)
+				Global.play_fmod_sound(BIOMAT_SOUND)
 				player.stats.add_biomat(resource)
 				self.queue_free()
 	, CONNECT_ONE_SHOT)

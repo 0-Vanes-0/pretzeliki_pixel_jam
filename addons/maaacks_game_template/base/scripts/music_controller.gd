@@ -231,8 +231,5 @@ func play_music(mode: String):
 
 func _on_audio_setting_changed():
 	var INITIAL_VOLUME := 12 # db
-	var master_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Master"))
-	var music_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Music"))
-	var sounds_volume := AppSettings.get_bus_volume(AudioServer.get_bus_index("Sounds"))
-	ambience_emitter.volume = INITIAL_VOLUME * (master_volume * sounds_volume)
-	music_emitter.volume = INITIAL_VOLUME * (master_volume * music_volume)
+	ambience_emitter.volume = INITIAL_VOLUME * Global.get_volume_float(true)
+	music_emitter.volume = INITIAL_VOLUME * Global.get_volume_float(false)

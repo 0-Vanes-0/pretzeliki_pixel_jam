@@ -26,7 +26,7 @@ func _ready() -> void:
 	self.body_entered.connect(
 			func(body: Node2D):
 				if body is Enemy:
-					Global.play_sound(BLASTER_IMPACT_SOUND)
+					Global.play_fmod_sound(BLASTER_IMPACT_SOUND)
 					body.take_damage(damage)
 					self.queue_free()
 				elif body is TileMapLayer or body is StaticBody2D:

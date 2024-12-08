@@ -64,7 +64,7 @@ func physics_update(delta: float):
 		var direction := (player.current_look_direction - player.get_weapon_gunpoint()).normalized()
 		var blaster_pro := BlasterProjectile.create(player.stats.current_blaster_damage, start_position, direction, Color.CRIMSON)
 		player.add_sibling(blaster_pro)
-		Global.play_sound(GUNSHOT_SOUND)
+		Global.play_fmod_sound(GUNSHOT_SOUND)
 		_shooter_timer = 0.0
 		player.stats.adjust_ammo(-1)
 	
@@ -78,7 +78,7 @@ func physics_update(delta: float):
 	
 	if player.has_dash_ability() and Input.is_action_pressed("dash") and _dash_reload_timer >= player.stats.dash_reload_time:
 		_dash() # <-- Calling async function here
-		Global.play_sound(DASH_SOUND)
+		Global.play_fmod_sound(DASH_SOUND)
 		_dash_reload_timer = 0.0
 		player.stats.did_dash.emit()
 	
